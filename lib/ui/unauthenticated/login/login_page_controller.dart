@@ -4,6 +4,7 @@ import 'package:arruma_ufpr_app/src/auth/dto/request/auth_user_request_dto.dart'
 import 'package:arruma_ufpr_app/src/auth/dto/response/auth_response_dto.dart';
 import 'package:arruma_ufpr_app/src/auth/repository/auth_repository.dart';
 import 'package:arruma_ufpr_app/src/commons/exception/api_error_with_message_exception.dart';
+import 'package:arruma_ufpr_app/ui/widgets/custom_snack_bar.dart';
 import 'package:arruma_ufpr_app/ui/widgets/my_password_text_field.dart';
 import 'package:arruma_ufpr_app/ui/widgets/my_text_field.dart';
 import 'package:get/get.dart';
@@ -38,6 +39,7 @@ class LoginPageController extends GetxController {
               username: emailField.getValue(),
               password: passwordField.getValue()
           ));
+      //await authRepository.test();
     } on NotFoundException catch (e) {
       emailField.errorMessage.value = 'Email não encontrado!';
       return;
@@ -45,25 +47,15 @@ class LoginPageController extends GetxController {
       passwordField.errorMessage.value = 'Senha incorreta!';
       return;
     } on ApiErrorWithMessageException catch (e) {
-
       passwordField.errorMessage.value = e.errorMessage;
       return;
     } on Exception catch (e) {
-      print(e);
-      // CustomSnackBar.showErrorSnackBar('Erro durante autenticação do usuário. Tente novamente.');
+      CustomSnackBar.showErrorSnackBar('Erro durante autenticação do usuário. Tente novamente.');
       return;
     }
 
-    if (authResponseDTO.status == 'AUTHENTICATED') {
-      //authRepository.saveUserToken(authResponseDTO);
-      Get.offNamed(AppRoutes.authenticatedBase);
-      return;
-    }
-
-    if (authResponseDTO.status == 'ERROR') {
-      passwordField.errorMessage.value = ExceptionMessageMapper.mapByErrorCode(authResponseDTO.code);
-      return;
-    }
+    await authRepository.saveUserToken(authResponseDTO);
+    Get.offNamed(AppRoutes.authenticatedBase);
   }
 
   void navigateToRegister() {

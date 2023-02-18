@@ -1,5 +1,6 @@
 import 'package:get_storage/get_storage.dart';
-import 'package:mib_app/services/storage/cache_object.dart';
+
+import 'cache_object.dart';
 
 class Cache {
 

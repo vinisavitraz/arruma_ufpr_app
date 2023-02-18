@@ -1,8 +1,11 @@
 
 import 'package:arruma_ufpr_app/app/app_icons.dart';
 import 'package:arruma_ufpr_app/app/app_routes.dart';
+import 'package:arruma_ufpr_app/src/auth/entity/token.dart';
+import 'package:arruma_ufpr_app/src/auth/repository/auth_repository.dart';
 import 'package:arruma_ufpr_app/ui/authenticated/incident/incidents_page.dart';
 import 'package:arruma_ufpr_app/ui/authenticated/profile/profile_page.dart';
+import 'package:arruma_ufpr_app/ui/widgets/custom_snack_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -27,7 +30,7 @@ class AuthenticatedController extends GetxController {
   // final RxBool mfaEnabled = false.obs;
   // final RxBool admin = false.obs;
   //
-  // final AuthRepository authRepository;
+  final AuthRepository authRepository;
   // final UserRepository userRepository;
   // final MarketRepository marketRepository;
   // final ShopRepository shopRepository;
@@ -35,12 +38,12 @@ class AuthenticatedController extends GetxController {
   final RxList<Widget> activePages = <Widget>[].obs;
   final RxList<BottomNavigatorItemComponent> bottomNavigatorItems = <BottomNavigatorItemComponent>[].obs;
 
-  // AuthenticatedController({
-  //   // required this.authRepository,
-  //   // required this.userRepository,
-  //   // required this.marketRepository,
-  //   // required this.shopRepository,
-  // });
+  AuthenticatedController({
+    required this.authRepository,
+    // required this.userRepository,
+    // required this.marketRepository,
+    // required this.shopRepository,
+  });
 
   @override
   void onInit() async {
@@ -94,11 +97,7 @@ class AuthenticatedController extends GetxController {
   }
   //
   void selectNewPageFromTab(BottomNavigatorItemComponent e) {
-    print('selectNewPageFromTab');
-    print(e.label);
     int newIndex = bottomNavigatorItems.indexOf(e);
-    print(newIndex);
-    print(bottomNavigatorItems.length);
     tabIndex.value = newIndex;
   }
   //
@@ -222,21 +221,20 @@ class AuthenticatedController extends GetxController {
   // }
   //
   Future<void> logoutUser() async {
-    //Token? token = await authRepository.getActiveTokenFromInternalCache();
-    //
-    // if (token == null) {
-    //   Get.snackbar('Erro!', 'Token nao encontrado!');
-    //   Get.offAllNamed(AppRoutes.LOGIN);
-    //   return;
-    // }
+    Token? token = await authRepository.getActiveTokenFromInternalCache();
+
+    if (token == null) {
+      Get.snackbar('Erro!', 'Token nao encontrado!');
+      Get.offAllNamed(AppRoutes.login);
+      return;
+    }
 
     try {
-     // await authRepository.logoutUser();
+     await authRepository.logoutUser();
     } on Exception catch (e) {
-    //  CustomSnackBar.showErrorSnackBar('Encontramos um problema durante o logout.');
+      CustomSnackBar.showErrorSnackBar('Encontramos um problema durante o logout.');
     } finally {
-      // await authRepository.removeToken();
-      // await authRepository.removeLastPaymentTypeUsed();
+      await authRepository.removeToken();
       Get.offAllNamed(AppRoutes.login);
     }
   }

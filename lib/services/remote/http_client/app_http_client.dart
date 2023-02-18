@@ -16,6 +16,7 @@ class AppHttpClient {
       receiveTimeout: const Duration(seconds: 10),
       connectTimeout: const Duration(seconds: 10),
       sendTimeout: const Duration(seconds: 10),
+      contentType: Headers.jsonContentType,
     ));
 
     dio.interceptors.addAll({

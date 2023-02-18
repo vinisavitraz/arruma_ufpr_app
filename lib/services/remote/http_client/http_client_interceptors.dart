@@ -1,3 +1,4 @@
+import 'package:arruma_ufpr_app/src/auth/entity/token.dart';
 import 'package:arruma_ufpr_app/src/auth/repository/auth_repository.dart';
 import 'package:dio/dio.dart';
 
@@ -14,14 +15,14 @@ class HttpClientInterceptors extends Interceptor {
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
-    //Token? accessToken = await authRepository.getActiveTokenFromInternalCache();
+    Token? accessToken = await authRepository.getActiveTokenFromInternalCache();
 
-    // if (accessToken != null) {
-    //   String token = accessToken.token;
-    //   options.headers['Authorization'] = 'Bearer $token';
-    //
-    //   return handler.next(options);
-    // }
+    if (accessToken != null) {
+      String token = accessToken.token;
+      options.headers['Authorization'] = 'Bearer $token';
+
+      return handler.next(options);
+    }
 
     return handler.next(options);
   }
@@ -38,10 +39,11 @@ class HttpClientInterceptors extends Interceptor {
           throw InternalServerErrorException(err.requestOptions);
         }
 
+        print(err.response!);
         var request = err.requestOptions.uri.toString();
         var httpStatusCode = err.response!.statusCode;
-        var errorCode = err.response!.data['error_code'];
-        var errorMessage = err.response!.data['error_message'];
+        var errorCode = err.response!.data['errorCode'];
+        var errorMessage = err.response!.data['errorMessage'];
         print('Uri: $request');
         print('Http Status Code: $httpStatusCode');
         print('Error Code: $errorCode');

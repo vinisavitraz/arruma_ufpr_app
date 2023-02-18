@@ -1,8 +1,6 @@
 class DateFormatter {
 
   static String formatStringToDDMMYYHHMMSS(String dateTimeString) {
-    print('formatStringToDDMMYYHHMMSS');
-    print(dateTimeString);
     var dateTimeArray = dateTimeString.split(' ');
     var dateString = dateTimeArray[0];
     var timeString = dateTimeArray[1];
@@ -11,8 +9,6 @@ class DateFormatter {
   }
 
   static String formatStringToDDMMYYHHMM(String dateTimeString) {
-    print('formatStringToDDMMYYHHMM');
-    print(dateTimeString);
     var dateTimeArray = dateTimeString.split(' ');
     var dateString = dateTimeArray[0];
     var timeString = dateTimeArray[1];

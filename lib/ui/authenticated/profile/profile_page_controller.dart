@@ -56,16 +56,6 @@ class ProfilePageController extends GetxController {
   void showConfigGroups(List<ItemProfile> items) {
     listItems.addAll(items);
   }
-  //
-  // Future<void> goToConfigPage(int index) async {
-  //   String route = listItems[index].route;
-  //
-  //   if (route == AppRoutes.EXIT) {
-  //     await authenticatedController.logoutUser();
-  //     return;
-  //   }
-  //   Get.toNamed(route);
-  // }
 
   Future<void> goToConfigPage(int index) async {
     String route = listItems[index].route;
