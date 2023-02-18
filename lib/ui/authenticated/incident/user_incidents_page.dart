@@ -15,7 +15,7 @@ class UserIncidentsPage extends GetView<UserIncidentsPageController> {
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: _createIncidentFloatingButton(context),
       appBar: AppBar(
-        backgroundColor: AppColors.primaryColor,
+        backgroundColor: AppColors.primaryAccentColor,
         bottom: TabBar(
           controller: controller.tabController,
           isScrollable: true,
@@ -26,7 +26,7 @@ class UserIncidentsPage extends GetView<UserIncidentsPageController> {
             Tab(text: 'Geral'),
           ],
         ),
-        title: Text('ArrumaUFPR'),
+        title: Text('Meus incidentes'),
       ),
       backgroundColor: AppColors.white,
       body: TabBarView(

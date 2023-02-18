@@ -19,18 +19,18 @@ class AppColors {
   );
 
   static const MaterialColor primaryAccentColor = MaterialColor(
-    0xFFada8a8,
+    0xFF595959,
     <int, Color>{
-      50: Color(0xFFada8a8),
-      100: Color(0xFFada8a8),
-      200: Color(0xFFada8a8),
-      300: Color(0xFFada8a8),
-      400: Color(0xFFada8a8),
-      500: Color(0xFFada8a8),
-      600: Color(0xFFada8a8),
-      700: Color(0xFFada8a8),
-      800: Color(0xFFada8a8),
-      900: Color(0xFFada8a8),
+      50: Color(0xFF595959),
+      100: Color(0xFF595959),
+      200: Color(0xFF595959),
+      300: Color(0xFF595959),
+      400: Color(0xFF595959),
+      500: Color(0xFF595959),
+      600: Color(0xFF595959),
+      700: Color(0xFF595959),
+      800: Color(0xFF595959),
+      900: Color(0xFF595959),
     },
   );
 

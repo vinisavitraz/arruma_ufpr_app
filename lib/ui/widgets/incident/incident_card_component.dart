@@ -1,8 +1,6 @@
 import 'package:arruma_ufpr_app/app/app_colors.dart';
 import 'package:arruma_ufpr_app/app/app_icons.dart';
-import 'package:arruma_ufpr_app/src/commons/date/date_formatter.dart';
 import 'package:arruma_ufpr_app/src/incident/entity/incident.dart';
-import 'package:arruma_ufpr_app/ui/authenticated/authenticated_controller.dart';
 import 'package:arruma_ufpr_app/ui/authenticated/incident/incidents_page_controller.dart';
 import 'package:arruma_ufpr_app/ui/widgets/divider_component.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +38,7 @@ class IncidentCardComponent extends StatelessWidget {
             ),
           ),
           Container(
-            padding: const EdgeInsets.only(top: 10, left: 20, right: 20, bottom: 10),
+            padding: const EdgeInsets.all(0),
             decoration: BoxDecoration(
               color: AppColors.white,
               border: Border.all(
@@ -61,23 +59,20 @@ class IncidentCardComponent extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  children: [
-                    Expanded(
-                      child: Text(incident.title!,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.black,
-                          fontSize: 16,
+                Container(
+                  color: AppColors.primaryColor,
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Text('#${incident.id} | ${incident.userName!}',
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.white,
+                            fontSize: 16,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                Text('Incidente #${incident.id}',
-                  style: const TextStyle(
-                    color: AppColors.black,
-                    fontSize: 14,
+                    ],
                   ),
                 ),
                 Row(
@@ -91,6 +86,32 @@ class IncidentCardComponent extends StatelessWidget {
                       style: const TextStyle(
                         color: AppColors.black,
                         fontSize: 14,
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(incident.title!,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.black,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(incident.description!,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.black,
+                          fontSize: 16,
+                        ),
                       ),
                     ),
                   ],
@@ -140,36 +161,6 @@ class IncidentCardComponent extends StatelessWidget {
                     ),
                   ],
                 ),
-                Row(
-                  children: [
-                    const AppIcon(
-                      AppIcons.profile,
-                      size: Size(14, 14),
-                      color: AppColors.black,
-                    ),
-                    Text(incident.userName!,
-                      style: const TextStyle(
-                        color: AppColors.black,
-                        fontSize: 14,
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    const AppIcon(
-                      AppIcons.profile,
-                      size: Size(14, 14),
-                      color: AppColors.black,
-                    ),
-                    Text(incident.adminName ?? '',
-                      style: const TextStyle(
-                        color: AppColors.black,
-                        fontSize: 14,
-                      ),
-                    ),
-                  ],
-                ),
                 // Padding(
                 //   padding: const EdgeInsets.only(top: 10, bottom: 20),
                 //   child: Row(
@@ -190,11 +181,17 @@ class IncidentCardComponent extends StatelessWidget {
                 //   ),
                 // ),
                 const DividerComponent(),
-                Text('Detalhes',
-                  style: TextStyle(
-                    color: AppColors.primaryAccentColor,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
+                Container(
+                  color: AppColors.primaryColor,
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Text('Acessar incidente',
+                      style: TextStyle(
+                        color: AppColors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
                   ),
                 ),
               ],

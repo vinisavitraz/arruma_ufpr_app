@@ -12,7 +12,7 @@ class IncidentsPage extends GetView<IncidentsPageController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.primaryColor,
+        backgroundColor: AppColors.primaryAccentColor,
         bottom: TabBar(
           controller: controller.tabController,
           isScrollable: true,
@@ -23,7 +23,7 @@ class IncidentsPage extends GetView<IncidentsPageController> {
             Tab(text: 'Geral'),
           ],
         ),
-        title: Text('ArrumaUFPR'),
+        title: Text('Incidentes'),
       ),
       backgroundColor: AppColors.white,
       body: TabBarView(
