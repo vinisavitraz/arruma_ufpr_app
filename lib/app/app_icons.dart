@@ -11,6 +11,15 @@ class AppIcons {
   static const profile = '${pathIcons}profile.svg';
   static const activeProfile = '${pathIcons}active_profile.svg';
 
+  static const incidentType = '${pathIcons}incident_type.svg';
+  static const location = '${pathIcons}location.svg';
+  static const item = '${pathIcons}item.svg';
+  static const cog = '${pathIcons}cog.svg';
+
+  static const arrowLeft = '${pathIcons}arrow_left.svg';
+  static const arrowRight = '${pathIcons}arrow_right.svg';
+  static const plus = '${pathIcons}plus.svg';
+
   static const key = '${pathIcons}key.svg';
   static const logout = '${pathIcons}logout.svg';
 

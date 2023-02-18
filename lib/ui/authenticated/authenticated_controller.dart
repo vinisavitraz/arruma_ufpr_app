@@ -1,9 +1,14 @@
 
 import 'package:arruma_ufpr_app/app/app_icons.dart';
 import 'package:arruma_ufpr_app/app/app_routes.dart';
+import 'package:arruma_ufpr_app/src/auth/entity/authenticated_user_info.dart';
 import 'package:arruma_ufpr_app/src/auth/entity/token.dart';
 import 'package:arruma_ufpr_app/src/auth/repository/auth_repository.dart';
+import 'package:arruma_ufpr_app/src/incident/dto/response/inicidents_response_dto.dart';
+import 'package:arruma_ufpr_app/src/incident/entity/incident.dart';
+import 'package:arruma_ufpr_app/src/incident/repository/incident_repository.dart';
 import 'package:arruma_ufpr_app/ui/authenticated/incident/incidents_page.dart';
+import 'package:arruma_ufpr_app/ui/authenticated/incident/user_incidents_page.dart';
 import 'package:arruma_ufpr_app/ui/authenticated/profile/profile_page.dart';
 import 'package:arruma_ufpr_app/ui/widgets/custom_snack_bar.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +20,7 @@ class AuthenticatedController extends GetxController {
   //
   // final ShopController shopController = Get.find();
   //
-  final RxBool pageLoading = false.obs;
+  final RxBool pageLoading = true.obs;
   //
   final RxInt tabIndex = 0.obs;
   // final RxBool marketSet = false.obs;
@@ -25,34 +30,43 @@ class AuthenticatedController extends GetxController {
   // final RxString marketImagePath = ''.obs;
   //
   final RxString userName = ''.obs;
-  // final RxInt userId = 0.obs;
+  final RxInt userId = 0.obs;
+  final RxBool admin = false.obs;
+
   // final RxInt customerId = 0.obs;
   // final RxBool mfaEnabled = false.obs;
-  // final RxBool admin = false.obs;
+
   //
   final AuthRepository authRepository;
   // final UserRepository userRepository;
-  // final MarketRepository marketRepository;
+  final IncidentRepository incidentRepository;
   // final ShopRepository shopRepository;
   //
   final RxList<Widget> activePages = <Widget>[].obs;
   final RxList<BottomNavigatorItemComponent> bottomNavigatorItems = <BottomNavigatorItemComponent>[].obs;
+  final RxList<Incident> listOpenIncidents = <Incident>[].obs;
+  final RxList<Incident> listPendingIncidents = <Incident>[].obs;
+  final RxList<Incident> listClosedIncidents = <Incident>[].obs;
+  final RxList<Incident> listAllIncidents = <Incident>[].obs;
+  final RxList<Incident> listIncidents = <Incident>[].obs;
+
+  final RxList<Incident> listUserOpenIncidents = <Incident>[].obs;
+  final RxList<Incident> listUserPendingIncidents = <Incident>[].obs;
+  final RxList<Incident> listUserClosedIncidents = <Incident>[].obs;
+  final RxList<Incident> listUserAllIncidents = <Incident>[].obs;
+  final RxList<Incident> listUserIncidents = <Incident>[].obs;
 
   AuthenticatedController({
     required this.authRepository,
     // required this.userRepository,
-    // required this.marketRepository,
+    required this.incidentRepository,
     // required this.shopRepository,
   });
 
   @override
   void onInit() async {
     super.onInit();
-    loadPagesAndBottomNavigatorItems(false);
-    //
-    // marketSet.listen((marketSet) {
-    //   loadPagesAndBottomNavigatorItems(marketSet);
-    // });
+
   }
 
   @override
@@ -60,42 +74,30 @@ class AuthenticatedController extends GetxController {
     super.onReady();
 
 
-    // UserInfo userInfo = await authRepository.getActiveUserInfo();
-    //
-    // print('Active user info: ${userInfo.userEmail}');
-    // print('Status: ${userInfo.status}');
-    // print('Customer id: ${userInfo.customerId ?? 0}');
-    // userId.value = userInfo.userId;
-    // customerId.value = userInfo.customerId ?? 0;
-    // userName.value = userInfo.userName;
-    // mfaEnabled.value = userInfo.mfaEnabled == 1 ? true : false;
-    //
-    // if (customerId.value == 0) {
-    //   admin.value = true;
-    // }
-    //
-    // if (userInfo.status == 'ACCEPT_TERMS') {
-    //   Get.offAllNamed(AppRoutes.TERMS_OF_USAGE, arguments: {"user_id": userInfo.userId});
-    //   return;
-    // }
-    //
-    // await setupFirebaseToken();
-    //
-    // if (userInfo.marketId != null && userInfo.marketId! > 0) {
-    //   final int marketId = userInfo.marketId!;
-    //   await FirebaseMessaging.instance.unsubscribeFromTopic('MARKET_$marketId');
-    // }
-    //
-    // await refreshUserMarket();
-    //
-    //
-    // pageLoading.value = false;
-    // print('finished authenticated!');
-    // if (notification != null) {
-    //   _handleMessage(notification);
-    // }
+    AuthenticatedUserInfo userInfo = await authRepository.getAuthenticatedUserInfo();
+
+    print('Active user info: ${userInfo.userEmail}');
+
+    userId.value = userInfo.userId;
+    userName.value = userInfo.userName;
+    admin.value = userInfo.userRole == 0;
+
+    await getIncidents('aberto', listPendingIncidents);
+    await getIncidents('pendente', listPendingIncidents);
+    await getIncidents('fechado', listClosedIncidents);
+    await getUserIncidents('aberto', listUserPendingIncidents);
+    await getUserIncidents('pendente', listUserPendingIncidents);
+    await getUserIncidents('fechado', listUserClosedIncidents);
+
+    loadPagesAndBottomNavigatorItems(admin.value);
+
+    admin.listen((admin) {
+      loadPagesAndBottomNavigatorItems(admin);
+    });
+
+    pageLoading.value = false;
   }
-  //
+
   void selectNewPageFromTab(BottomNavigatorItemComponent e) {
     int newIndex = bottomNavigatorItems.indexOf(e);
     tabIndex.value = newIndex;
@@ -136,34 +138,41 @@ class AuthenticatedController extends GetxController {
   //   await clearMarketInformation(userResponseDTO.marketId ?? 0);
   // }
   //
-  // Future<void>
-  // fetchUserMarket() async {
-  //   print('fetchUserMarket');
-  //   if (marketId.value <= 0) {
-  //     print('marketId.value <= 0');
-  //     return;
-  //   }
-  //   Market market;
-  //
-  //   try {
-  //     market = await marketRepository.fetchMarket(marketId.value);
-  //   } on Exception catch (e) {
-  //     CustomSnackBar.showErrorSnackBar('Encontramos um problema ao procurar esse mercado, por favor tente novamente.');
-  //     await clearMarketInformation(marketId.value);
-  //     return;
-  //   }
-  //
-  //   marketSet.value = true;
-  //   print('market set trye!');
-  //   print(market.name);
-  //   print(market.id);
-  //   print(customerId.value);
-  //   showMarketInformation(market);
-  //   print('fetchUserShopAndShowBasket');
-  //
-  //   FirebaseMessaging.instance.subscribeToTopic('MARKET_${marketId.value}');
-  //   await shopController.fetchUserShopAndShowBasket(marketId.value, customerId.value);
-  // }
+  Future<void> getIncidents(String status, RxList<Incident> listByStatus) async {
+    IncidentsResponseDTO incidentsResponseDTO;
+
+    try {
+      incidentsResponseDTO = await incidentRepository.getIncidents(status);
+    } on Exception catch (e) {
+      CustomSnackBar.showErrorSnackBar('Encontramos um problema ao procurar os incidentes, por favor tente novamente.');
+      //await clearMarketInformation(marketId.value);
+      return;
+    }
+
+    listByStatus.assignAll(incidentsResponseDTO.incidents!);
+
+    List<Incident> list = List<Incident>.from(listAllIncidents);
+    list.addAll(incidentsResponseDTO.incidents!);
+    listAllIncidents.assignAll(list);
+  }
+
+  Future<void> getUserIncidents(String status, RxList<Incident> listByStatus) async {
+    IncidentsResponseDTO incidentsResponseDTO;
+
+    try {
+      incidentsResponseDTO = await incidentRepository.getUserIncidents(status);
+    } on Exception catch (e) {
+      CustomSnackBar.showErrorSnackBar('Encontramos um problema ao procurar os incidentes, por favor tente novamente.');
+      //await clearMarketInformation(marketId.value);
+      return;
+    }
+
+    listByStatus.assignAll(incidentsResponseDTO.incidents!);
+
+    List<Incident> list = List<Incident>.from(listUserAllIncidents);
+    list.addAll(incidentsResponseDTO.incidents!);
+    listUserAllIncidents.assignAll(list);
+  }
   //
   // void showMarketInformation(Market market) {
   //   print('showMarketInformation');
@@ -239,14 +248,24 @@ class AuthenticatedController extends GetxController {
     }
   }
 
-  void loadPagesAndBottomNavigatorItems(bool marketSet) {
+  void loadPagesAndBottomNavigatorItems(bool admin) {
     List<Widget> pages = List<Widget>.empty(growable: true);
     List<BottomNavigatorItemComponent> items = List<BottomNavigatorItemComponent>.empty(growable: true);
 
-    pages.add(IncidentsPage());
+    if (admin) {
+      pages.add(IncidentsPage());
+
+      items.add(BottomNavigatorItemComponent(
+        label: 'Incidentes',
+        activeIcon: AppIcons.activeIncident,
+        icon: AppIcons.incident,
+      ));
+    }
+
+    pages.add(UserIncidentsPage());
 
     items.add(BottomNavigatorItemComponent(
-      label: 'Incidentes',
+      label: 'Meus incidentes',
       activeIcon: AppIcons.activeIncident,
       icon: AppIcons.incident,
     ));
@@ -266,23 +285,29 @@ class AuthenticatedController extends GetxController {
     //       icon: AppIcons.search
     //   ));
     // }
-    //
-    // pages.add(ShoppingsPage());
-    // items.add(BottomNavigatorItemComponent(
-    //   label: 'Compras',
-    //   activeIcon: AppIcons.ordersActive,
-    //   icon: AppIcons.orders,
-    // ));
-    //
-    // pages.add(SettingsPage());
-    // items.add(BottomNavigatorItemComponent(
-    //   label: 'Ajustes',
-    //   activeIcon: AppIcons.profileActive,
-    //   icon: AppIcons.profile,
-    // ));
 
     activePages.assignAll(pages);
     bottomNavigatorItems.assignAll(items);
+  }
+
+
+  void setActiveTab(String tab) {
+    if (tab == 'aberto') {
+      listIncidents.assignAll(listOpenIncidents);
+    }
+    if (tab == 'atendimento') {
+      listIncidents.assignAll(listPendingIncidents);
+    }
+    if (tab == 'finalizado') {
+      listIncidents.assignAll(listClosedIncidents);
+    }
+    if (tab == 'geral') {
+      listIncidents.assignAll(listAllIncidents);
+    }
+  }
+
+  void showIncidentDetail(Incident incident) {
+    Get.toNamed(AppRoutes.incident, arguments: {"incident": incident});
   }
 
 }

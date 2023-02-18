@@ -8,7 +8,12 @@ class DateFormatter {
     return toDayMonthAndYear(dateString) + ' às ' + toHourAndMinute(timeString);
   }
 
-  static String formatStringToDDMMYYHHMM(String dateTimeString) {
+  static String formatStringToDDMMYYHHMM(String? dateTimeString) {
+    print(dateTimeString);
+
+    if (dateTimeString == null) {
+      return '';
+    }
     var dateTimeArray = dateTimeString.split(' ');
     var dateString = dateTimeArray[0];
     var timeString = dateTimeArray[1];

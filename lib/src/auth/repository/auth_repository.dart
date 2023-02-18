@@ -6,6 +6,7 @@ import 'package:arruma_ufpr_app/src/auth/dto/response/logout_response_dto.dart';
 import 'package:arruma_ufpr_app/src/auth/dto/response/validate_token_response_dto.dart';
 import 'package:arruma_ufpr_app/src/auth/entity/authenticated_user_info.dart';
 import 'package:arruma_ufpr_app/src/auth/entity/token.dart';
+import 'package:arruma_ufpr_app/ui/widgets/custom_snack_bar.dart';
 
 class AuthRepository {
 
@@ -27,7 +28,7 @@ class AuthRepository {
   Future<AuthenticatedUserInfo> getAuthenticatedUserInfo() async {
     dynamic response = await AppHttpClient.client.get('/auth/authenticated-user-info');
 
-    return AuthenticatedUserInfo.fromJson(response.data['userInfo']);
+    return AuthenticatedUserInfo.fromJson(response.data['authenticatedUserInfo']);
   }
 
   Future<LogoutResponseDTO> logoutUser() async {
@@ -61,8 +62,13 @@ class AuthRepository {
       return false;
     }
 
-    dynamic response = await AppHttpClient.client.get('/auth/validate-token');
-    ValidateTokenResponseDTO validateTokenResponseDTO = ValidateTokenResponseDTO.fromJson(response.data);
+    ValidateTokenResponseDTO validateTokenResponseDTO;
+    try {
+      dynamic response = await AppHttpClient.client.get('/auth/validate-token');
+      validateTokenResponseDTO = ValidateTokenResponseDTO.fromJson(response.data);
+    } on Exception catch (e) {
+      return false;
+    }
 
     if (!validateTokenResponseDTO.valid) {
       removeToken();

@@ -1,9 +1,10 @@
 import 'package:arruma_ufpr_app/app/app_colors.dart';
+import 'package:arruma_ufpr_app/app/app_routes.dart';
 import 'package:arruma_ufpr_app/ui/authenticated/authenticated_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class IncidentsPageController extends GetxController with GetSingleTickerProviderStateMixin {
+class UserIncidentsPageController extends GetxController with GetSingleTickerProviderStateMixin {
 
   final AuthenticatedController authenticatedController = Get.find();
   late final tabController = TabController(vsync: this, length: 4);
@@ -35,8 +36,6 @@ class IncidentsPageController extends GetxController with GetSingleTickerProvide
     });
   }
 
-
-
   String mapStatus(String status) {
     if (status == 'aberto') {
       return 'Aberto';
@@ -67,6 +66,10 @@ class IncidentsPageController extends GetxController with GetSingleTickerProvide
     }
 
     return Colors.red;
+  }
+
+  void openCreateIncidentPage() {
+    Get.toNamed(AppRoutes.createIncident);
   }
 
   @override

@@ -1,16 +1,19 @@
 import 'package:arruma_ufpr_app/app/app_colors.dart';
+import 'package:arruma_ufpr_app/app/app_icons.dart';
 import 'package:arruma_ufpr_app/ui/widgets/incident/incident_card_component.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'incidents_page_controller.dart';
+import 'user_incidents_page_controller.dart';
 
-class IncidentsPage extends GetView<IncidentsPageController> {
+class UserIncidentsPage extends GetView<UserIncidentsPageController> {
 
-  const IncidentsPage({Key? key}) : super(key: key);
+  const UserIncidentsPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButton: _createIncidentFloatingButton(context),
       appBar: AppBar(
         backgroundColor: AppColors.primaryColor,
         bottom: TabBar(
@@ -29,10 +32,10 @@ class IncidentsPage extends GetView<IncidentsPageController> {
       body: TabBarView(
         controller: controller.tabController,
         children: [
-          buildIncidentList('Aberto', controller.authenticatedController.listOpenIncidents),
-          buildIncidentList('Atendimento', controller.authenticatedController.listPendingIncidents),
-          buildIncidentList('Finalizado', controller.authenticatedController.listClosedIncidents),
-          buildIncidentList('Geral', controller.authenticatedController.listAllIncidents),
+          buildIncidentList('Aberto', controller.authenticatedController.listUserOpenIncidents),
+          buildIncidentList('Atendimento', controller.authenticatedController.listUserPendingIncidents),
+          buildIncidentList('Finalizado', controller.authenticatedController.listUserClosedIncidents),
+          buildIncidentList('Geral', controller.authenticatedController.listUserAllIncidents),
         ],
       ),
     );
@@ -80,5 +83,22 @@ class IncidentsPage extends GetView<IncidentsPageController> {
       ],
     );
   }
+
+  Widget _createIncidentFloatingButton(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: FloatingActionButton(
+        backgroundColor: AppColors.primaryColor,
+        heroTag: "create_incident",
+        onPressed: controller.openCreateIncidentPage,
+        child: const AppIcon(
+          AppIcons.plus,
+          size: Size(40, 40),
+          color: AppColors.white,
+        ),
+      ),
+    );
+  }
+
 
 }
