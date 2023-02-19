@@ -85,7 +85,7 @@ class AuthenticatedController extends GetxController {
     await getIncidents('aberto', listPendingIncidents);
     await getIncidents('pendente', listPendingIncidents);
     await getIncidents('fechado', listClosedIncidents);
-    await getUserIncidents('aberto', listUserPendingIncidents);
+    await getUserIncidents('aberto', listUserOpenIncidents);
     await getUserIncidents('pendente', listUserPendingIncidents);
     await getUserIncidents('fechado', listUserClosedIncidents);
 

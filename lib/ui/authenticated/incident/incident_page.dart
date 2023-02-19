@@ -204,13 +204,22 @@ class IncidentPage extends GetView<IncidentPageController> {
                     padding: EdgeInsets.symmetric(horizontal: 10),
                     child: DividerComponent(),
                   ),
-                  // Padding(
-                  //   padding: EdgeInsets.all(30),
-                  //   child: CustomButton(
-                  //       text: 'Solicitar ajuda',
-                  //       onPressed: () => {},
-                  //   ),
-                  // ),
+                  Padding(
+                    padding: EdgeInsets.all(15),
+                    child: CustomButton(
+                        text: 'Atender incidente',
+                        backgroundColor: AppColors.green,
+                        onPressed: controller.assignIncident,
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(15),
+                    child: CustomButton(
+                      text: 'Fechar incidente',
+                      backgroundColor: AppColors.red,
+                      onPressed: controller.closeIncident,
+                    ),
+                  ),
                 ],
               ),
             ),

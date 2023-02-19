@@ -168,13 +168,13 @@ class CreateIncidentPageController extends GetxController {
   Future<void> createIncident() async {
     String title = titleField.getValue();
     String description = descriptionField.getValue();
-    int incidentTypeId = int.parse(incidentTypeIdField.getValue());
+    int incidentTypeId = incidentTypeIdField.getValue().isNotEmpty ? int.parse(incidentTypeIdField.getValue()) : 0;
     String incidentTypeName = incidentTypeNameField.getValue();
     String incidentTypeDescription = incidentTypeDescriptionField.getValue();
-    int locationId = int.parse(locationIdField.getValue());
+    int locationId = locationIdField.getValue().isNotEmpty ? int.parse(locationIdField.getValue()) : 0;
     String locationName = locationNameField.getValue();
     String locationDescription = locationDescriptionField.getValue();
-    int itemId = int.parse(itemIdField.getValue());
+    int itemId = itemIdField.getValue().isNotEmpty ? int.parse(itemIdField.getValue()) : 0;
     String itemName = itemNameField.getValue();
     String itemDescription = itemDescriptionField.getValue();
 

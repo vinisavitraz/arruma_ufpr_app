@@ -1,5 +1,6 @@
 import 'package:arruma_ufpr_app/app/app_colors.dart';
 import 'package:arruma_ufpr_app/app/app_icons.dart';
+import 'package:arruma_ufpr_app/ui/widgets/divider_component.dart';
 import 'package:arruma_ufpr_app/ui/widgets/incident/incident_card_component.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -48,10 +49,11 @@ class UserIncidentsPage extends GetView<UserIncidentsPageController> {
           visible: listByStatus.isNotEmpty,
           child: Expanded(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30),
+              padding: const EdgeInsets.symmetric(horizontal: 25),
               child: ListView.separated(
-                separatorBuilder: (context, index) => SizedBox(
-                  height: MediaQuery.of(context).size.height / 10,
+                separatorBuilder: (context, index) => Padding(
+                  padding: EdgeInsets.symmetric(vertical: 10),
+                  child: DividerComponent(),
                 ),
                 itemCount: listByStatus.length,
                 scrollDirection: Axis.vertical,

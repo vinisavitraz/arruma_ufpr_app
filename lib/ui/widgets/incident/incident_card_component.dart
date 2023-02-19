@@ -25,7 +25,7 @@ class IncidentCardComponent extends StatelessWidget {
         incidentsPageController.authenticatedController.showIncidentDetail(incident)
       },
       child: Padding(
-        padding: EdgeInsets.all(15),
+        padding: EdgeInsets.only(top: 10),
         child: Column(
           children: [
             // Padding(
@@ -60,8 +60,6 @@ class IncidentCardComponent extends StatelessWidget {
                 ],
               ),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
                     color: AppColors.primaryColor,
