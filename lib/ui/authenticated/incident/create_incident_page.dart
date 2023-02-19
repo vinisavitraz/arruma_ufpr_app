@@ -5,6 +5,7 @@ import 'package:arruma_ufpr_app/ui/widgets/custom_select_input.dart';
 import 'package:arruma_ufpr_app/ui/widgets/custom_text_input.dart';
 import 'package:arruma_ufpr_app/ui/widgets/divider_component.dart';
 import 'package:arruma_ufpr_app/ui/widgets/my_app_bar.dart';
+import 'package:arruma_ufpr_app/ui/widgets/my_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -73,14 +74,14 @@ class CreateIncidentPage extends GetView<CreateIncidentPageController> {
           _labelSection('Tipo do incidente'),
           _inputIncidentTypeName(),
           _inputIncidentTypeDescription(),
-          _buttonShowList('incidentType', controller.showIncidentTypeForm),
+          _buttonShowSelect('incidentType', controller.showIncidentTypeForm, controller.incidentTypeIdField),
         ],
       ) :
       Column(
         children: [
           _labelSection('Tipo do incidente'),
           _selectIncidentType(),
-          _buttonHideList('incidentType', controller.showIncidentTypeForm),
+          _buttonShowForm('incidentType', controller.showIncidentTypeForm, controller.incidentTypeIdField),
         ],
       ),
     );
@@ -94,14 +95,14 @@ class CreateIncidentPage extends GetView<CreateIncidentPageController> {
           _labelSection('Local do incidente'),
           _inputLocationName(),
           _inputLocationDescription(),
-          _buttonShowList('location', controller.showLocationForm),
+          _buttonShowSelect('location', controller.showLocationForm, controller.locationIdField),
         ],
       ) :
       Column(
         children: [
           _labelSection('Local do incidente'),
           _selectLocation(),
-          _buttonHideList('location', controller.showLocationForm),
+          _buttonShowForm('location', controller.showLocationForm, controller.locationIdField),
         ],
     ),);
   }
@@ -114,14 +115,14 @@ class CreateIncidentPage extends GetView<CreateIncidentPageController> {
         _labelSection('Item do incidente'),
         _inputItemName(),
         _inputItemDescription(),
-        _buttonShowList('item', controller.showItemForm),
+        _buttonShowSelect('item', controller.showItemForm, controller.itemIdField),
       ],
     ) :
     Column(
       children: [
         _labelSection('Item do incidente'),
         _selectItem(),
-        _buttonHideList('item', controller.showItemForm),
+        _buttonShowForm('item', controller.showItemForm, controller.itemIdField),
       ],
     ),
     );
@@ -131,11 +132,11 @@ class CreateIncidentPage extends GetView<CreateIncidentPageController> {
     return Obx(() => CustomTextInput(
       paddingInfo: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
       textHint: 'Título',
-      onChanged: controller.title.setValue,
+      onChanged: controller.titleField.setValue,
       autoFocus: false,
       maxLines: 2,
-      errorMessage: controller.title.errorMessage.value,
-      inputEditController: controller.title.editController,
+      errorMessage: controller.titleField.errorMessage.value,
+      inputEditController: controller.titleField.editController,
       keyboardType: TextInputType.name,
     ),);
   }
@@ -144,34 +145,34 @@ class CreateIncidentPage extends GetView<CreateIncidentPageController> {
     return Obx(() => CustomTextInput(
       paddingInfo: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
       textHint: 'Descrição',
-      onChanged: controller.description.setValue,
+      onChanged: controller.descriptionField.setValue,
       autoFocus: false,
       maxLines: 10,
-      errorMessage: controller.description.errorMessage.value,
-      inputEditController: controller.description.editController,
+      errorMessage: controller.descriptionField.errorMessage.value,
+      inputEditController: controller.descriptionField.editController,
       keyboardType: TextInputType.name,
     ),);
   }
 
-  Widget _buttonHideList(String origin, RxBool showForm) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
-      child: CustomButton(
-        text: 'Não encontrei',
-        onPressed: () => {
-          controller.showForm(origin, showForm, true)
-        },
-      ),
-    );
-  }
-
-  Widget _buttonShowList(String origin, RxBool showForm) {
+  Widget _buttonShowSelect(String origin, RxBool showForm, MyTextField selectField) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
       child: CustomButton(
         text: 'Procurar',
         onPressed: () => {
-          controller.showForm(origin, showForm, false)
+          controller.showForm(origin, showForm, false, selectField)
+        },
+      ),
+    );
+  }
+
+  Widget _buttonShowForm(String origin, RxBool showForm, MyTextField selectField) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+      child: CustomButton(
+        text: 'Não encontrei',
+        onPressed: () => {
+          controller.showForm(origin, showForm, true, selectField)
         },
       ),
     );
@@ -182,7 +183,7 @@ class CreateIncidentPage extends GetView<CreateIncidentPageController> {
       padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
       child: CustomButton(
         text: 'Criar',
-        onPressed: () => {},
+        onPressed: controller.createIncident,
       ),
     );
   }
@@ -190,10 +191,10 @@ class CreateIncidentPage extends GetView<CreateIncidentPageController> {
   Widget _selectIncidentType() {
     return CustomSelectInput(
       paddingInfo: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-      textField: controller.incidentTypeId,
+      textField: controller.incidentTypeIdField,
       textHint: 'Tipo do incidente',
       options: controller.incidentTypeOptions,
-      onChanged: controller.incidentTypeId.setValue,
+      onChanged: controller.incidentTypeIdField.setValue,
     );
   }
 
@@ -201,10 +202,10 @@ class CreateIncidentPage extends GetView<CreateIncidentPageController> {
     return Obx(() => CustomTextInput(
       paddingInfo: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
       textHint: 'Nome',
-      onChanged: controller.title.setValue,
+      onChanged: controller.incidentTypeNameField.setValue,
       autoFocus: false,
-      errorMessage: controller.title.errorMessage.value,
-      inputEditController: controller.title.editController,
+      errorMessage: controller.incidentTypeNameField.errorMessage.value,
+      inputEditController: controller.incidentTypeNameField.editController,
       keyboardType: TextInputType.name,
     ),);
   }
@@ -213,10 +214,10 @@ class CreateIncidentPage extends GetView<CreateIncidentPageController> {
     return Obx(() => CustomTextInput(
       paddingInfo: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
       textHint: 'Descrição',
-      onChanged: controller.title.setValue,
+      onChanged: controller.incidentTypeDescriptionField.setValue,
       autoFocus: false,
-      errorMessage: controller.title.errorMessage.value,
-      inputEditController: controller.title.editController,
+      errorMessage: controller.incidentTypeDescriptionField.errorMessage.value,
+      inputEditController: controller.incidentTypeDescriptionField.editController,
       keyboardType: TextInputType.name,
     ),);
   }
@@ -224,7 +225,7 @@ class CreateIncidentPage extends GetView<CreateIncidentPageController> {
   Widget _selectLocation() {
     return CustomSelectInput(
       paddingInfo: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-      textField: controller.locationId,
+      textField: controller.locationIdField,
       textHint: 'Local do incidente',
       options: controller.locationOptions,
       onChanged: controller.handleNewLocationSelected,
@@ -235,10 +236,10 @@ class CreateIncidentPage extends GetView<CreateIncidentPageController> {
     return Obx(() => CustomTextInput(
       paddingInfo: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
       textHint: 'Nome',
-      onChanged: controller.title.setValue,
+      onChanged: controller.locationNameField.setValue,
       autoFocus: false,
-      errorMessage: controller.title.errorMessage.value,
-      inputEditController: controller.title.editController,
+      errorMessage: controller.locationNameField.errorMessage.value,
+      inputEditController: controller.locationNameField.editController,
       keyboardType: TextInputType.name,
     ),);
   }
@@ -247,10 +248,10 @@ class CreateIncidentPage extends GetView<CreateIncidentPageController> {
     return Obx(() => CustomTextInput(
       paddingInfo: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
       textHint: 'Descrição',
-      onChanged: controller.title.setValue,
+      onChanged: controller.locationDescriptionField.setValue,
       autoFocus: false,
-      errorMessage: controller.title.errorMessage.value,
-      inputEditController: controller.title.editController,
+      errorMessage: controller.locationDescriptionField.errorMessage.value,
+      inputEditController: controller.locationDescriptionField.editController,
       keyboardType: TextInputType.name,
     ),);
   }
@@ -258,10 +259,10 @@ class CreateIncidentPage extends GetView<CreateIncidentPageController> {
   Widget _selectItem() {
     return CustomSelectInput(
       paddingInfo: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-      textField: controller.itemId,
+      textField: controller.itemIdField,
       textHint: 'Item do incidente',
       options: controller.itemOptions,
-      onChanged: controller.itemId.setValue,
+      onChanged: controller.itemIdField.setValue,
     );
   }
 
@@ -269,10 +270,10 @@ class CreateIncidentPage extends GetView<CreateIncidentPageController> {
     return Obx(() => CustomTextInput(
       paddingInfo: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
       textHint: 'Nome',
-      onChanged: controller.title.setValue,
+      onChanged: controller.itemNameField.setValue,
       autoFocus: false,
-      errorMessage: controller.title.errorMessage.value,
-      inputEditController: controller.title.editController,
+      errorMessage: controller.itemNameField.errorMessage.value,
+      inputEditController: controller.itemNameField.editController,
       keyboardType: TextInputType.name,
     ),);
   }
@@ -281,10 +282,10 @@ class CreateIncidentPage extends GetView<CreateIncidentPageController> {
     return Obx(() => CustomTextInput(
       paddingInfo: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
       textHint: 'Descrição',
-      onChanged: controller.title.setValue,
+      onChanged: controller.itemDescriptionField.setValue,
       autoFocus: false,
-      errorMessage: controller.title.errorMessage.value,
-      inputEditController: controller.title.editController,
+      errorMessage: controller.itemDescriptionField.errorMessage.value,
+      inputEditController: controller.itemDescriptionField.editController,
       keyboardType: TextInputType.name,
     ),);
   }

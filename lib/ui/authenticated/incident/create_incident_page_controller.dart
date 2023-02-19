@@ -1,3 +1,6 @@
+import 'package:arruma_ufpr_app/app/app_routes.dart';
+import 'package:arruma_ufpr_app/src/incident/dto/request/create_incident_request_dto.dart';
+import 'package:arruma_ufpr_app/src/incident/dto/response/incident_response_dto.dart';
 import 'package:arruma_ufpr_app/src/incident/dto/response/incident_types_response_dto.dart';
 import 'package:arruma_ufpr_app/src/incident/entity/incident.dart';
 import 'package:arruma_ufpr_app/src/incident/entity/incident_type.dart';
@@ -26,11 +29,19 @@ class CreateIncidentPageController extends GetxController {
 
   final RxBool validForm = false.obs;
 
-  final MyTextField title = MyTextField();
-  final MyTextField description = MyTextField();
-  final MyTextField incidentTypeId = MyTextField();
-  final MyTextField locationId = MyTextField();
-  final MyTextField itemId = MyTextField();
+  final MyTextField titleField = MyTextField();
+  final MyTextField descriptionField = MyTextField();
+  final MyTextField incidentTypeIdField = MyTextField();
+  final MyTextField incidentTypeNameField = MyTextField();
+  final MyTextField incidentTypeDescriptionField = MyTextField();
+  final MyTextField locationIdField = MyTextField();
+  final MyTextField locationNameField = MyTextField();
+  final MyTextField locationDescriptionField = MyTextField();
+  final MyTextField itemIdField = MyTextField();
+  final MyTextField itemNameField = MyTextField();
+  final MyTextField itemDescriptionField = MyTextField();
+
+
   final RxList<SelectItem> incidentTypeOptions = <SelectItem>[].obs;
   final RxList<SelectItem> locationOptions = <SelectItem>[].obs;
   final RxList<SelectItem> itemOptions = <SelectItem>[].obs;
@@ -53,12 +64,19 @@ class CreateIncidentPageController extends GetxController {
 
   late Rx<Incident> incident = Incident().obs;
 
-  void showForm(String origin, RxBool showForm, bool show) {
-    showForm.value = show;
-
-    if (origin == 'location' && showForm.value) {
+  void showForm(String origin, RxBool showForm, bool show, MyTextField selectField) {
+    if (origin == 'item' && showLocationForm.value && !show) {
+      return;
+    }
+    if (origin == 'location' && show) {
       showItemForm.value = true;
     }
+
+    if (show) {
+      //selectField.setValue('0');
+    }
+
+    showForm.value = show;
   }
 
   @override
@@ -143,7 +161,49 @@ class CreateIncidentPageController extends GetxController {
   }
 
   Future<void> handleNewLocationSelected(String locationId) async {
+    locationIdField.setValue(locationId);
     await getItemsByLocationID(locationId);
+  }
+
+  Future<void> createIncident() async {
+    String title = titleField.getValue();
+    String description = descriptionField.getValue();
+    int incidentTypeId = int.parse(incidentTypeIdField.getValue());
+    String incidentTypeName = incidentTypeNameField.getValue();
+    String incidentTypeDescription = incidentTypeDescriptionField.getValue();
+    int locationId = int.parse(locationIdField.getValue());
+    String locationName = locationNameField.getValue();
+    String locationDescription = locationDescriptionField.getValue();
+    int itemId = int.parse(itemIdField.getValue());
+    String itemName = itemNameField.getValue();
+    String itemDescription = itemDescriptionField.getValue();
+
+    //validate incident fields
+
+
+    IncidentResponseDTO incidentResponseDTO;
+
+    try {
+      incidentResponseDTO = await incidentRepository.createIncident(CreateIncidentRequestDTO(
+        title: title,
+        description: description,
+        incidentTypeId: incidentTypeId,
+        incidentTypeName: incidentTypeName,
+        incidentTypeDescription: incidentTypeDescription,
+        locationId: locationId,
+        locationName: locationName,
+        locationDescription: locationDescription,
+        itemId: itemId,
+        itemName: itemName,
+        itemDescription: itemDescription,
+        userId: authenticatedController.userId.value,
+      ));
+    } on Exception catch (e) {
+      CustomSnackBar.showErrorSnackBar('Encontramos um problema ao criar um incidente, por favor tente novamente.');
+      return;
+    }
+
+    Get.offNamed(AppRoutes.incident, arguments: {"incident": incidentResponseDTO.entity});
   }
 
 }
