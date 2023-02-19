@@ -35,40 +35,6 @@ class IncidentsPageController extends GetxController with GetSingleTickerProvide
     });
   }
 
-
-
-  String mapStatus(String status) {
-    if (status == 'aberto') {
-      return 'Aberto';
-    }
-
-    if (status == 'pendente') {
-      return 'Em atendimento';
-    }
-
-    if (status == 'fechado') {
-      return 'Finalizado';
-    }
-
-    return 'Desconhecido';
-  }
-
-  Color mapStatusToColor(String status) {
-    if (status == 'aberto') {
-      return Colors.yellow;
-    }
-
-    if (status == 'pendente') {
-      return Colors.green;
-    }
-
-    if (status == 'fechado') {
-      return AppColors.primaryColor;
-    }
-
-    return Colors.red;
-  }
-
   @override
   void dispose() {
     tabController.dispose();

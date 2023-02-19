@@ -29,7 +29,7 @@ class CustomButton extends StatelessWidget {
         ),
         shadowColor: shadowColor,
         minimumSize: Size.fromHeight(
-            MediaQuery.of(context).size.height * 0.07,
+            MediaQuery.of(context).size.height * 0.05,
         ),
       ),
       onPressed: onPressed,

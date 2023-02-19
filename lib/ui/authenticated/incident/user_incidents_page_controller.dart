@@ -36,38 +36,6 @@ class UserIncidentsPageController extends GetxController with GetSingleTickerPro
     });
   }
 
-  String mapStatus(String status) {
-    if (status == 'aberto') {
-      return 'Aberto';
-    }
-
-    if (status == 'pendente') {
-      return 'Em atendimento';
-    }
-
-    if (status == 'fechado') {
-      return 'Finalizado';
-    }
-
-    return 'Desconhecido';
-  }
-
-  Color mapStatusToColor(String status) {
-    if (status == 'aberto') {
-      return Colors.yellow;
-    }
-
-    if (status == 'pendente') {
-      return Colors.green;
-    }
-
-    if (status == 'fechado') {
-      return AppColors.primaryColor;
-    }
-
-    return Colors.red;
-  }
-
   void openCreateIncidentPage() {
     Get.toNamed(AppRoutes.createIncident);
   }

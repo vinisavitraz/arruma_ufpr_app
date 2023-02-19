@@ -1,5 +1,77 @@
 class DateFormatter {
 
+  static String formatStringDateTimeToReadableFormat(String dateTimeString) {
+    final DateTime now = DateTime.now();
+    final DateTime dateTime = DateTime.parse(dateTimeString);
+
+    final int nowDay = now.day;
+    final int nowMonth = now.month;
+    final int nowYear = now.year;
+
+    final int dateTimeDay = dateTime.day;
+    final int dateTimeMonth = dateTime.month;
+    final int dateTimeYear = dateTime.year;
+
+    if (nowYear == dateTimeYear && nowMonth == dateTimeMonth && nowDay == dateTimeDay) {
+      final int hoursAgo = calculateDifferenceInHours(now, dateTime);
+
+      if (hoursAgo < 1) {
+        final int minutesAgo = calculateDifferenceInMinutes(now, dateTime);
+
+        return '${minutesAgo}m atrás';
+      }
+
+      return '${hoursAgo}h atrás';
+    }
+
+    return toReadableFormat(dateTimeDay, dateTimeMonth);
+  }
+
+  static String toReadableFormat(int day, int month) {
+    final String formattedDay = day <= 9 ? '0$day' : day.toString();
+
+    return '${getMonthAbbreviation(month.toString())} $formattedDay';
+  }
+
+  static String getMonthAbbreviation(String month) {
+    switch(month) {
+      case '1':
+        return 'Jan';
+      case '2':
+        return 'Fev';
+      case '3':
+        return 'Mar';
+      case '4':
+        return 'Abr';
+      case '5':
+        return 'Mai';
+      case '6':
+        return 'Jun';
+      case '7':
+        return 'Jul';
+      case '8':
+        return 'Ago';
+      case '9':
+        return 'Set';
+      case '10':
+        return 'Out';
+      case '11':
+        return 'Nov';
+      case '12':
+        return 'Dez';
+      default:
+        return '';
+    }
+  }
+
+  static int calculateDifferenceInHours(DateTime dateA, DateTime dateB) {
+    return dateA.difference(dateB).inHours;
+  }
+
+  static int calculateDifferenceInMinutes(DateTime dateA, DateTime dateB) {
+    return dateA.difference(dateB).inMinutes;
+  }
+
   static String formatStringToDDMMYYHHMMSS(String dateTimeString) {
     var dateTimeArray = dateTimeString.split(' ');
     var dateString = dateTimeArray[0];

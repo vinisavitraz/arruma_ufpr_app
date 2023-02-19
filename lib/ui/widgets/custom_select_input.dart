@@ -2,13 +2,14 @@ import 'package:arruma_ufpr_app/app/app_colors.dart';
 import 'package:arruma_ufpr_app/src/ui/select_item.dart';
 import 'package:arruma_ufpr_app/ui/widgets/my_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CustomSelectInput extends StatelessWidget {
 
   final MyTextField textField;
   final String textHint;
   final Function(String) onChanged;
-  final List<SelectItem> options;
+  final RxList<SelectItem> options;
   final EdgeInsets paddingInfo;
 
   const CustomSelectInput({
@@ -25,7 +26,7 @@ class CustomSelectInput extends StatelessWidget {
     return Container(
       padding: paddingInfo,
       width: double.infinity,
-      child: DropdownButtonFormField(
+      child: Obx(() => DropdownButtonFormField(
         decoration: InputDecoration(
           hintText: textHint,
           errorText: textField.errorMessage.value,
@@ -69,7 +70,7 @@ class CustomSelectInput extends StatelessWidget {
                 ),
               ),
             )).toList(),
-      ),
+      ),),
     );
   }
 

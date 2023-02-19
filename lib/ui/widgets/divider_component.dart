@@ -20,7 +20,7 @@ class DividerComponent extends StatelessWidget {
       thickness: 1,
       indent: ident ?? 0,
       endIndent: endIdent ?? 0,
-      color: AppColors.lightGrey,
+      color: AppColors.white,
     );
   }
 

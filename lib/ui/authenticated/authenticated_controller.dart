@@ -4,7 +4,7 @@ import 'package:arruma_ufpr_app/app/app_routes.dart';
 import 'package:arruma_ufpr_app/src/auth/entity/authenticated_user_info.dart';
 import 'package:arruma_ufpr_app/src/auth/entity/token.dart';
 import 'package:arruma_ufpr_app/src/auth/repository/auth_repository.dart';
-import 'package:arruma_ufpr_app/src/incident/dto/response/inicidents_response_dto.dart';
+import 'package:arruma_ufpr_app/src/incident/dto/response/incidents_response_dto.dart';
 import 'package:arruma_ufpr_app/src/incident/entity/incident.dart';
 import 'package:arruma_ufpr_app/src/incident/repository/incident_repository.dart';
 import 'package:arruma_ufpr_app/ui/authenticated/incident/incidents_page.dart';

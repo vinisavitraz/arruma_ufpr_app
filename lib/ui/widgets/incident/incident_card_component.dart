@@ -6,6 +6,8 @@ import 'package:arruma_ufpr_app/ui/widgets/divider_component.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../src/incident/mapper/incident_mapper.dart';
+
 class IncidentCardComponent extends StatelessWidget {
 
   final Incident incident;
@@ -79,9 +81,9 @@ class IncidentCardComponent extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      Text(incidentsPageController.mapStatus(incident.status!),
+                      Text(IncidentMapper.mapStatusName(incident.status!),
                         style: TextStyle(
-                          color: incidentsPageController.mapStatusToColor(incident.status!),
+                          color: IncidentMapper.mapStatusColor(incident.status!),
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
                         ),

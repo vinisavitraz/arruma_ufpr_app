@@ -73,14 +73,14 @@ class CreateIncidentPage extends GetView<CreateIncidentPageController> {
           _labelSection('Tipo do incidente'),
           _inputIncidentTypeName(),
           _inputIncidentTypeDescription(),
-          _buttonShowList(controller.showIncidentTypeForm),
+          _buttonShowList('incidentType', controller.showIncidentTypeForm),
         ],
       ) :
       Column(
         children: [
           _labelSection('Tipo do incidente'),
           _selectIncidentType(),
-          _buttonHideList(controller.showIncidentTypeForm),
+          _buttonHideList('incidentType', controller.showIncidentTypeForm),
         ],
       ),
     );
@@ -94,14 +94,14 @@ class CreateIncidentPage extends GetView<CreateIncidentPageController> {
           _labelSection('Local do incidente'),
           _inputLocationName(),
           _inputLocationDescription(),
-          _buttonShowList(controller.showLocationForm),
+          _buttonShowList('location', controller.showLocationForm),
         ],
       ) :
       Column(
         children: [
           _labelSection('Local do incidente'),
           _selectLocation(),
-          _buttonHideList(controller.showLocationForm),
+          _buttonHideList('location', controller.showLocationForm),
         ],
     ),);
   }
@@ -114,14 +114,14 @@ class CreateIncidentPage extends GetView<CreateIncidentPageController> {
         _labelSection('Item do incidente'),
         _inputItemName(),
         _inputItemDescription(),
-        _buttonShowList(controller.showItemForm),
+        _buttonShowList('item', controller.showItemForm),
       ],
     ) :
     Column(
       children: [
         _labelSection('Item do incidente'),
         _selectItem(),
-        _buttonHideList(controller.showItemForm),
+        _buttonHideList('item', controller.showItemForm),
       ],
     ),
     );
@@ -153,25 +153,25 @@ class CreateIncidentPage extends GetView<CreateIncidentPageController> {
     ),);
   }
 
-  Widget _buttonHideList(RxBool showForm) {
+  Widget _buttonHideList(String origin, RxBool showForm) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
       child: CustomButton(
         text: 'Não encontrei',
         onPressed: () => {
-          controller.showForm(showForm, true)
+          controller.showForm(origin, showForm, true)
         },
       ),
     );
   }
 
-  Widget _buttonShowList(RxBool showForm) {
+  Widget _buttonShowList(String origin, RxBool showForm) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
       child: CustomButton(
         text: 'Procurar',
         onPressed: () => {
-          controller.showForm(showForm, false)
+          controller.showForm(origin, showForm, false)
         },
       ),
     );
@@ -227,7 +227,7 @@ class CreateIncidentPage extends GetView<CreateIncidentPageController> {
       textField: controller.locationId,
       textHint: 'Local do incidente',
       options: controller.locationOptions,
-      onChanged: controller.locationId.setValue,
+      onChanged: controller.handleNewLocationSelected,
     );
   }
 
