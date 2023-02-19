@@ -14,8 +14,8 @@ class MyAppBar extends StatelessWidget with PreferredSizeWidget {
   const MyAppBar({
     Key? key,
     required this.title,
-    this.backgroundColor = AppColors.white,
-    this.textColor = AppColors.black,
+    this.backgroundColor = AppColors.primaryAccentColor,
+    this.textColor = AppColors.white,
     this.arrowColor = AppColors.primaryColor,
     this.showBackButton = true,
   }) : super(key: key);

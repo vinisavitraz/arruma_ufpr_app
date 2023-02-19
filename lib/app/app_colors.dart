@@ -36,6 +36,22 @@ class AppColors {
 
   static const Color black = Colors.black;
 
+  static const MaterialColor lightGrey = MaterialColor(
+    0xFFf4f5fc,
+    <int, Color>{
+      50:  Color(0xFFf4f5fc),
+      100: Color(0xFFf4f5fc),
+      200: Color(0xFFf4f5fc),
+      300: Color(0xFFf4f5fc),
+      400: Color(0xFFf4f5fc),
+      500: Color(0xFFf4f5fc),
+      600: Color(0xFFf4f5fc),
+      700: Color(0xFFf4f5fc),
+      800: Color(0xFFf4f5fc),
+      900: Color(0xFFf4f5fc),
+    },
+  );
+
   static const MaterialColor grey = MaterialColor(
     0xFF656464,
     <int, Color>{
@@ -114,22 +130,6 @@ class AppColors {
         800: Color(0xFFf1f1f1),
         900: Color(0xFFf1f1f1),
       }
-  );
-
-  static const MaterialColor lightGrey = MaterialColor(
-    0xFFDBD8D8,
-    <int, Color>{
-      50: Color(0xFFDBD8D8),
-      100: Color(0xFFDBD8D8),
-      200: Color(0xFFDBD8D8),
-      300: Color(0xFFDBD8D8),
-      400: Color(0xFFDBD8D8),
-      500: Color(0xFFDBD8D8),
-      600: Color(0xFFDBD8D8),
-      700: Color(0xFFDBD8D8),
-      800: Color(0xFFDBD8D8),
-      900: Color(0xFFDBD8D8),
-    },
   );
 
   static const MaterialColor google = MaterialColor(

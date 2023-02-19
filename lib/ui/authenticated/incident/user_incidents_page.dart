@@ -28,7 +28,7 @@ class UserIncidentsPage extends GetView<UserIncidentsPageController> {
         ),
         title: Text('Meus incidentes'),
       ),
-      backgroundColor: AppColors.white,
+      backgroundColor: AppColors.lightGrey,
       body: TabBarView(
         controller: controller.tabController,
         children: [

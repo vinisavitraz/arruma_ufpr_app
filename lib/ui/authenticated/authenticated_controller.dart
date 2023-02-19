@@ -149,6 +149,10 @@ class AuthenticatedController extends GetxController {
       return;
     }
 
+    if (incidentsResponseDTO.incidents == null) {
+      return;
+    }
+
     listByStatus.assignAll(incidentsResponseDTO.incidents!);
 
     List<Incident> list = List<Incident>.from(listAllIncidents);
@@ -164,6 +168,10 @@ class AuthenticatedController extends GetxController {
     } on Exception catch (e) {
       CustomSnackBar.showErrorSnackBar('Encontramos um problema ao procurar os incidentes, por favor tente novamente.');
       //await clearMarketInformation(marketId.value);
+      return;
+    }
+
+    if (incidentsResponseDTO.incidents == null) {
       return;
     }
 
