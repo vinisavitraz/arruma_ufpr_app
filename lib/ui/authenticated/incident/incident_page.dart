@@ -38,24 +38,57 @@ class IncidentPage extends GetView<IncidentPageController> {
                 children: [
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                    child: Text('Incidente #${controller.incident.value.id!}',
+                      style: TextStyle(
+                        color: AppColors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                      ),
+                      textAlign: TextAlign.left,
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 30, top: 20),
+                    child: Text('Título',
+                      style: TextStyle(
+                        color: AppColors.primaryAccentColor,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
+                      textAlign: TextAlign.left,
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 30, top: 5),
                     child: Text(controller.incident.value.title!,
                       style: TextStyle(
                         color: AppColors.black,
                         fontWeight: FontWeight.bold,
-                        fontSize: 16,
+                        fontSize: 18,
                       ),
-                      textAlign: TextAlign.center,
+                      textAlign: TextAlign.left,
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 40),
+                    padding: EdgeInsets.only(left: 30, top: 30),
+                    child: Text('Descrição',
+                      style: TextStyle(
+                        color: AppColors.primaryAccentColor,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
+                      textAlign: TextAlign.left,
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 30, bottom: 20, top: 5),
                     child: Text(controller.incident.value.description!,
                       style: TextStyle(
                         color: AppColors.black,
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
                       ),
-                      textAlign: TextAlign.center,
+                      textAlign: TextAlign.left,
                     ),
                   ),
                   Padding(
@@ -143,6 +176,30 @@ class IncidentPage extends GetView<IncidentPageController> {
                           ),
                         ),
                       ],
+                    ),
+                  ),
+                  Visibility(
+                    visible: controller.incident.value.adminName != null,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(right: 10),
+                            child: AppIcon(
+                              AppIcons.profile,
+                              size: Size(14, 14),
+                              color: AppColors.black,
+                            ),
+                          ),
+                          Text(controller.incident.value.adminName ?? '',
+                            style: const TextStyle(
+                              color: AppColors.black,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   Padding(
