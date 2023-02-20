@@ -34,7 +34,7 @@ class IncidentPageController extends GetxController {
   @override
   void onReady() async {
     super.onReady();
-    print(pageLoading.value);
+
     if (Get.arguments['incident'] == null) {
       CustomSnackBar.showErrorSnackBar('Encontramos um problema ao recuperar informações desse incidente, por favor tente novamente.');
       Get.back();
@@ -55,10 +55,6 @@ class IncidentPageController extends GetxController {
       showAssignIncident.value = incident.status == 'aberto';
       showCloseIncident.value = incident.status != 'fechado';
     });
-
-
-
-    print(incident.value.id);
   }
 
   Future<void> assignIncident() async {

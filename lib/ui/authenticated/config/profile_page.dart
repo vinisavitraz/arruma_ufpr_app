@@ -25,8 +25,7 @@ class ProfilePage extends GetView<ProfilePageController> {
             shrinkWrap: true,
             children: [
               _labelDescription(),
-              _labelFeedback(),
-              _labelErrorFeedback(),
+              _labelErrorMessage(),
               _inputName(),
               _inputEmail(),
               _inputDocument(),
@@ -53,28 +52,12 @@ class ProfilePage extends GetView<ProfilePageController> {
     );
   }
 
-  Widget _labelFeedback() {
+  Widget _labelErrorMessage() {
     return Obx(() => Visibility(
-      visible: controller.feedback.value.isNotEmpty,
+      visible: controller.errorMessage.value.isNotEmpty,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
-        child: Text(controller.feedback.value,
-          style: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: AppColors.primaryColor
-          ),
-        ),
-      ),
-    ),);
-  }
-
-  Widget _labelErrorFeedback() {
-    return Obx(() => Visibility(
-      visible: controller.feedbackError.value.isNotEmpty,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
-        child: Text(controller.feedbackError.value,
+        child: Text(controller.errorMessage.value,
           style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,

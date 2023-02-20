@@ -1,15 +1,13 @@
 import 'package:arruma_ufpr_app/app/app_routes.dart';
-import 'package:arruma_ufpr_app/services/remote/http_client/http_client_exceptions.dart';
 import 'package:arruma_ufpr_app/src/auth/dto/request/auth_user_request_dto.dart';
 import 'package:arruma_ufpr_app/src/auth/dto/response/auth_response_dto.dart';
 import 'package:arruma_ufpr_app/src/auth/repository/auth_repository.dart';
 import 'package:arruma_ufpr_app/src/commons/exception/api_error_with_message_exception.dart';
+import 'package:arruma_ufpr_app/src/services/remote/http_client/http_client_exceptions.dart';
 import 'package:arruma_ufpr_app/ui/widgets/custom_snack_bar.dart';
 import 'package:arruma_ufpr_app/ui/widgets/my_password_text_field.dart';
 import 'package:arruma_ufpr_app/ui/widgets/my_text_field.dart';
 import 'package:get/get.dart';
-
-import '../../../src/commons/mapper/exception_message_mapper.dart';
 
 class LoginPageController extends GetxController {
 

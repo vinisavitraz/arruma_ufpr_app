@@ -1,4 +1,4 @@
-import 'package:arruma_ufpr_app/services/remote/http_client/app_http_client.dart';
+import 'package:arruma_ufpr_app/src/services/remote/http_client/app_http_client.dart';
 import 'package:arruma_ufpr_app/src/incident/dto/request/create_incident_request_dto.dart';
 import 'package:arruma_ufpr_app/src/incident/dto/response/incident_response_dto.dart';
 import 'package:arruma_ufpr_app/src/incident/dto/response/status_response_dto.dart';

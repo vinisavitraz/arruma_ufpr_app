@@ -7,7 +7,7 @@ abstract class AppRoutes {
   static const incident = '/incident';
   static const createIncident = '/create-incident';
 
-  static const changePassword = '/change-password';
+  static const updatePassword = '/update-password';
   static const editProfile = '/edit-profile';
   static const exit = '/exit';
 

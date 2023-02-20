@@ -10,7 +10,7 @@ class ConfigRepository {
         name: 'Senha',
         description: 'Alterar senha',
         iconName: AppIcons.key,
-        route: AppRoutes.changePassword,
+        route: AppRoutes.updatePassword,
       ),
       ItemProfile(
         name: 'Perfil',

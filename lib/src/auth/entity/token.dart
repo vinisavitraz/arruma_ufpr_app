@@ -1,4 +1,4 @@
-import 'package:arruma_ufpr_app/services/storage/cache_object.dart';
+import 'package:arruma_ufpr_app/src/services/storage/cache_object.dart';
 
 class Token implements CacheObject {
 

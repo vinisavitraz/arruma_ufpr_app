@@ -81,8 +81,6 @@ class DateFormatter {
   }
 
   static String formatStringToDDMMYYHHMM(String? dateTimeString) {
-    print(dateTimeString);
-
     if (dateTimeString == null) {
       return '';
     }

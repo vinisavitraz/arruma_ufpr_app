@@ -1,10 +1,9 @@
 import 'package:arruma_ufpr_app/src/auth/entity/token.dart';
 import 'package:arruma_ufpr_app/src/auth/repository/auth_repository.dart';
+import 'package:arruma_ufpr_app/src/services/remote/http_client/http_client_exceptions.dart';
 import 'package:dio/dio.dart';
-
-import '../../../src/commons/exception/api_error_with_message_exception.dart';
-import '../../../src/commons/mapper/exception_message_mapper.dart';
-import 'http_client_exceptions.dart';
+import '../../../commons/exception/api_error_with_message_exception.dart';
+import '../../../commons/mapper/exception_message_mapper.dart';
 
 class HttpClientInterceptors extends Interceptor {
 

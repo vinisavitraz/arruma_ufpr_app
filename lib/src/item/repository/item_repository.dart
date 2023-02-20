@@ -1,4 +1,4 @@
-import 'package:arruma_ufpr_app/services/remote/http_client/app_http_client.dart';
+import 'package:arruma_ufpr_app/src/services/remote/http_client/app_http_client.dart';
 import 'package:arruma_ufpr_app/src/item/dto/response/items_response_dto.dart';
 
 class ItemRepository {

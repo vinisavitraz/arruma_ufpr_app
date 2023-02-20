@@ -1,5 +1,5 @@
-import 'package:arruma_ufpr_app/services/remote/http_client/app_http_client.dart';
-import 'package:arruma_ufpr_app/services/storage/cache.dart';
+import 'package:arruma_ufpr_app/src/services/remote/http_client/app_http_client.dart';
+import 'package:arruma_ufpr_app/src/services/storage/cache.dart';
 import 'package:arruma_ufpr_app/src/auth/dto/request/auth_user_request_dto.dart';
 import 'package:arruma_ufpr_app/src/auth/dto/response/auth_response_dto.dart';
 import 'package:arruma_ufpr_app/src/auth/dto/response/logout_response_dto.dart';

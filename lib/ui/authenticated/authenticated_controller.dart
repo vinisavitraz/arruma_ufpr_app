@@ -292,7 +292,6 @@ class AuthenticatedController extends GetxController {
   }
 
   void showIncidentDetail(Incident incident) {
-    print(incident.id);
     Get.toNamed(AppRoutes.incident, arguments: {"incident": incident});
   }
 
