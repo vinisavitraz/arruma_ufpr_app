@@ -18,7 +18,7 @@ class IncidentPage extends GetView<IncidentPageController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppBar(
-        title: 'Incidente #${controller.incident.value.id ?? ''}',
+        title: 'Incidente',
       ),
       backgroundColor: AppColors.lightGrey,
       body: Obx(() => controller.pageLoading.value ?
@@ -35,40 +35,6 @@ class IncidentPage extends GetView<IncidentPageController> {
               child: ListView(
                 children: [
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.1, vertical: 20),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: IncidentMapper.mapStatusColor(controller.incident.value.status!),
-                        border: Border.all(
-                          width: 1,
-                          color: AppColors.lighterGrey,
-                          style: BorderStyle.solid,
-                        ),
-                        borderRadius: BorderRadius.all(Radius.circular(5)),
-                        boxShadow: [
-                          BoxShadow(
-                            color: AppColors.lightGrey,
-                          ),
-                        ],
-                      ),
-                      //padding: EdgeInsets.all(25),
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height * 0.06,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Text(IncidentMapper.mapStatusName(controller.incident.value.status!),
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: IncidentMapper.mapStatusTextColor(controller.incident.value.status!),
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Padding(
                     padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
                     child: Text(controller.incident.value.title!,
                       style: TextStyle(
@@ -79,7 +45,6 @@ class IncidentPage extends GetView<IncidentPageController> {
                       textAlign: TextAlign.center,
                     ),
                   ),
-
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 30, vertical: 40),
                     child: Text(controller.incident.value.description!,
@@ -94,6 +59,47 @@ class IncidentPage extends GetView<IncidentPageController> {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 10),
                     child: DividerComponent(),
+                  ),
+                  Align(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              color: IncidentMapper.mapStatusColor(controller.incident.value.status!),
+                              border: Border.all(
+                                width: 1,
+                                color: AppColors.lighterGrey,
+                                style: BorderStyle.solid,
+                              ),
+                              borderRadius: BorderRadius.all(Radius.circular(20)),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: AppColors.lightGrey,
+                                ),
+                              ],
+                            ),
+                            //padding: EdgeInsets.all(25),
+                            width: MediaQuery.of(context).size.width / 2,
+                            height: MediaQuery.of(context).size.height * 0.04,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Text(IncidentMapper.mapStatusName(controller.incident.value.status!),
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: IncidentMapper.mapStatusTextColor(controller.incident.value.status!),
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
@@ -204,22 +210,33 @@ class IncidentPage extends GetView<IncidentPageController> {
                     padding: EdgeInsets.symmetric(horizontal: 10),
                     child: DividerComponent(),
                   ),
-                  Padding(
-                    padding: EdgeInsets.all(15),
-                    child: CustomButton(
+                  Visibility(
+                    visible: controller.showAssignIncident.value,
+                    child: Padding(
+                      padding: EdgeInsets.all(15),
+                      child: CustomButton(
                         text: 'Atender incidente',
                         backgroundColor: AppColors.green,
                         onPressed: controller.assignIncident,
+                      ),
+                    ),
+                  ),
+                  Visibility(
+                    visible: controller.showCloseIncident.value,
+                    child: Padding(
+                      padding: EdgeInsets.all(15),
+                      child: CustomButton(
+                        text: 'Fechar incidente',
+                        backgroundColor: AppColors.red,
+                        onPressed: controller.closeIncident,
+                      ),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.all(15),
-                    child: CustomButton(
-                      text: 'Fechar incidente',
-                      backgroundColor: AppColors.red,
-                      onPressed: controller.closeIncident,
-                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    child: DividerComponent(),
                   ),
+                  Text('Mensagens'),
                 ],
               ),
             ),

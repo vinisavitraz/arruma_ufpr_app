@@ -6,7 +6,6 @@ import 'package:arruma_ufpr_app/src/auth/dto/response/logout_response_dto.dart';
 import 'package:arruma_ufpr_app/src/auth/dto/response/validate_token_response_dto.dart';
 import 'package:arruma_ufpr_app/src/auth/entity/authenticated_user_info.dart';
 import 'package:arruma_ufpr_app/src/auth/entity/token.dart';
-import 'package:arruma_ufpr_app/ui/widgets/custom_snack_bar.dart';
 
 class AuthRepository {
 
@@ -23,12 +22,6 @@ class AuthRepository {
     );
 
     await Cache.saveObject('token', token);
-  }
-
-  Future<AuthenticatedUserInfo> getAuthenticatedUserInfo() async {
-    dynamic response = await AppHttpClient.client.get('/auth/authenticated-user-info');
-
-    return AuthenticatedUserInfo.fromJson(response.data['authenticatedUserInfo']);
   }
 
   Future<LogoutResponseDTO> logoutUser() async {

@@ -1,6 +1,6 @@
-import 'package:arruma_ufpr_app/src/profile/repository/profile_repository.dart';
+import 'package:arruma_ufpr_app/src/user/repository/user_repository.dart';
+import 'package:arruma_ufpr_app/ui/authenticated/config/profile_page_controller.dart';
 import 'package:get/get.dart';
-import 'profile_page_controller.dart';
 
 class ProfilePageBinding implements Bindings {
 
@@ -8,7 +8,7 @@ class ProfilePageBinding implements Bindings {
   void dependencies() {
     Get.lazyPut<ProfilePageController>(() {
       return ProfilePageController(
-        profileRepository: ProfileRepository(),
+        userRepository: UserRepository(),
       );
     });
   }

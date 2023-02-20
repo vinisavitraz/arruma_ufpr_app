@@ -196,7 +196,7 @@ class CreateIncidentPageController extends GetxController {
         itemId: itemId,
         itemName: itemName,
         itemDescription: itemDescription,
-        userId: authenticatedController.userId.value,
+        userId: authenticatedController.authenticatedUser.value.id!,
       ));
     } on Exception catch (e) {
       CustomSnackBar.showErrorSnackBar('Encontramos um problema ao criar um incidente, por favor tente novamente.');

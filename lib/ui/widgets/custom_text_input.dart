@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import '../../app/app_colors.dart';
 
 class CustomTextInput extends StatelessWidget {
@@ -12,7 +12,7 @@ class CustomTextInput extends StatelessWidget {
   final String? errorMessage;
   final Function(String) onChanged;
   final TextEditingController inputEditController;
-  //final MaskTextInputFormatter? mask;
+  final MaskTextInputFormatter? mask;
   final TextInputType keyboardType;
   final bool enabled;
   final int maxLines;
@@ -26,7 +26,7 @@ class CustomTextInput extends StatelessWidget {
     this.paddingInfo = const EdgeInsets.symmetric(vertical: 10),
     this.maxLength = 200,
     this.autoFocus = false,
-    //this.mask,
+    this.mask,
     this.keyboardType = TextInputType.text,
     this.enabled = true,
     this.maxLines = 1,
@@ -43,7 +43,7 @@ class CustomTextInput extends StatelessWidget {
         keyboardType: keyboardType,
         controller: inputEditController,
         autofocus: autoFocus,
-        //inputFormatters: _getFormats(),
+        inputFormatters: _getFormats(),
         decoration: InputDecoration(
           hintText: textHint,
           errorText: errorMessage,
@@ -78,16 +78,16 @@ class CustomTextInput extends StatelessWidget {
     );
   }
 
-  // List<TextInputFormatter> _getFormats() {
-  //   if (mask != null) {
-  //     return [
-  //       LengthLimitingTextInputFormatter(maxLength),
-  //       mask!
-  //     ];
-  //   }
-  //
-  //   return [
-  //     LengthLimitingTextInputFormatter(maxLength),
-  //   ];
-  // }
+  List<TextInputFormatter> _getFormats() {
+    if (mask != null) {
+      return [
+        LengthLimitingTextInputFormatter(maxLength),
+        mask!
+      ];
+    }
+
+    return [
+      LengthLimitingTextInputFormatter(maxLength),
+    ];
+  }
 }

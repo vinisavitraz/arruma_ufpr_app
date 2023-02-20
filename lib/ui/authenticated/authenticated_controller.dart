@@ -1,4 +1,3 @@
-
 import 'package:arruma_ufpr_app/app/app_icons.dart';
 import 'package:arruma_ufpr_app/app/app_routes.dart';
 import 'package:arruma_ufpr_app/src/auth/entity/authenticated_user_info.dart';
@@ -7,41 +6,29 @@ import 'package:arruma_ufpr_app/src/auth/repository/auth_repository.dart';
 import 'package:arruma_ufpr_app/src/incident/dto/response/incidents_response_dto.dart';
 import 'package:arruma_ufpr_app/src/incident/entity/incident.dart';
 import 'package:arruma_ufpr_app/src/incident/repository/incident_repository.dart';
+import 'package:arruma_ufpr_app/src/user/entity/user.dart';
+import 'package:arruma_ufpr_app/src/user/repository/user_repository.dart';
+import 'package:arruma_ufpr_app/ui/authenticated/config/config_page.dart';
 import 'package:arruma_ufpr_app/ui/authenticated/incident/incidents_page.dart';
 import 'package:arruma_ufpr_app/ui/authenticated/incident/user_incidents_page.dart';
-import 'package:arruma_ufpr_app/ui/authenticated/profile/profile_page.dart';
 import 'package:arruma_ufpr_app/ui/widgets/custom_snack_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../widgets/bottom_navigator_item_component.dart';
 
 class AuthenticatedController extends GetxController {
-  //
-  // final ShopController shopController = Get.find();
-  //
+
   final RxBool pageLoading = true.obs;
-  //
   final RxInt tabIndex = 0.obs;
-  // final RxBool marketSet = false.obs;
-  // final RxInt marketId = 0.obs;
-  // final RxString marketName = 'Desconectado'.obs;
-  // final RxString marketAddress = ''.obs;
-  // final RxString marketImagePath = ''.obs;
-  //
-  final RxString userName = ''.obs;
-  final RxInt userId = 0.obs;
-  final RxBool admin = false.obs;
+  final Rx<User> authenticatedUser = User().obs;
+  // final RxString userName = ''.obs;
+  // final RxInt userId = 0.obs;
+  // final RxBool admin = false.obs;
 
-  // final RxInt customerId = 0.obs;
-  // final RxBool mfaEnabled = false.obs;
-
-  //
   final AuthRepository authRepository;
-  // final UserRepository userRepository;
+  final UserRepository userRepository;
   final IncidentRepository incidentRepository;
-  // final ShopRepository shopRepository;
-  //
+
   final RxList<Widget> activePages = <Widget>[].obs;
   final RxList<BottomNavigatorItemComponent> bottomNavigatorItems = <BottomNavigatorItemComponent>[].obs;
   final RxList<Incident> listOpenIncidents = <Incident>[].obs;
@@ -58,7 +45,7 @@ class AuthenticatedController extends GetxController {
 
   AuthenticatedController({
     required this.authRepository,
-    // required this.userRepository,
+    required this.userRepository,
     required this.incidentRepository,
     // required this.shopRepository,
   });
@@ -66,21 +53,15 @@ class AuthenticatedController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-
   }
 
   @override
   void onReady() async {
     super.onReady();
 
-
-    AuthenticatedUserInfo userInfo = await authRepository.getAuthenticatedUserInfo();
-
-    print('Active user info: ${userInfo.userEmail}');
-
-    userId.value = userInfo.userId;
-    userName.value = userInfo.userName;
-    admin.value = userInfo.userRole == 0;
+    AuthenticatedUserInfo authenticatedUserInfo = await userRepository.getAuthenticatedUserInfo();
+    authenticatedUser.value = authenticatedUserInfo.authenticatedUserInfo;
+    print('Active user info: ${authenticatedUser.value.email}');
 
     await getIncidents('aberto', listPendingIncidents);
     await getIncidents('pendente', listPendingIncidents);
@@ -89,11 +70,7 @@ class AuthenticatedController extends GetxController {
     await getUserIncidents('pendente', listUserPendingIncidents);
     await getUserIncidents('fechado', listUserClosedIncidents);
 
-    loadPagesAndBottomNavigatorItems(admin.value);
-
-    admin.listen((admin) {
-      loadPagesAndBottomNavigatorItems(admin);
-    });
+    loadPagesAndBottomNavigatorItems(authenticatedUser.value.role == 0);
 
     pageLoading.value = false;
   }
@@ -278,11 +255,11 @@ class AuthenticatedController extends GetxController {
       icon: AppIcons.incident,
     ));
 
-    pages.add(ProfilePage());
+    pages.add(ConfigPage());
     items.add(BottomNavigatorItemComponent(
-      label: 'Perfil',
+      label: 'Configurações',
       activeIcon: AppIcons.activeProfile,
-      icon: AppIcons.profile,
+      icon: AppIcons.cog,
     ));
     //
     // if (marketSet) {
@@ -315,6 +292,7 @@ class AuthenticatedController extends GetxController {
   }
 
   void showIncidentDetail(Incident incident) {
+    print(incident.id);
     Get.toNamed(AppRoutes.incident, arguments: {"incident": incident});
   }
 

@@ -2,11 +2,11 @@ import 'package:arruma_ufpr_app/app/app_colors.dart';
 import 'package:arruma_ufpr_app/ui/widgets/profile/list_items_profile_component.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'profile_page_controller.dart';
+import 'config_page_controller.dart';
 
-class ProfilePage extends GetView<ProfilePageController> {
+class ConfigPage extends GetView<ConfigPageController> {
 
-  const ProfilePage({Key? key}) : super(key: key);
+  const ConfigPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class ProfilePage extends GetView<ProfilePageController> {
                   padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
                   child: ListItemsProfileComponent(
                     onTap: controller.goToConfigPage,
-                    userName: controller.authenticatedController.userName,
+                    authenticatedUser: controller.authenticatedController.authenticatedUser,
                     listItems: controller.listItems,
                   ),
                 ),

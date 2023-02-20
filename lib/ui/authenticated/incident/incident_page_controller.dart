@@ -13,6 +13,8 @@ class IncidentPageController extends GetxController {
   final IncidentRepository incidentRepository;
   final IncidentInteractionRepository incidentInteractionRepository;
 
+  final RxBool showAssignIncident = false.obs;
+  final RxBool showCloseIncident = false.obs;
 
   IncidentPageController({
     required this.incidentRepository,
@@ -27,7 +29,7 @@ class IncidentPageController extends GetxController {
   // final RxDouble shopTotalPrice = 0.0.obs;
   // final RxInt shopTotalProducts = 0.obs;
 
-  late Rx<Incident> incident = Incident().obs;
+  final Rx<Incident> incident = Incident().obs;
 
   @override
   void onReady() async {
@@ -40,33 +42,62 @@ class IncidentPageController extends GetxController {
     }
 
     incident.value = Get.arguments['incident'];
+
+    showAssignIncident.value = incident.value.status == 'aberto';
+    showCloseIncident.value = incident.value.status != 'fechado';
+
+    await getIncidentInteractions();
+
     pageLoading.value = false;
+
+    incident.listen((incident) {
+      this.incident.value = incident;
+      showAssignIncident.value = incident.status == 'aberto';
+      showCloseIncident.value = incident.status != 'fechado';
+    });
+
+
+
+    print(incident.value.id);
   }
 
   Future<void> assignIncident() async {
     StatusResponseDTO statusResponseDTO;
 
     try {
-      statusResponseDTO = await this.incidentRepository.assignIncidentToAdmin(incident.value.id!);
+      statusResponseDTO = await incidentRepository.assignIncidentToAdmin(incident.value.id!);
     } on Exception catch (e) {
       CustomSnackBar.showErrorSnackBar('Encontramos um problema ao atender o incidente, por favor tente novamente.');
       return;
     }
 
     incident.value.status = 'pendente';
+    incident.refresh();
   }
 
   Future<void> closeIncident() async {
     StatusResponseDTO statusResponseDTO;
 
     try {
-      statusResponseDTO = await this.incidentRepository.closeIncident(incident.value.id!);
+      statusResponseDTO = await incidentRepository.closeIncident(incident.value.id!);
     } on Exception catch (e) {
       CustomSnackBar.showErrorSnackBar('Encontramos um problema ao fechar o incidente, por favor tente novamente.');
       return;
     }
 
     incident.value.status = 'fechado';
+    incident.refresh();
+  }
+
+  Future<void> getIncidentInteractions() async {
+    StatusResponseDTO statusResponseDTO;
+
+    try {
+      //statusResponseDTO = await incidentInteractionRepository.getIncidentInteractions(incident.value.id!);
+    } on Exception catch (e) {
+      CustomSnackBar.showErrorSnackBar('Encontramos um problema ao fechar o incidente, por favor tente novamente.');
+      return;
+    }
   }
 
 }

@@ -1,8 +1,8 @@
 import 'package:arruma_ufpr_app/app/app_icons.dart';
 import 'package:arruma_ufpr_app/app/app_routes.dart';
-import 'package:arruma_ufpr_app/src/profile/entity/item_profile.dart';
+import '../entity/item_profile.dart';
 
-class ProfileRepository {
+class ConfigRepository {
 
   List<ItemProfile> fetchConfigGroups() {
     return const [
@@ -24,7 +24,6 @@ class ProfileRepository {
         iconName: AppIcons.logout,
         route: AppRoutes.exit,
       ),
-
     ];
   }
 

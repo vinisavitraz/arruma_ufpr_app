@@ -45,7 +45,7 @@ class IncidentMapper {
     }
 
     if (status == 'fechado') {
-      return AppColors.primaryAccentColor;
+      return AppColors.white;
     }
 
     return Colors.white;

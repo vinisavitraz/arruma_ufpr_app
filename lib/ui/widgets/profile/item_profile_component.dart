@@ -1,6 +1,6 @@
 import 'package:arruma_ufpr_app/app/app_colors.dart';
 import 'package:arruma_ufpr_app/app/app_icons.dart';
-import 'package:arruma_ufpr_app/src/profile/entity/item_profile.dart';
+import 'package:arruma_ufpr_app/src/config/entity/item_profile.dart';
 import 'package:flutter/material.dart';
 
 class ItemProfileComponent extends StatelessWidget {
