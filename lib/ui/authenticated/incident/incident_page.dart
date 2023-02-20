@@ -3,7 +3,9 @@ import 'package:arruma_ufpr_app/app/app_icons.dart';
 import 'package:arruma_ufpr_app/src/commons/date/date_formatter.dart';
 import 'package:arruma_ufpr_app/ui/authenticated/incident/incident_page_controller.dart';
 import 'package:arruma_ufpr_app/ui/widgets/custom_button.dart';
+import 'package:arruma_ufpr_app/ui/widgets/custom_text_input.dart';
 import 'package:arruma_ufpr_app/ui/widgets/divider_component.dart';
+import 'package:arruma_ufpr_app/ui/widgets/incident/incident_interaction_component.dart';
 import 'package:arruma_ufpr_app/ui/widgets/my_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -216,7 +218,7 @@ class IncidentPage extends GetView<IncidentPageController> {
                       padding: EdgeInsets.all(15),
                       child: CustomButton(
                         text: 'Atender incidente',
-                        backgroundColor: AppColors.green,
+                        backgroundColor: AppColors.primaryColor,
                         onPressed: controller.assignIncident,
                       ),
                     ),
@@ -236,7 +238,62 @@ class IncidentPage extends GetView<IncidentPageController> {
                     padding: EdgeInsets.symmetric(horizontal: 10),
                     child: DividerComponent(),
                   ),
-                  Text('Mensagens'),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                    child: Text('Mensagens',
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: AppColors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  Visibility(
+                    visible: controller.showFormNewInteraction.value,
+                    child: CustomTextInput(
+                      paddingInfo: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                      textHint: 'Nova mensagem',
+                      onChanged: controller.newMessage.setValue,
+                      autoFocus: false,
+                      maxLines: 2,
+                      errorMessage: controller.newMessage.errorMessage.value,
+                      inputEditController: controller.newMessage.editController,
+                      keyboardType: TextInputType.name,
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(15),
+                    child: CustomButton(
+                      text: 'Nova mensagem',
+                      backgroundColor: AppColors.green,
+                      onPressed: controller.addNewInteraction,
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 20),
+                    child: Wrap(
+                      children: [
+                        Obx(() => ListView.separated(
+                          shrinkWrap: true,
+                          separatorBuilder: (context, index) => Padding(
+                            padding: EdgeInsets.symmetric(vertical: 15),
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 10),
+                              child: DividerComponent(),
+                            ),
+                          ),
+                          itemCount: controller.incidentInteractions.length,
+                          scrollDirection: Axis.vertical,
+                          physics: BouncingScrollPhysics(),
+                          itemBuilder: (BuildContext context, int index) {
+                            return IncidentInteractionItemComponent(
+                              incidentInteraction: controller.incidentInteractions[index],
+                            );
+                          },
+                        ),),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),

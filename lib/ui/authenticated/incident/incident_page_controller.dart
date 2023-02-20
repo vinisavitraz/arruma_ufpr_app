@@ -1,9 +1,15 @@
+import 'package:arruma_ufpr_app/src/incident/dto/request/create_incident_interaction_request_dto.dart';
+import 'package:arruma_ufpr_app/src/incident/dto/response/incident_interaction_response_dto.dart';
+import 'package:arruma_ufpr_app/src/incident/dto/response/incident_interactions_response_dto.dart';
 import 'package:arruma_ufpr_app/src/incident/dto/response/status_response_dto.dart';
 import 'package:arruma_ufpr_app/src/incident/entity/incident.dart';
+import 'package:arruma_ufpr_app/src/incident/entity/incident_interaction.dart';
 import 'package:arruma_ufpr_app/src/incident/repository/incident_interaction_repository.dart';
 import 'package:arruma_ufpr_app/src/incident/repository/incident_repository.dart';
 import 'package:arruma_ufpr_app/ui/authenticated/authenticated_controller.dart';
 import 'package:arruma_ufpr_app/ui/widgets/custom_snack_bar.dart';
+import 'package:arruma_ufpr_app/ui/widgets/my_text_field.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class IncidentPageController extends GetxController {
@@ -15,21 +21,17 @@ class IncidentPageController extends GetxController {
 
   final RxBool showAssignIncident = false.obs;
   final RxBool showCloseIncident = false.obs;
+  final RxBool showFormNewInteraction = false.obs;
+  final MyTextField newMessage = MyTextField();
+
+  final RxBool pageLoading = true.obs;
+  final Rx<Incident> incident = Incident().obs;
+  final RxList<IncidentInteraction> incidentInteractions = <IncidentInteraction>[].obs;
 
   IncidentPageController({
     required this.incidentRepository,
     required this.incidentInteractionRepository,
   });
-
-  final RxBool pageLoading = true.obs;
-
-  // final RxString marketName = "".obs;
-  // final RxString marketImagePath = "".obs;
-  // final RxString shopInfo = "".obs;
-  // final RxDouble shopTotalPrice = 0.0.obs;
-  // final RxInt shopTotalProducts = 0.obs;
-
-  final Rx<Incident> incident = Incident().obs;
 
   @override
   void onReady() async {
@@ -86,14 +88,49 @@ class IncidentPageController extends GetxController {
   }
 
   Future<void> getIncidentInteractions() async {
-    StatusResponseDTO statusResponseDTO;
+    IncidentInteractionsResponseDTO incidentInteractionsResponseDTO;
 
     try {
-      //statusResponseDTO = await incidentInteractionRepository.getIncidentInteractions(incident.value.id!);
+      incidentInteractionsResponseDTO = await incidentInteractionRepository.getIncidentInteractions(incident.value.id!);
     } on Exception catch (e) {
-      CustomSnackBar.showErrorSnackBar('Encontramos um problema ao fechar o incidente, por favor tente novamente.');
+      CustomSnackBar.showErrorSnackBar('Encontramos um problema ao buscar as mensagens, por favor tente novamente.');
       return;
     }
+
+    incidentInteractions.assignAll(incidentInteractionsResponseDTO.incidentInteractions!);
+  }
+
+  Future<void> addNewInteraction() async {
+    if (!showFormNewInteraction.value) {
+      showFormNewInteraction.value = true;
+      return;
+    }
+
+    FocusManager.instance.primaryFocus?.unfocus();
+
+    IncidentInteractionResponseDTO incidentInteractionResponseDTO;
+
+    try {
+      incidentInteractionResponseDTO = await incidentInteractionRepository.createIncidentInteraction(
+          CreateIncidentInteractionRequestDTO(
+            userId: authenticatedController.authenticatedUser.value.id!,
+            origin: authenticatedController.authenticatedUser.value.role!,
+            incidentId: incident.value.id!,
+            description: newMessage.getValue(),
+          ),
+      );
+    } on Exception catch (e) {
+      CustomSnackBar.showErrorSnackBar('Encontramos um problema ao enviar a mensagem, por favor tente novamente.');
+      return;
+    }
+
+    newMessage.setValue('');
+
+    List<IncidentInteraction> interactions = List<IncidentInteraction>.empty(growable: true);
+    interactions.addAll(incidentInteractions);
+    interactions.insert(0, incidentInteractionResponseDTO.entity);
+
+    incidentInteractions.assignAll(interactions);
   }
 
 }
