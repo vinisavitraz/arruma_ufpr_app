@@ -27,7 +27,7 @@ class LoginPage extends GetView<LoginPageController> {
               _imageMIB(context),
               _formUserLogin(context),
               _divider(),
-              _textCreateUser(),
+              //_textCreateUser(),
             ],
           ),
         ),

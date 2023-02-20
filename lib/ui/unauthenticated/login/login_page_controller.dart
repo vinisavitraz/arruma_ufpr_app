@@ -61,7 +61,7 @@ class LoginPageController extends GetxController {
   }
 
   void resetPassword() {
-    //Get.offNamed(AppRoutes.REQUEST_RESET_PASSWORD);
+    Get.toNamed(AppRoutes.requestResetPassword);
   }
 
   @override

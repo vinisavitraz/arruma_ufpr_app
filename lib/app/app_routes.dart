@@ -1,6 +1,7 @@
 abstract class AppRoutes {
 
   static const login = '/login';
+  static const requestResetPassword = '/request-reset-password';
 
   static const authenticatedBase = '/authenticated-base';
 

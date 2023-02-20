@@ -1,7 +1,7 @@
 import 'package:arruma_ufpr_app/app/app_colors.dart';
 import 'package:arruma_ufpr_app/src/commons/exception/api_error_with_message_exception.dart';
 import 'package:arruma_ufpr_app/src/commons/validation/password_validator.dart';
-import 'package:arruma_ufpr_app/src/user/dto/request/update_user_password.dart';
+import 'package:arruma_ufpr_app/src/user/dto/request/update_user_password_request_dto.dart';
 import 'package:arruma_ufpr_app/src/user/repository/user_repository.dart';
 import 'package:arruma_ufpr_app/ui/authenticated/authenticated_controller.dart';
 import 'package:arruma_ufpr_app/ui/widgets/confirm_dialog_component.dart';
