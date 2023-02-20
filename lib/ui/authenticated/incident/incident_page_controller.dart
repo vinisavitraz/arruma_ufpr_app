@@ -21,6 +21,7 @@ class IncidentPageController extends GetxController {
 
   final RxBool showAssignIncident = false.obs;
   final RxBool showCloseIncident = false.obs;
+  final RxBool showNewInteraction = false.obs;
   final RxBool showFormNewInteraction = false.obs;
   final MyTextField newMessage = MyTextField();
 
@@ -45,8 +46,9 @@ class IncidentPageController extends GetxController {
 
     incident.value = Get.arguments['incident'];
 
-    showAssignIncident.value = incident.value.status == 'aberto';
+    showAssignIncident.value = incident.value.status == 'aberto' && authenticatedController.authenticatedUser.value.role! == 0;
     showCloseIncident.value = incident.value.status != 'fechado';
+    showNewInteraction.value = incident.value.status != 'fechado';
 
     await getIncidentInteractions();
 
@@ -56,6 +58,7 @@ class IncidentPageController extends GetxController {
       this.incident.value = incident;
       showAssignIncident.value = incident.status == 'aberto';
       showCloseIncident.value = incident.status != 'fechado';
+      showNewInteraction.value = incident.status != 'fechado';
     });
   }
 
@@ -65,23 +68,31 @@ class IncidentPageController extends GetxController {
     try {
       statusResponseDTO = await incidentRepository.assignIncidentToAdmin(incident.value.id!);
     } on Exception catch (e) {
+      Get.back();
       CustomSnackBar.showErrorSnackBar('Encontramos um problema ao atender o incidente, por favor tente novamente.');
       return;
     }
 
+    await authenticatedController.refreshIncidentsList();
+    Get.back();
     incident.value.status = 'pendente';
     incident.refresh();
   }
 
   Future<void> closeIncident() async {
+    print('closeIncident');
     StatusResponseDTO statusResponseDTO;
 
     try {
       statusResponseDTO = await incidentRepository.closeIncident(incident.value.id!);
     } on Exception catch (e) {
+      Get.back();
       CustomSnackBar.showErrorSnackBar('Encontramos um problema ao fechar o incidente, por favor tente novamente.');
       return;
     }
+
+    await authenticatedController.refreshIncidentsList();
+    Get.back();
 
     incident.value.status = 'fechado';
     incident.refresh();

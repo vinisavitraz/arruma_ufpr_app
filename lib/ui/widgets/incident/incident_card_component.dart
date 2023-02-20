@@ -61,15 +61,48 @@ class IncidentCardComponent extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  Container(
-                    color: AppColors.primaryColor,
+                  Padding(
+                    padding: EdgeInsets.all(0),
+                    child: Container(
+                      color: AppColors.primaryColor,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Text('#${incident.id} | ${incident.userName!}',
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.white,
+                                fontSize: 18,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(5),
+                    child: Row(
+                      children: [
+                        Text(IncidentMapper.mapStatusName(incident.status!),
+                          style: TextStyle(
+                            color: IncidentMapper.mapStatusColor(incident.status!),
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(5),
                     child: Row(
                       children: [
                         Expanded(
-                          child: Text('#${incident.id} | ${incident.userName!}',
+                          child: Text(incident.title!,
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: AppColors.white,
+                              color: AppColors.black,
                               fontSize: 16,
                             ),
                           ),
@@ -77,117 +110,89 @@ class IncidentCardComponent extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Row(
-                    children: [
-                      Text(IncidentMapper.mapStatusName(incident.status!),
-                        style: TextStyle(
-                          color: IncidentMapper.mapStatusColor(incident.status!),
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Text(incident.title!,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.black,
-                            fontSize: 16,
+                  Padding(
+                    padding: EdgeInsets.all(5),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Text(incident.description!,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.black,
+                              fontSize: 16,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Text(incident.description!,
+                  Padding(
+                    padding: EdgeInsets.all(5),
+                    child: Row(
+                      children: [
+                        const AppIcon(
+                          AppIcons.incidentType,
+                          size: Size(14, 14),
+                          color: AppColors.black,
+                        ),
+                        Text(incident.incidentTypeName!,
                           style: const TextStyle(
-                            fontWeight: FontWeight.bold,
                             color: AppColors.black,
-                            fontSize: 16,
+                            fontSize: 14,
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                  Row(
-                    children: [
-                      const AppIcon(
-                        AppIcons.incidentType,
-                        size: Size(14, 14),
-                        color: AppColors.black,
-                      ),
-                      Text(incident.incidentTypeName!,
-                        style: const TextStyle(
+                  Padding(
+                    padding: EdgeInsets.all(5),
+                    child: Row(
+                      children: [
+                        const AppIcon(
+                          AppIcons.location,
+                          size: Size(14, 14),
                           color: AppColors.black,
-                          fontSize: 14,
                         ),
-                      ),
-                    ],
+                        Text(incident.locationName!,
+                          style: const TextStyle(
+                            color: AppColors.black,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                  Row(
-                    children: [
-                      const AppIcon(
-                        AppIcons.location,
-                        size: Size(14, 14),
-                        color: AppColors.black,
-                      ),
-                      Text(incident.locationName!,
-                        style: const TextStyle(
+                  Padding(
+                    padding: EdgeInsets.all(5),
+                    child: Row(
+                      children: [
+                        const AppIcon(
+                          AppIcons.item,
+                          size: Size(14, 14),
                           color: AppColors.black,
-                          fontSize: 14,
                         ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      const AppIcon(
-                        AppIcons.item,
-                        size: Size(14, 14),
-                        color: AppColors.black,
-                      ),
-                      Text(incident.itemName!,
-                        style: const TextStyle(
-                          color: AppColors.black,
-                          fontSize: 14,
+                        Text(incident.itemName!,
+                          style: const TextStyle(
+                            color: AppColors.black,
+                            fontSize: 14,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                  // Padding(
-                  //   padding: const EdgeInsets.only(top: 10, bottom: 20),
-                  //   child: Row(
-                  //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  //     children: [
-                  //       const AppIcon(
-                  //         AppIcons.basket,
-                  //         size: Size(14, 14),
-                  //         color: AppColors.black,
-                  //       ),
-                  //       Text(order.totalProducts > 1 ? '${order.totalProducts} produtos' : '${order.totalProducts} produto',
-                  //         style: const TextStyle(
-                  //           color: AppColors.black,
-                  //           fontSize: 14,
-                  //         ),
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
                   const DividerComponent(),
                   Container(
                     color: AppColors.primaryColor,
                     child: Align(
                       alignment: Alignment.center,
-                      child: Text('Acessar incidente',
-                        style: TextStyle(
-                          color: AppColors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
+                      child: Padding(
+                        padding: EdgeInsets.all(5),
+                        child: Text('Acessar incidente',
+                          style: TextStyle(
+                            color: AppColors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
                         ),
                       ),
                     ),

@@ -63,12 +63,7 @@ class AuthenticatedController extends GetxController {
     authenticatedUser.value = authenticatedUserInfo.authenticatedUserInfo;
     print('Active user info: ${authenticatedUser.value.email}');
 
-    await getIncidents('aberto', listPendingIncidents);
-    await getIncidents('pendente', listPendingIncidents);
-    await getIncidents('fechado', listClosedIncidents);
-    await getUserIncidents('aberto', listUserOpenIncidents);
-    await getUserIncidents('pendente', listUserPendingIncidents);
-    await getUserIncidents('fechado', listUserClosedIncidents);
+    await refreshIncidentsList();
 
     loadPagesAndBottomNavigatorItems(authenticatedUser.value.role == 0);
 
@@ -79,42 +74,24 @@ class AuthenticatedController extends GetxController {
     int newIndex = bottomNavigatorItems.indexOf(e);
     tabIndex.value = newIndex;
   }
-  //
-  // Future<void> setNewMarket(int marketId) async {
-  //   try {
-  //     await userRepository.setMarket(customerId.value, marketId);
-  //   } on Exception catch (e) {
-  //     CustomSnackBar.showErrorSnackBar('Encontramos um problema ao encontrar esse mercado, por favor tente novamente.');
-  //     return;
-  //   }
-  //
-  //   await refreshUserMarket();
-  // }
-  //
-  // Future<void> refreshUserMarket() async {
-  //   await clearMarketInformation(marketId.value);
-  //
-  //   marketSet.value = false;
-  //
-  //   UserResponseDTO userResponseDTO;
-  //
-  //   try {
-  //     userResponseDTO = await userRepository.findUserByID(userId.value);
-  //   } on Exception catch (e) {
-  //     CustomSnackBar.showErrorSnackBar('Encontramos um problema ao encontrar esse mercado, por favor tente novamente.');
-  //     return;
-  //   }
-  //
-  //   if ((userResponseDTO.marketId ?? 0) > 0) {
-  //     final int newMarketId = userResponseDTO.marketId!;
-  //     marketId.value = newMarketId;
-  //     fetchUserMarket();
-  //     return;
-  //   }
-  //
-  //   await clearMarketInformation(userResponseDTO.marketId ?? 0);
-  // }
-  //
+
+  Future<void> refreshIncidentsList() async {
+    listAllIncidents.assignAll([]);
+    listOpenIncidents.assignAll([]);
+    listPendingIncidents.assignAll([]);
+    listClosedIncidents.assignAll([]);
+    listUserOpenIncidents.assignAll([]);
+    listUserPendingIncidents.assignAll([]);
+    listUserClosedIncidents.assignAll([]);
+
+    await getIncidents('aberto', listOpenIncidents);
+    await getIncidents('pendente', listPendingIncidents);
+    await getIncidents('fechado', listClosedIncidents);
+    await getUserIncidents('aberto', listUserOpenIncidents);
+    await getUserIncidents('pendente', listUserPendingIncidents);
+    await getUserIncidents('fechado', listUserClosedIncidents);
+  }
+
   Future<void> getIncidents(String status, RxList<Incident> listByStatus) async {
     IncidentsResponseDTO incidentsResponseDTO;
 

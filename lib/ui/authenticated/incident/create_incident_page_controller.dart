@@ -203,6 +203,8 @@ class CreateIncidentPageController extends GetxController {
       return;
     }
 
+    await authenticatedController.refreshIncidentsList();
+
     Get.offNamed(AppRoutes.incident, arguments: {"incident": incidentResponseDTO.entity});
   }
 

@@ -219,7 +219,7 @@ class IncidentPage extends GetView<IncidentPageController> {
                       child: CustomButton(
                         text: 'Atender incidente',
                         backgroundColor: AppColors.primaryColor,
-                        onPressed: controller.assignIncident,
+                        onPressed: () => _confirmAssignDialog(),
                       ),
                     ),
                   ),
@@ -230,7 +230,7 @@ class IncidentPage extends GetView<IncidentPageController> {
                       child: CustomButton(
                         text: 'Fechar incidente',
                         backgroundColor: AppColors.red,
-                        onPressed: controller.closeIncident,
+                        onPressed: () => _confirmCloseDialog(),
                       ),
                     ),
                   ),
@@ -261,37 +261,59 @@ class IncidentPage extends GetView<IncidentPageController> {
                       keyboardType: TextInputType.name,
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.all(15),
-                    child: CustomButton(
-                      text: 'Nova mensagem',
-                      backgroundColor: AppColors.green,
-                      onPressed: controller.addNewInteraction,
+                  Visibility(
+                    visible: controller.showNewInteraction.value,
+                    child: Padding(
+                      padding: EdgeInsets.all(15),
+                      child: CustomButton(
+                        text: 'Nova mensagem',
+                        backgroundColor: AppColors.green,
+                        onPressed: controller.addNewInteraction,
+                      ),
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 20),
-                    child: Wrap(
-                      children: [
-                        Obx(() => ListView.separated(
-                          shrinkWrap: true,
-                          separatorBuilder: (context, index) => Padding(
-                            padding: EdgeInsets.symmetric(vertical: 15),
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 10),
-                              child: DividerComponent(),
+                  Visibility(
+                    visible: controller.incidentInteractions.isNotEmpty,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 20),
+                      child: Wrap(
+                        children: [
+                          Obx(() => ListView.separated(
+                            shrinkWrap: true,
+                            separatorBuilder: (context, index) => Padding(
+                              padding: EdgeInsets.symmetric(vertical: 15),
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 10),
+                                child: DividerComponent(),
+                              ),
                             ),
+                            itemCount: controller.incidentInteractions.length,
+                            scrollDirection: Axis.vertical,
+                            physics: BouncingScrollPhysics(),
+                            itemBuilder: (BuildContext context, int index) {
+                              return IncidentInteractionItemComponent(
+                                incidentInteraction: controller.incidentInteractions[index],
+                              );
+                            },
+                          ),),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Visibility(
+                    visible: controller.incidentInteractions.isEmpty,
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Padding(
+                        padding: EdgeInsets.all(20),
+                        child: Text('Incidente não possui mensagens.',
+                          style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.primaryAccentColor
                           ),
-                          itemCount: controller.incidentInteractions.length,
-                          scrollDirection: Axis.vertical,
-                          physics: BouncingScrollPhysics(),
-                          itemBuilder: (BuildContext context, int index) {
-                            return IncidentInteractionItemComponent(
-                              incidentInteraction: controller.incidentInteractions[index],
-                            );
-                          },
-                        ),),
-                      ],
+                        ),
+                      ),
                     ),
                   ),
                 ],
@@ -300,6 +322,84 @@ class IncidentPage extends GetView<IncidentPageController> {
           ),
         ],
       )
+      ),
+    );
+  }
+
+  void _confirmAssignDialog() {
+    Get.defaultDialog(
+      title: 'Confirmar',
+      backgroundColor: AppColors.white,
+      content: SizedBox(
+        width: double.infinity,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text('Deseja realmente atender esse incidente?',
+              textAlign: TextAlign.center,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 30),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  InkWell(
+                    onTap: () => {Get.back()},
+                    child: const Text('Cancelar'),
+                  ),
+                  InkWell(
+                    onTap: controller.assignIncident,
+                    child: const Text('Atender',
+                      style: TextStyle(
+                        color: AppColors.primaryColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _confirmCloseDialog() {
+    Get.defaultDialog(
+      title: 'Confirmar',
+      backgroundColor: AppColors.white,
+      content: SizedBox(
+        width: double.infinity,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text('Deseja realmente fechar esse incidente?',
+              textAlign: TextAlign.center,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 30),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  InkWell(
+                    onTap: () => {Get.back()},
+                    child: const Text('Cancelar'),
+                  ),
+                  InkWell(
+                    onTap: controller.closeIncident,
+                    child: const Text('Fechar',
+                      style: TextStyle(
+                        color: AppColors.primaryColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
