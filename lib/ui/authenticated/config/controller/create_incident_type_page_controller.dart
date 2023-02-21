@@ -1,12 +1,9 @@
-import 'package:arruma_ufpr_app/app/app_routes.dart';
 import 'package:arruma_ufpr_app/src/commons/exception/api_error_with_message_exception.dart';
 import 'package:arruma_ufpr_app/src/incident/dto/response/incident_type_response_dto.dart';
-import 'package:arruma_ufpr_app/src/incident/dto/response/incident_types_response_dto.dart';
 import 'package:arruma_ufpr_app/src/incident/entity/incident_type.dart';
 import 'package:arruma_ufpr_app/src/incident/repository/incident_type_repository.dart';
 import 'package:arruma_ufpr_app/ui/authenticated/authenticated_controller.dart';
 import 'package:arruma_ufpr_app/ui/authenticated/config/controller/incident_types_page_controller.dart';
-import 'package:arruma_ufpr_app/ui/authenticated/incident/incidents_page_controller.dart';
 import 'package:arruma_ufpr_app/ui/widgets/custom_snack_bar.dart';
 import 'package:arruma_ufpr_app/ui/widgets/my_text_field.dart';
 import 'package:get/get.dart';
@@ -58,7 +55,7 @@ class CreateIncidentTypePageController extends GetxController {
     try {
       incidentTypeResponseDTO = await incidentTypeRepository.getIncidentType(incidentType.value.id!);
     } on Exception catch (e) {
-      CustomSnackBar.showErrorSnackBar('Encontramos um problema ao atender o incidente, por favor tente novamente.');
+      CustomSnackBar.showErrorSnackBar('Encontramos um problema ao buscar o tipo de incidente, por favor tente novamente.');
       return;
     }
 

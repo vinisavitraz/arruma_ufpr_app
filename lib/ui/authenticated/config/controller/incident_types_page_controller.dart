@@ -48,7 +48,7 @@ class IncidentTypesPageController extends GetxController {
       statusResponseDTO = await incidentTypeRepository.deleteIncidentType(incidentType.id!);
     } on Exception catch (e) {
       Get.back();
-      CustomSnackBar.showErrorSnackBar('Encontramos um problema ao procurar os tipos de incidente, por favor tente novamente.');
+      CustomSnackBar.showErrorSnackBar('Encontramos um problema ao remover o tipo de incidente, por favor tente novamente.');
       return;
     }
     List<IncidentType> updatedList = List<IncidentType>.from(listIncidentTypes);
