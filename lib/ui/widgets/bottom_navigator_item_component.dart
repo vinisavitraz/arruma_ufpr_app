@@ -41,11 +41,15 @@ class BottomNavigatorItemComponent extends StatelessWidget {
       onTap: onTap,
       child: Column(
         children: [
-          AppIcon(isActive ? activeIcon : icon, color: isActive ? AppColors.primaryColor : AppColors.primaryAccentColor,),
+          AppIcon(
+            isActive ? activeIcon : icon,
+            color: isActive ? AppColors.primaryColor : AppColors.primaryAccentColor,
+            size: const Size(20, 20),
+          ),
           Text(
             label,
             style: TextStyle(
-                fontSize: 12,
+                fontSize: 10,
                 color: isActive ? AppColors.primaryAccentColor : AppColors.accentGrey,
                 fontWeight: isActive ? FontWeight.bold : FontWeight.normal),
           ),

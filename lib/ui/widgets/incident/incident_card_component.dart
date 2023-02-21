@@ -28,19 +28,6 @@ class IncidentCardComponent extends StatelessWidget {
         padding: EdgeInsets.only(top: 10),
         child: Column(
           children: [
-            // Padding(
-            //   padding: const EdgeInsets.only(left: 30, right: 30, bottom: 15),
-            //   child: Align(
-            //     alignment: Alignment.topLeft,
-            //     child: Text('Incidentes', //DateFormatter.formatStringToDDMMYYHHMM(incident.endDate),
-            //       style: const TextStyle(
-            //         fontWeight: FontWeight.bold,
-            //         fontSize: 16,
-            //         color: AppColors.primaryColor,
-            //       ),
-            //     ),
-            //   ),
-            // ),
             Container(
               padding: const EdgeInsets.all(0),
               decoration: BoxDecoration(
@@ -64,7 +51,7 @@ class IncidentCardComponent extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.all(0),
                     child: Container(
-                      color: AppColors.primaryColor,
+                      color: AppColors.primaryAccentColor,
                       child: Row(
                         children: [
                           Expanded(
@@ -80,18 +67,29 @@ class IncidentCardComponent extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.all(5),
-                    child: Row(
-                      children: [
-                        Text(IncidentMapper.mapStatusName(incident.status!),
-                          style: TextStyle(
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: EdgeInsets.all(5),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: IncidentMapper.mapStatusColor(incident.status!),
+                          border: Border.all(
+                            width: 5,
                             color: IncidentMapper.mapStatusColor(incident.status!),
-                            fontSize: 14,
+                            style: BorderStyle.solid,
+                          ),
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                        ),
+                        child: Text(
+                          IncidentMapper.mapStatusName(incident.status!),
+                          style: TextStyle(
+                            color: AppColors.white,
                             fontWeight: FontWeight.bold,
+                            fontSize: 12,
                           ),
                         ),
-                      ],
+                      ),
                     ),
                   ),
                   Padding(
@@ -135,10 +133,13 @@ class IncidentCardComponent extends StatelessWidget {
                           size: Size(14, 14),
                           color: AppColors.black,
                         ),
-                        Text(incident.incidentTypeName!,
-                          style: const TextStyle(
-                            color: AppColors.black,
-                            fontSize: 14,
+                        Padding(
+                          padding: EdgeInsets.only(left: 10),
+                          child: Text(incident.incidentTypeName!,
+                            style: const TextStyle(
+                              color: AppColors.black,
+                              fontSize: 14,
+                            ),
                           ),
                         ),
                       ],
@@ -153,10 +154,13 @@ class IncidentCardComponent extends StatelessWidget {
                           size: Size(14, 14),
                           color: AppColors.black,
                         ),
-                        Text(incident.locationName!,
-                          style: const TextStyle(
-                            color: AppColors.black,
-                            fontSize: 14,
+                        Padding(
+                          padding: EdgeInsets.only(left: 10),
+                          child: Text(incident.locationName!,
+                            style: const TextStyle(
+                              color: AppColors.black,
+                              fontSize: 14,
+                            ),
                           ),
                         ),
                       ],
@@ -171,10 +175,13 @@ class IncidentCardComponent extends StatelessWidget {
                           size: Size(14, 14),
                           color: AppColors.black,
                         ),
-                        Text(incident.itemName!,
-                          style: const TextStyle(
-                            color: AppColors.black,
-                            fontSize: 14,
+                        Padding(
+                          padding: EdgeInsets.only(left: 10),
+                          child: Text(incident.itemName!,
+                            style: const TextStyle(
+                              color: AppColors.black,
+                              fontSize: 14,
+                            ),
                           ),
                         ),
                       ],

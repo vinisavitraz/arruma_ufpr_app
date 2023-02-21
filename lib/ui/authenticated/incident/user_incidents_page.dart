@@ -56,13 +56,13 @@ class UserIncidentsPage extends GetView<UserIncidentsPageController> {
                   return await Future.value();
                 },
                 child: ListView.separated(
+                  physics: const AlwaysScrollableScrollPhysics(),
                   separatorBuilder: (context, index) => Padding(
                     padding: EdgeInsets.symmetric(vertical: 10),
                     child: DividerComponent(),
                   ),
                   itemCount: listByStatus.length,
                   scrollDirection: Axis.vertical,
-                  physics: BouncingScrollPhysics(),
                   itemBuilder: (BuildContext context, int index) {
                     return IncidentCardComponent(
                       incident: listByStatus[index],

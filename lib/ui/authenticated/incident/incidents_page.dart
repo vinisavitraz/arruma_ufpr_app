@@ -24,7 +24,9 @@ class IncidentsPage extends GetView<IncidentsPageController> {
             Tab(text: 'Geral'),
           ],
         ),
-        title: Text('Incidentes'),
+        title: Text('Incidentes',
+          textAlign: TextAlign.center,
+        ),
       ),
       backgroundColor: AppColors.lightGrey,
       body: TabBarView(
@@ -53,13 +55,13 @@ class IncidentsPage extends GetView<IncidentsPageController> {
                   return await Future.value();
                 },
                 child: ListView.separated(
+                  physics: const AlwaysScrollableScrollPhysics(),
                   separatorBuilder: (context, index) => Padding(
                     padding: EdgeInsets.symmetric(vertical: 10),
                     child: DividerComponent(),
                   ),
                   itemCount: listByStatus.length,
                   scrollDirection: Axis.vertical,
-                  physics: BouncingScrollPhysics(),
                   itemBuilder: (BuildContext context, int index) {
                     return IncidentCardComponent(
                       incident: listByStatus[index],
