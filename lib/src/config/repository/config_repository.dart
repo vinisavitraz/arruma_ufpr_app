@@ -36,7 +36,7 @@ class ConfigRepository {
         ItemProfile(
           name: 'Usuários',
           description: 'Gerenciar usuários',
-          iconName: AppIcons.profile,
+          iconName: AppIcons.user,
           route: AppRoutes.users,
         ),
       );
