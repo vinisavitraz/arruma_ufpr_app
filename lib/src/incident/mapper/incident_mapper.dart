@@ -48,7 +48,7 @@ class IncidentMapper {
       return AppColors.white;
     }
 
-    return Colors.white;
+    return AppColors.primaryAccentColor;
   }
 
 }

@@ -16,7 +16,6 @@ class App extends StatelessWidget {
       title: AppInfo.appName,
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        fontFamily: 'AmbiguityGenerous',
         primarySwatch: AppColors.primaryAccentColor,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),

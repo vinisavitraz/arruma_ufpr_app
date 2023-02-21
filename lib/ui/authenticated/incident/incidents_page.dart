@@ -24,8 +24,8 @@ class IncidentsPage extends GetView<IncidentsPageController> {
             Tab(text: 'Geral'),
           ],
         ),
-        title: Text('Incidentes',
-          textAlign: TextAlign.center,
+        title: Center(
+          child: Text('Incidentes'),
         ),
       ),
       backgroundColor: AppColors.lightGrey,

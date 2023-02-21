@@ -84,7 +84,7 @@ class IncidentCardComponent extends StatelessWidget {
                         child: Text(
                           IncidentMapper.mapStatusName(incident.status!),
                           style: TextStyle(
-                            color: AppColors.white,
+                            color: IncidentMapper.mapStatusTextColor(incident.status!),
                             fontWeight: FontWeight.bold,
                             fontSize: 12,
                           ),

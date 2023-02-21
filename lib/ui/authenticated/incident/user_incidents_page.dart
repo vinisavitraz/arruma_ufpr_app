@@ -27,7 +27,9 @@ class UserIncidentsPage extends GetView<UserIncidentsPageController> {
             Tab(text: 'Geral'),
           ],
         ),
-        title: Text('Meus incidentes'),
+        title: Center(
+          child: Text('Meus incidentes'),
+        ),
       ),
       backgroundColor: AppColors.lightGrey,
       body: TabBarView(
