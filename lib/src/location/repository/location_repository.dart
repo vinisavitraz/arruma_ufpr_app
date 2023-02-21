@@ -1,5 +1,3 @@
-import 'package:arruma_ufpr_app/src/incident/dto/request/create_incident_type_request_dto.dart';
-import 'package:arruma_ufpr_app/src/incident/dto/request/update_incident_type_request_dto.dart';
 import 'package:arruma_ufpr_app/src/incident/dto/response/status_response_dto.dart';
 import 'package:arruma_ufpr_app/src/location/dto/request/create_location_request_dto.dart';
 import 'package:arruma_ufpr_app/src/location/dto/request/update_location_request_dto.dart';

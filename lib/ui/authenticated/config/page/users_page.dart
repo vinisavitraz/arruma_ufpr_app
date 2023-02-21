@@ -2,18 +2,20 @@ import 'package:arruma_ufpr_app/app/app_colors.dart';
 import 'package:arruma_ufpr_app/app/app_icons.dart';
 import 'package:arruma_ufpr_app/ui/authenticated/config/controller/incident_types_page_controller.dart';
 import 'package:arruma_ufpr_app/ui/authenticated/config/controller/profile_page_controller.dart';
+import 'package:arruma_ufpr_app/ui/authenticated/config/controller/users_page_controller.dart';
 import 'package:arruma_ufpr_app/ui/widgets/custom_button.dart';
 import 'package:arruma_ufpr_app/ui/widgets/custom_text_input.dart';
 import 'package:arruma_ufpr_app/ui/widgets/divider_component.dart';
 import 'package:arruma_ufpr_app/ui/widgets/my_app_bar.dart';
+import 'package:arruma_ufpr_app/ui/widgets/user/user_card_component.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
 import '../../../widgets/incident_type/incident_type_card_component.dart';
 
-class IncidentTypesPage extends GetView<IncidentTypesPageController> {
+class UsersPage extends GetView<UsersPageController> {
 
-  const IncidentTypesPage({Key? key}) : super(key: key);
+  const UsersPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,15 +24,15 @@ class IncidentTypesPage extends GetView<IncidentTypesPageController> {
       behavior: HitTestBehavior.translucent,
       child: Scaffold(
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-        floatingActionButton: _createIncidentTypeFloatingButton(context),
+        floatingActionButton: _createUserFloatingButton(context),
         backgroundColor: AppColors.white,
         appBar: const MyAppBar(
-          title: 'Tipos',
+          title: 'Usuários',
         ),
         body: Column(
           children: [
             Obx(() => Visibility(
-              visible: controller.listIncidentTypes.isNotEmpty,
+              visible: controller.listUsers.isNotEmpty,
               child: Expanded(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25),
@@ -39,12 +41,12 @@ class IncidentTypesPage extends GetView<IncidentTypesPageController> {
                       padding: EdgeInsets.symmetric(vertical: 10),
                       child: DividerComponent(),
                     ),
-                    itemCount: controller.listIncidentTypes.length,
+                    itemCount: controller.listUsers.length,
                     scrollDirection: Axis.vertical,
                     physics: BouncingScrollPhysics(),
                     itemBuilder: (BuildContext context, int index) {
-                      return IncidentTypeCardComponent(
-                        incidentType: controller.listIncidentTypes[index],
+                      return UserCardComponent(
+                        user: controller.listUsers[index],
                         //paymentTypeIcon: controller.mapPaymentTypeToIcon(controller.shoppingsList[index]),
                       );
                     },
@@ -53,10 +55,10 @@ class IncidentTypesPage extends GetView<IncidentTypesPageController> {
               ),
             )),
             Obx(() => Visibility(
-              visible: controller.listIncidentTypes.isEmpty,
+              visible: controller.listUsers.isEmpty,
               child: const Expanded(
                 child: Center(
-                  child: Text('Nenhum tipo de incidente encontrado',
+                  child: Text('Nenhum usuário encontrado',
                     style: TextStyle(
                       fontSize: 16,
                       color: AppColors.primaryAccentColor,
@@ -72,13 +74,13 @@ class IncidentTypesPage extends GetView<IncidentTypesPageController> {
     );
   }
 
-  Widget _createIncidentTypeFloatingButton(BuildContext context) {
+  Widget _createUserFloatingButton(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
       child: FloatingActionButton(
         backgroundColor: AppColors.primaryColor,
-        heroTag: "create_incident_type",
-        onPressed: controller.openCreateIncidentTypePage,
+        heroTag: "create_user",
+        onPressed: controller.openCreateUserPage,
         child: const AppIcon(
           AppIcons.plus,
           size: Size(40, 40),

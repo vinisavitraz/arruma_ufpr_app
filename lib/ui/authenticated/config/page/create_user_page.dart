@@ -1,14 +1,15 @@
 import 'package:arruma_ufpr_app/app/app_colors.dart';
-import 'package:arruma_ufpr_app/ui/authenticated/config/controller/create_incident_type_page_controller.dart';
+import 'package:arruma_ufpr_app/ui/authenticated/config/controller/create_user_page_controller.dart';
 import 'package:arruma_ufpr_app/ui/widgets/custom_button.dart';
+import 'package:arruma_ufpr_app/ui/widgets/custom_select_input.dart';
 import 'package:arruma_ufpr_app/ui/widgets/custom_text_input.dart';
 import 'package:arruma_ufpr_app/ui/widgets/my_app_bar.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
-class CreateIncidentTypePage extends GetView<CreateIncidentTypePageController> {
+class CreateUserPage extends GetView<CreateUserPageController> {
 
-  const CreateIncidentTypePage({Key? key}) : super(key: key);
+  const CreateUserPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,7 @@ class CreateIncidentTypePage extends GetView<CreateIncidentTypePageController> {
       child: Scaffold(
         backgroundColor: AppColors.white,
         appBar: const MyAppBar(
-          title: 'Tipo',
+          title: 'Usuário',
         ),
         body: Center(
           child: ListView(
@@ -28,6 +29,10 @@ class CreateIncidentTypePage extends GetView<CreateIncidentTypePageController> {
               _labelErrorMessage(),
               _inputName(),
               _inputEmail(),
+              _inputDocument(),
+              _inputPhone(),
+              _inputAddress(),
+              _inputRole(),
               _buttonSave(),
             ],
           ),
@@ -80,13 +85,63 @@ class CreateIncidentTypePage extends GetView<CreateIncidentTypePageController> {
   Widget _inputEmail() {
     return Obx(() => CustomTextInput(
       paddingInfo: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-      textHint: 'Descrição',
-      onChanged: controller.descriptionField.setValue,
+      textHint: 'Email',
+      onChanged: controller.emailField.setValue,
       autoFocus: false,
-      errorMessage: controller.descriptionField.errorMessage.value,
-      inputEditController: controller.descriptionField.editController,
+      errorMessage: controller.emailField.errorMessage.value,
+      inputEditController: controller.emailField.editController,
+      keyboardType: TextInputType.emailAddress,
+    ),);
+  }
+
+  Widget _inputDocument() {
+    return CustomTextInput(
+      paddingInfo: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+      textHint: 'CPF',
+      onChanged: controller.documentField.setValue,
+      autoFocus: false,
+      errorMessage: controller.documentField.errorMessage.value,
+      inputEditController: controller.documentField.editController,
+      maxLength: 14,
+      mask: controller.documentField.maskFormatter,
+      keyboardType: TextInputType.phone,
+    );
+  }
+
+  Widget _inputPhone() {
+    return Obx(() => CustomTextInput(
+      paddingInfo: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+      textHint: 'Telefone',
+      onChanged: controller.phoneNumberField.setValue,
+      autoFocus: false,
+      errorMessage: controller.phoneNumberField.errorMessage.value,
+      inputEditController: controller.phoneNumberField.editController,
+      maxLength: 25,
+      mask: controller.phoneNumberField.maskFormatter,
+      keyboardType: TextInputType.phone,
+    ),);
+  }
+
+  Widget _inputAddress() {
+    return Obx(() => CustomTextInput(
+      paddingInfo: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+      textHint: 'Endereço',
+      onChanged: controller.addressField.setValue,
+      autoFocus: false,
+      errorMessage: controller.addressField.errorMessage.value,
+      inputEditController: controller.addressField.editController,
       keyboardType: TextInputType.name,
     ),);
+  }
+
+  Widget _inputRole() {
+    return CustomSelectInput(
+      paddingInfo: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+      textField: controller.roleField,
+      textHint: 'Tipo',
+      options: controller.roleOptions,
+      onChanged: controller.roleField.setValue,
+    );
   }
 
   Widget _buttonSave() {

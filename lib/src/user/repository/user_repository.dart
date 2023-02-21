@@ -6,12 +6,32 @@ import 'package:arruma_ufpr_app/src/user/dto/response/status_response_dto.dart';
 import 'package:arruma_ufpr_app/src/user/dto/response/user_response_dto.dart';
 import 'package:arruma_ufpr_app/src/user/entity/user.dart';
 
+import '../dto/response/users_response_dto.dart';
+
 class UserRepository {
 
   Future<AuthenticatedUserInfo> getAuthenticatedUserInfo() async {
     dynamic response = await AppHttpClient.client.get('/auth/authenticated-user-info');
 
     return AuthenticatedUserInfo.fromJson(response.data);
+  }
+
+  Future<UsersResponseDTO> getUsers() async {
+    dynamic response = await AppHttpClient.client.get('/user');
+
+    return UsersResponseDTO.fromJson(response.data);
+  }
+
+  Future<UserResponseDTO> getUser(int userId) async {
+    dynamic response = await AppHttpClient.client.get('/user/$userId');
+
+    return UserResponseDTO.fromJson(response.data);
+  }
+
+  Future<UserResponseDTO> createUser(User user) async {
+    dynamic response = await AppHttpClient.client.post('/user', data: user);
+
+    return UserResponseDTO.fromJson(response.data);
   }
 
   Future<UserResponseDTO> updateUser(User user) async {
@@ -28,6 +48,12 @@ class UserRepository {
 
   Future<StatusResponseDTO> requestResetUserPassword(RequestResetPasswordRequestDTO requestBody) async {
     dynamic response = await AppHttpClient.client.post('/user/reset-password', data: requestBody);
+
+    return StatusResponseDTO.fromJson(response.data);
+  }
+
+  Future<StatusResponseDTO> deleteUser(int userId) async {
+    dynamic response = await AppHttpClient.client.delete('/user/$userId');
 
     return StatusResponseDTO.fromJson(response.data);
   }

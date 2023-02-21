@@ -24,7 +24,7 @@ class LocationsPage extends GetView<LocationsPageController> {
       behavior: HitTestBehavior.translucent,
       child: Scaffold(
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-        floatingActionButton: _createIncidentTypeFloatingButton(context),
+        floatingActionButton: _createLocationsFloatingButton(context),
         backgroundColor: AppColors.white,
         appBar: const MyAppBar(
           title: 'Locais',
@@ -74,7 +74,7 @@ class LocationsPage extends GetView<LocationsPageController> {
     );
   }
 
-  Widget _createIncidentTypeFloatingButton(BuildContext context) {
+  Widget _createLocationsFloatingButton(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
       child: FloatingActionButton(
