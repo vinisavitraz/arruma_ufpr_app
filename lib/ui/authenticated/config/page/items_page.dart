@@ -25,7 +25,7 @@ class ItemsPage extends GetView<ItemsPageController> {
       child: Scaffold(
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
         floatingActionButton: _createItemFloatingButton(context),
-        backgroundColor: AppColors.white,
+        backgroundColor: AppColors.lightGrey,
         appBar: const MyAppBar(
           title: 'Tipos',
         ),

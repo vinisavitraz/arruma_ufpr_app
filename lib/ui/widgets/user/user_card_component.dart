@@ -1,16 +1,10 @@
 import 'package:arruma_ufpr_app/app/app_colors.dart';
 import 'package:arruma_ufpr_app/app/app_icons.dart';
-import 'package:arruma_ufpr_app/src/incident/entity/incident.dart';
-import 'package:arruma_ufpr_app/src/incident/entity/incident_type.dart';
 import 'package:arruma_ufpr_app/src/user/entity/user.dart';
-import 'package:arruma_ufpr_app/ui/authenticated/config/controller/incident_types_page_controller.dart';
 import 'package:arruma_ufpr_app/ui/authenticated/config/controller/users_page_controller.dart';
-import 'package:arruma_ufpr_app/ui/authenticated/incident/incidents_page_controller.dart';
 import 'package:arruma_ufpr_app/ui/widgets/divider_component.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../../../src/incident/mapper/incident_mapper.dart';
 
 class UserCardComponent extends StatelessWidget {
 
@@ -83,11 +77,27 @@ class UserCardComponent extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.all(5),
+                    padding: EdgeInsets.only(left: 20, top: 20),
                     child: Row(
                       children: [
                         Expanded(
                           child: Text(user.email!,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.black,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 20, top: 10, bottom: 20),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Text(user.role! == 0 ? 'Administrador' : 'Usuário',
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               color: AppColors.black,

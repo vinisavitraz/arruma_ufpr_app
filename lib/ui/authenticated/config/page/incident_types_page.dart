@@ -23,7 +23,7 @@ class IncidentTypesPage extends GetView<IncidentTypesPageController> {
       child: Scaffold(
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
         floatingActionButton: _createIncidentTypeFloatingButton(context),
-        backgroundColor: AppColors.white,
+        backgroundColor: AppColors.lightGrey,
         appBar: const MyAppBar(
           title: 'Tipos',
         ),

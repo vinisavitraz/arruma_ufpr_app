@@ -1,16 +1,10 @@
 import 'package:arruma_ufpr_app/app/app_colors.dart';
 import 'package:arruma_ufpr_app/app/app_icons.dart';
-import 'package:arruma_ufpr_app/src/incident/entity/incident.dart';
-import 'package:arruma_ufpr_app/src/incident/entity/incident_type.dart';
 import 'package:arruma_ufpr_app/src/location/entity/location.dart';
-import 'package:arruma_ufpr_app/ui/authenticated/config/controller/incident_types_page_controller.dart';
 import 'package:arruma_ufpr_app/ui/authenticated/config/controller/locations_page_controller.dart';
-import 'package:arruma_ufpr_app/ui/authenticated/incident/incidents_page_controller.dart';
 import 'package:arruma_ufpr_app/ui/widgets/divider_component.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../../../src/incident/mapper/incident_mapper.dart';
 
 class LocationCardComponent extends StatelessWidget {
 
@@ -83,7 +77,7 @@ class LocationCardComponent extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.all(5),
+                    padding: EdgeInsets.all(20),
                     child: Row(
                       children: [
                         Expanded(

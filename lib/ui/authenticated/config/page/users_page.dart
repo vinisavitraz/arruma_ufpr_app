@@ -25,7 +25,7 @@ class UsersPage extends GetView<UsersPageController> {
       child: Scaffold(
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
         floatingActionButton: _createUserFloatingButton(context),
-        backgroundColor: AppColors.white,
+        backgroundColor: AppColors.lightGrey,
         appBar: const MyAppBar(
           title: 'Usuários',
         ),

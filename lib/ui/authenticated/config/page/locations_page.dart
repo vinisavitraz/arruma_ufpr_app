@@ -25,7 +25,7 @@ class LocationsPage extends GetView<LocationsPageController> {
       child: Scaffold(
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
         floatingActionButton: _createLocationsFloatingButton(context),
-        backgroundColor: AppColors.white,
+        backgroundColor: AppColors.lightGrey,
         appBar: const MyAppBar(
           title: 'Locais',
         ),

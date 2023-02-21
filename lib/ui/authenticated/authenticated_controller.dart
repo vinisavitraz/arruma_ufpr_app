@@ -238,7 +238,7 @@ class AuthenticatedController extends GetxController {
     pages.add(ConfigPage());
     items.add(BottomNavigatorItemComponent(
       label: 'Configurações',
-      activeIcon: AppIcons.activeProfile,
+      activeIcon: AppIcons.activeCog,
       icon: AppIcons.cog,
     ));
     //
