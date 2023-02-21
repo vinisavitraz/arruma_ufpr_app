@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 class IncidentsPageController extends GetxController with GetSingleTickerProviderStateMixin {
 
   final AuthenticatedController authenticatedController = Get.find();
-  late final tabController = TabController(vsync: this, length: 4);
+  late final tabController = TabController(vsync: this, length: 4, initialIndex: 1);
   final RxString activeTab = ''.obs;
 
   @override

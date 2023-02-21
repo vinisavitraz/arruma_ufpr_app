@@ -72,10 +72,6 @@ class CreateIncidentPageController extends GetxController {
       showItemForm.value = true;
     }
 
-    if (show) {
-      //selectField.setValue('0');
-    }
-
     showForm.value = show;
   }
 
@@ -166,6 +162,7 @@ class CreateIncidentPageController extends GetxController {
   }
 
   Future<void> createIncident() async {
+    clearErrors();
     String title = titleField.getValue();
     String description = descriptionField.getValue();
     int incidentTypeId = incidentTypeIdField.getValue().isNotEmpty ? int.parse(incidentTypeIdField.getValue()) : 0;
@@ -178,8 +175,62 @@ class CreateIncidentPageController extends GetxController {
     String itemName = itemNameField.getValue();
     String itemDescription = itemDescriptionField.getValue();
 
-    //validate incident fields
+    if (incidentTypeId == 0) {
+      if (showIncidentTypeForm.value) {
+        if (incidentTypeName.isEmpty) {
+          incidentTypeNameField.errorMessage.value = 'Informe o nome';
+          return;
+        }
+        if (incidentTypeDescription.isEmpty) {
+          incidentTypeDescriptionField.errorMessage.value = 'Informe a descrição';
+          return;
+        }
+      } else {
+        incidentTypeIdField.errorMessage.value = 'Selecione o tipo';
+        return;
+      }
+    }
 
+    if (locationId == 0) {
+      if (showLocationForm.value) {
+        if (locationName.isEmpty) {
+          locationNameField.errorMessage.value = 'Informe o nome';
+          return;
+        }
+        if (locationDescription.isEmpty) {
+          locationDescriptionField.errorMessage.value = 'Informe a descrição';
+          return;
+        }
+      } else {
+        locationIdField.errorMessage.value = 'Selecione o local';
+        return;
+      }
+    }
+
+    if (itemId == 0) {
+      if (showItemForm.value) {
+        if (itemName.isEmpty) {
+          itemNameField.errorMessage.value = 'Informe o nome';
+          return;
+        }
+        if (itemDescription.isEmpty) {
+          itemDescriptionField.errorMessage.value = 'Informe a descrição';
+          return;
+        }
+      } else {
+        itemIdField.errorMessage.value = 'Selecione o item';
+        return;
+      }
+    }
+
+    if (title.isEmpty) {
+      titleField.errorMessage.value = 'Informe o título';
+      return;
+    }
+    if (description.isEmpty) {
+      descriptionField.errorMessage.value = 'Informe a descrição';
+      return;
+    }
 
     IncidentResponseDTO incidentResponseDTO;
 
@@ -206,6 +257,20 @@ class CreateIncidentPageController extends GetxController {
     await authenticatedController.refreshIncidentsList();
 
     Get.offNamed(AppRoutes.incident, arguments: {"incident": incidentResponseDTO.entity});
+  }
+
+  void clearErrors() {
+    titleField.errorMessage.value = '';
+    descriptionField.errorMessage.value = '';
+    incidentTypeIdField.errorMessage.value = '';
+    incidentTypeNameField.errorMessage.value = '';
+    incidentTypeDescriptionField.errorMessage.value = '';
+    locationIdField.errorMessage.value = '';
+    locationNameField.errorMessage.value = '';
+    locationDescriptionField.errorMessage.value = '';
+    itemIdField.errorMessage.value = '';
+    itemNameField.errorMessage.value = '';
+    itemDescriptionField.errorMessage.value = '';
   }
 
 }

@@ -46,19 +46,25 @@ class IncidentsPage extends GetView<IncidentsPageController> {
           child: Expanded(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30),
-              child: ListView.separated(
-                separatorBuilder: (context, index) => SizedBox(
-                  height: MediaQuery.of(context).size.height / 10,
-                ),
-                itemCount: listByStatus.length,
-                scrollDirection: Axis.vertical,
-                physics: BouncingScrollPhysics(),
-                itemBuilder: (BuildContext context, int index) {
-                  return IncidentCardComponent(
-                    incident: listByStatus[index],
-                    //paymentTypeIcon: controller.mapPaymentTypeToIcon(controller.shoppingsList[index]),
-                  );
+              child: RefreshIndicator(
+                onRefresh: () async {
+                  controller.authenticatedController.refreshIncidentsList();
+                  return await Future.value();
                 },
+                child: ListView.separated(
+                  separatorBuilder: (context, index) => SizedBox(
+                    height: MediaQuery.of(context).size.height / 10,
+                  ),
+                  itemCount: listByStatus.length,
+                  scrollDirection: Axis.vertical,
+                  physics: BouncingScrollPhysics(),
+                  itemBuilder: (BuildContext context, int index) {
+                    return IncidentCardComponent(
+                      incident: listByStatus[index],
+                      //paymentTypeIcon: controller.mapPaymentTypeToIcon(controller.shoppingsList[index]),
+                    );
+                  },
+                ),
               ),
             ),
           ),

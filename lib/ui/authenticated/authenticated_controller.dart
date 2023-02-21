@@ -76,6 +76,7 @@ class AuthenticatedController extends GetxController {
   }
 
   Future<void> refreshIncidentsList() async {
+    pageLoading.value = true;
     listAllIncidents.assignAll([]);
     listOpenIncidents.assignAll([]);
     listPendingIncidents.assignAll([]);
@@ -90,6 +91,8 @@ class AuthenticatedController extends GetxController {
     await getUserIncidents('aberto', listUserOpenIncidents);
     await getUserIncidents('pendente', listUserPendingIncidents);
     await getUserIncidents('fechado', listUserClosedIncidents);
+
+    pageLoading.value = false;
   }
 
   Future<void> getIncidents(String status, RxList<Incident> listByStatus) async {
