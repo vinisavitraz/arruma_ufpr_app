@@ -3,6 +3,11 @@ abstract class AppRoutes {
   static const login = '/login';
   static const requestResetPassword = '/request-reset-password';
 
+  static const validateEmail = '/validate-email';
+  static const validateDocument = '/validate-document';
+  static const validatePassword = '/validate-password';
+  static const validateUserInfo = '/validate-user-info';
+
   static const authenticatedBase = '/authenticated-base';
 
   static const incident = '/incident';

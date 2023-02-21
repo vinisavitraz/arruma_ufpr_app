@@ -16,6 +16,13 @@ import 'package:arruma_ufpr_app/ui/authenticated/incident/incident_page_binding.
 import 'package:arruma_ufpr_app/ui/unauthenticated/login/login_page.dart';
 import 'package:arruma_ufpr_app/ui/unauthenticated/login/login_page_binding.dart';
 import 'package:arruma_ufpr_app/ui/unauthenticated/password/request_reset_password_page.dart';
+import 'package:arruma_ufpr_app/ui/unauthenticated/register/bindings/document_validation_page_controller_binding.dart';
+import 'package:arruma_ufpr_app/ui/unauthenticated/register/bindings/email_validation_page_controller_binding.dart';
+import 'package:arruma_ufpr_app/ui/unauthenticated/register/bindings/password_validation_page_controller_binding.dart';
+import 'package:arruma_ufpr_app/ui/unauthenticated/register/page/document_validation_page.dart';
+import 'package:arruma_ufpr_app/ui/unauthenticated/register/page/email_validation_page.dart';
+import 'package:arruma_ufpr_app/ui/unauthenticated/register/page/password_validation_page.dart';
+import 'package:arruma_ufpr_app/ui/unauthenticated/register/page/user_info_validation_page.dart';
 import 'package:get/get.dart';
 import '../ui/authenticated/authenticated_binding.dart';
 import '../ui/authenticated/config/binding/create_incident_type_page_binding.dart';
@@ -29,6 +36,7 @@ import '../ui/authenticated/config/binding/update_password_page_binding.dart';
 import '../ui/authenticated/config/binding/users_page_binding.dart';
 import '../ui/authenticated/config/page/profile_page.dart';
 import '../ui/unauthenticated/password/request_reset_password_page_binding.dart';
+import '../ui/unauthenticated/register/bindings/user_info_validation_page_controller_binding.dart';
 import 'app_routes.dart';
 
 class AppPages {
@@ -43,6 +51,26 @@ class AppPages {
         name: AppRoutes.requestResetPassword,
         page: () => const RequestResetPasswordPage(),
         binding: RequestResetPasswordPageBinding()
+    ),
+    GetPage(
+        name: AppRoutes.validateEmail,
+        page: () => const EmailValidationPage(),
+        binding: EmailValidationPageBinding()
+    ),
+    GetPage(
+        name: AppRoutes.validateDocument,
+        page: () => const DocumentValidationPage(),
+        binding: DocumentValidationPageBinding()
+    ),
+    GetPage(
+        name: AppRoutes.validateUserInfo,
+        page: () => const UserInfoValidationPage(),
+        binding: UserInfoValidationPageBinding()
+    ),
+    GetPage(
+        name: AppRoutes.validatePassword,
+        page: () => const PasswordValidationPage(),
+        binding: PasswordValidationPageBinding()
     ),
     GetPage(
         name: AppRoutes.authenticatedBase,

@@ -24,10 +24,10 @@ class LoginPage extends GetView<LoginPageController> {
           child: ListView(
             shrinkWrap: true,
             children: [
-              _imageMIB(context),
+              _imageLogo(context),
               _formUserLogin(context),
               _divider(),
-              //_textCreateUser(),
+              _textCreateUser(),
             ],
           ),
         ),
@@ -35,7 +35,7 @@ class LoginPage extends GetView<LoginPageController> {
     );
   }
 
-  Widget _imageMIB(BuildContext context) {
+  Widget _imageLogo(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(30),
       child: Image.asset(

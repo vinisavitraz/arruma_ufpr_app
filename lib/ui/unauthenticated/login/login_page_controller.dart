@@ -57,7 +57,7 @@ class LoginPageController extends GetxController {
   }
 
   void navigateToRegister() {
-    //Get.toNamed(AppRoutes.REGISTER);
+    Get.toNamed(AppRoutes.validateEmail);
   }
 
   void resetPassword() {
@@ -66,9 +66,9 @@ class LoginPageController extends GetxController {
 
   @override
   void dispose() {
-    // emailField.editController.dispose();
-    // passwordField.editController.dispose();
-    // super.dispose();
+    emailField.editController.dispose();
+    passwordField.editController.dispose();
+    super.dispose();
   }
 
 }
