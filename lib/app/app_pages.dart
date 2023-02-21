@@ -1,8 +1,11 @@
 import 'package:arruma_ufpr_app/ui/authenticated/authenticated_base_page.dart';
+import 'package:arruma_ufpr_app/ui/authenticated/config/binding/create_item_page_binding.dart';
 import 'package:arruma_ufpr_app/ui/authenticated/config/page/create_incident_type_page.dart';
+import 'package:arruma_ufpr_app/ui/authenticated/config/page/create_item_page.dart';
 import 'package:arruma_ufpr_app/ui/authenticated/config/page/create_location_page.dart';
 import 'package:arruma_ufpr_app/ui/authenticated/config/page/create_user_page.dart';
 import 'package:arruma_ufpr_app/ui/authenticated/config/page/incident_types_page.dart';
+import 'package:arruma_ufpr_app/ui/authenticated/config/page/items_page.dart';
 import 'package:arruma_ufpr_app/ui/authenticated/config/page/locations_page.dart';
 import 'package:arruma_ufpr_app/ui/authenticated/config/page/update_password_page.dart';
 import 'package:arruma_ufpr_app/ui/authenticated/config/page/users_page.dart';
@@ -19,6 +22,7 @@ import '../ui/authenticated/config/binding/create_incident_type_page_binding.dar
 import '../ui/authenticated/config/binding/create_location_page_binding.dart';
 import '../ui/authenticated/config/binding/create_user_page_binding.dart';
 import '../ui/authenticated/config/binding/incident_types_page_binding.dart';
+import '../ui/authenticated/config/binding/items_page_binding.dart';
 import '../ui/authenticated/config/binding/locations_page_binding.dart';
 import '../ui/authenticated/config/binding/profile_page_binding.dart';
 import '../ui/authenticated/config/binding/update_password_page_binding.dart';
@@ -74,6 +78,16 @@ class AppPages {
         name: AppRoutes.createLocation,
         page: () => const CreateLocationPage(),
         binding: CreateLocationPageBinding()
+    ),
+    GetPage(
+        name: AppRoutes.items,
+        page: () => const ItemsPage(),
+        binding: ItemsPageBinding()
+    ),
+    GetPage(
+        name: AppRoutes.createItem,
+        page: () => const CreateItemPage(),
+        binding: CreateItemPageBinding()
     ),
     GetPage(
         name: AppRoutes.users,

@@ -1,14 +1,15 @@
 import 'package:arruma_ufpr_app/app/app_colors.dart';
-import 'package:arruma_ufpr_app/ui/authenticated/config/controller/create_incident_type_page_controller.dart';
+import 'package:arruma_ufpr_app/ui/authenticated/config/controller/create_item_page_controller.dart';
 import 'package:arruma_ufpr_app/ui/widgets/custom_button.dart';
+import 'package:arruma_ufpr_app/ui/widgets/custom_select_input.dart';
 import 'package:arruma_ufpr_app/ui/widgets/custom_text_input.dart';
 import 'package:arruma_ufpr_app/ui/widgets/my_app_bar.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
-class CreateIncidentTypePage extends GetView<CreateIncidentTypePageController> {
+class CreateItemPage extends GetView<CreateItemPageController> {
 
-  const CreateIncidentTypePage({Key? key}) : super(key: key);
+  const CreateItemPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,7 @@ class CreateIncidentTypePage extends GetView<CreateIncidentTypePageController> {
       child: Scaffold(
         backgroundColor: AppColors.white,
         appBar: const MyAppBar(
-          title: 'Tipo',
+          title: 'Item',
         ),
         body: Center(
           child: ListView(
@@ -27,7 +28,8 @@ class CreateIncidentTypePage extends GetView<CreateIncidentTypePageController> {
               _labelDescription(),
               _labelErrorMessage(),
               _inputName(),
-              _inputEmail(),
+              _inputDescription(),
+              _selectLocation(),
               _buttonSave(),
             ],
           ),
@@ -77,7 +79,7 @@ class CreateIncidentTypePage extends GetView<CreateIncidentTypePageController> {
     ),);
   }
 
-  Widget _inputEmail() {
+  Widget _inputDescription() {
     return Obx(() => CustomTextInput(
       paddingInfo: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
       textHint: 'Descrição',
@@ -87,6 +89,16 @@ class CreateIncidentTypePage extends GetView<CreateIncidentTypePageController> {
       inputEditController: controller.descriptionField.editController,
       keyboardType: TextInputType.name,
     ),);
+  }
+
+  Widget _selectLocation() {
+    return CustomSelectInput(
+      paddingInfo: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+      textField: controller.locationIdField,
+      textHint: 'Local',
+      options: controller.locationOptions,
+      onChanged: controller.locationIdField.setValue,
+    );
   }
 
   Widget _buttonSave() {
