@@ -34,7 +34,7 @@ class ConfigPageController extends GetxController {
     List<ItemProfile> configGroups;
 
     try {
-      configGroups = configRepository.fetchConfigGroups();
+      configGroups = configRepository.fetchConfigGroups(authenticatedController.authenticatedUser.value.role! == 0);
     } on Exception catch (e) {
       //CustomSnackBar.showErrorSnackBar('Encontramos um problema ao procurar as configurações, por favor tente novamente.');
       Get.snackbar('Erro!', e.toString());

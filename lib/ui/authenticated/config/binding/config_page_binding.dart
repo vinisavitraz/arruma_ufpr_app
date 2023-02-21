@@ -1,6 +1,6 @@
 import 'package:arruma_ufpr_app/src/config/repository/config_repository.dart';
 import 'package:get/get.dart';
-import 'config_page_controller.dart';
+import '../controller/config_page_controller.dart';
 
 class ConfigPageBinding implements Bindings {
 

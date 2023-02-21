@@ -48,7 +48,7 @@ class LoginPageController extends GetxController {
       passwordField.errorMessage.value = e.errorMessage;
       return;
     } on Exception catch (e) {
-      CustomSnackBar.showErrorSnackBar('Erro durante autenticação do usuário. Tente novamente.');
+      CustomSnackBar.showErrorSnackBar('Erro durante autenticação do usuário. Tente novamente.' + e.toString());
       return;
     }
 

@@ -8,7 +8,7 @@ import 'package:arruma_ufpr_app/src/incident/entity/incident.dart';
 import 'package:arruma_ufpr_app/src/incident/repository/incident_repository.dart';
 import 'package:arruma_ufpr_app/src/user/entity/user.dart';
 import 'package:arruma_ufpr_app/src/user/repository/user_repository.dart';
-import 'package:arruma_ufpr_app/ui/authenticated/config/config_page.dart';
+import 'package:arruma_ufpr_app/ui/authenticated/config/page/config_page.dart';
 import 'package:arruma_ufpr_app/ui/authenticated/incident/incidents_page.dart';
 import 'package:arruma_ufpr_app/ui/authenticated/incident/user_incidents_page.dart';
 import 'package:arruma_ufpr_app/ui/widgets/custom_snack_bar.dart';

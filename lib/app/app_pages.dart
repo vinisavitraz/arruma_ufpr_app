@@ -1,5 +1,7 @@
 import 'package:arruma_ufpr_app/ui/authenticated/authenticated_base_page.dart';
-import 'package:arruma_ufpr_app/ui/authenticated/config/update_password_page.dart';
+import 'package:arruma_ufpr_app/ui/authenticated/config/page/create_incident_type_page.dart';
+import 'package:arruma_ufpr_app/ui/authenticated/config/page/incident_types_page.dart';
+import 'package:arruma_ufpr_app/ui/authenticated/config/page/update_password_page.dart';
 import 'package:arruma_ufpr_app/ui/authenticated/incident/create_incident_page.dart';
 import 'package:arruma_ufpr_app/ui/authenticated/incident/create_incident_page_binding.dart';
 import 'package:arruma_ufpr_app/ui/authenticated/incident/incident_page.dart';
@@ -9,9 +11,11 @@ import 'package:arruma_ufpr_app/ui/unauthenticated/login/login_page_binding.dart
 import 'package:arruma_ufpr_app/ui/unauthenticated/password/request_reset_password_page.dart';
 import 'package:get/get.dart';
 import '../ui/authenticated/authenticated_binding.dart';
-import '../ui/authenticated/config/profile_page.dart';
-import '../ui/authenticated/config/profile_page_binding.dart';
-import '../ui/authenticated/config/update_password_page_binding.dart';
+import '../ui/authenticated/config/binding/create_incident_type_page_binding.dart';
+import '../ui/authenticated/config/binding/incident_types_page_binding.dart';
+import '../ui/authenticated/config/binding/profile_page_binding.dart';
+import '../ui/authenticated/config/binding/update_password_page_binding.dart';
+import '../ui/authenticated/config/page/profile_page.dart';
 import '../ui/unauthenticated/password/request_reset_password_page_binding.dart';
 import 'app_routes.dart';
 
@@ -42,6 +46,16 @@ class AppPages {
         name: AppRoutes.createIncident,
         page: () => const CreateIncidentPage(),
         binding: CreateIncidentPageBinding()
+    ),
+    GetPage(
+        name: AppRoutes.incidentTypes,
+        page: () => const IncidentTypesPage(),
+        binding: IncidentTypesPageBinding()
+    ),
+    GetPage(
+        name: AppRoutes.createIncidentType,
+        page: () => const CreateIncidentTypePage(),
+        binding: CreateIncidentTypePageBinding()
     ),
     GetPage(
         name: AppRoutes.updatePassword,

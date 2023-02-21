@@ -1,6 +1,6 @@
 import 'package:arruma_ufpr_app/app/app_colors.dart';
-import 'package:arruma_ufpr_app/ui/authenticated/config/profile_page_controller.dart';
-import 'package:arruma_ufpr_app/ui/authenticated/config/update_password_page_controller.dart';
+import 'package:arruma_ufpr_app/ui/authenticated/config/controller/profile_page_controller.dart';
+import 'package:arruma_ufpr_app/ui/authenticated/config/controller/update_password_page_controller.dart';
 import 'package:arruma_ufpr_app/ui/widgets/custom_button.dart';
 import 'package:arruma_ufpr_app/ui/widgets/custom_password_input.dart';
 import 'package:arruma_ufpr_app/ui/widgets/custom_text_input.dart';

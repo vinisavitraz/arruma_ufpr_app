@@ -41,15 +41,16 @@ class ListItemsProfileComponent extends StatelessWidget {
         Expanded(
           child: Obx(() => ListView.separated(
             separatorBuilder: (context, index) =>
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.03,
-            ),
+            DividerComponent(),
+            // SizedBox(
+            //   height: MediaQuery.of(context).size.height * 0.01,
+            // ),
             itemCount: listItems.length,
             scrollDirection: Axis.vertical,
             physics: const BouncingScrollPhysics(),
             itemBuilder: (BuildContext context, int index) {
               return Padding(
-                padding: const EdgeInsets.only(top: 30),
+                padding: const EdgeInsets.only(top: 10),
                 child: InkWell(
                   onTap: () => {onTap(index)},
                   child: ItemProfileComponent(config: listItems[index]),

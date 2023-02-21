@@ -187,7 +187,7 @@ class IncidentCardComponent extends StatelessWidget {
                       alignment: Alignment.center,
                       child: Padding(
                         padding: EdgeInsets.all(5),
-                        child: Text('Acessar incidente',
+                        child: Text('Detalhes',
                           style: TextStyle(
                             color: AppColors.white,
                             fontWeight: FontWeight.bold,

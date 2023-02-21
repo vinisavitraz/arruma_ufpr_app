@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'bottom_navigator_component.dart';
 import 'bottom_navigator_item_component.dart';
-//import 'package:mib_app/app/app.dart';
 
 class BottomNavigator extends StatelessWidget {
 
