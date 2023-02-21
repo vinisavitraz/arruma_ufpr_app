@@ -12,6 +12,7 @@ class ItemsPageController extends GetxController {
   final ItemRepository itemRepository;
 
   final RxList<Item> listItems = <Item>[].obs;
+  final RxBool pageLoading = true.obs;
 
   ItemsPageController({
     required this.itemRepository,
@@ -30,9 +31,11 @@ class ItemsPageController extends GetxController {
     try {
       itemsResponseDTO = await itemRepository.getItems();
     } on Exception catch (e) {
+      pageLoading.value = false;
       CustomSnackBar.showErrorSnackBar('Encontramos um problema ao procurar os itens, por favor tente novamente.');
       return;
     }
+    pageLoading.value = false;
 
     if (itemsResponseDTO.items == null) {
       return;

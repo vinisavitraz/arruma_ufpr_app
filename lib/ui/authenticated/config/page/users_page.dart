@@ -29,9 +29,13 @@ class UsersPage extends GetView<UsersPageController> {
         appBar: const MyAppBar(
           title: 'Usuários',
         ),
-        body: Column(
+        body: Obx(() => controller.pageLoading.value ?
+            const Center(
+            child: CircularProgressIndicator(),
+            ) :
+        Column(
           children: [
-            Obx(() => Visibility(
+            Visibility(
               visible: controller.listUsers.isNotEmpty,
               child: Expanded(
                 child: Padding(
@@ -53,8 +57,8 @@ class UsersPage extends GetView<UsersPageController> {
                   ),
                 ),
               ),
-            )),
-            Obx(() => Visibility(
+            ),
+            Visibility(
               visible: controller.listUsers.isEmpty,
               child: const Expanded(
                 child: Center(
@@ -67,11 +71,11 @@ class UsersPage extends GetView<UsersPageController> {
                   ),
                 ),
               ),
-            )),
+            ),
           ],
         ),
       ),
-    );
+    ));
   }
 
   Widget _createUserFloatingButton(BuildContext context) {

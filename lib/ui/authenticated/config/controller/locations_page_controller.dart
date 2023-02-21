@@ -15,6 +15,7 @@ class LocationsPageController extends GetxController {
   final AuthenticatedController authenticatedController = Get.find();
   final LocationRepository locationRepository;
   final RxList<Location> listLocations = <Location>[].obs;
+  final RxBool pageLoading = true.obs;
 
   LocationsPageController({
     required this.locationRepository,
@@ -33,9 +34,11 @@ class LocationsPageController extends GetxController {
     try {
       locationsResponseDTO = await locationRepository.getLocations();
     } on Exception catch (e) {
+      pageLoading.value = false;
       CustomSnackBar.showErrorSnackBar('Encontramos um problema ao procurar os tipos de incidente, por favor tente novamente.');
       return;
     }
+    pageLoading.value = false;
 
     if (locationsResponseDTO.locations == null) {
       return;

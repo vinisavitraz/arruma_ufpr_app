@@ -29,9 +29,13 @@ class ItemsPage extends GetView<ItemsPageController> {
         appBar: const MyAppBar(
           title: 'Tipos',
         ),
-        body: Column(
+        body: Obx(() => controller.pageLoading.value ?
+          const Center(
+          child: CircularProgressIndicator(),
+          ) :
+        Column(
           children: [
-            Obx(() => Visibility(
+            Visibility(
               visible: controller.listItems.isNotEmpty,
               child: Expanded(
                 child: Padding(
@@ -53,12 +57,12 @@ class ItemsPage extends GetView<ItemsPageController> {
                   ),
                 ),
               ),
-            )),
-            Obx(() => Visibility(
+            ),
+            Visibility(
               visible: controller.listItems.isEmpty,
               child: const Expanded(
                 child: Center(
-                  child: Text('Nenhum tipo de incidente encontrado',
+                  child: Text('Nenhum item encontrado',
                     style: TextStyle(
                       fontSize: 16,
                       color: AppColors.primaryAccentColor,
@@ -67,11 +71,11 @@ class ItemsPage extends GetView<ItemsPageController> {
                   ),
                 ),
               ),
-            )),
+            ),
           ],
         ),
       ),
-    );
+    ));
   }
 
   Widget _createItemFloatingButton(BuildContext context) {

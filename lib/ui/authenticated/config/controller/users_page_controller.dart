@@ -18,6 +18,7 @@ class UsersPageController extends GetxController {
   final AuthenticatedController authenticatedController = Get.find();
   final UserRepository userRepository;
   final RxList<User> listUsers = <User>[].obs;
+  final RxBool pageLoading = true.obs;
 
   UsersPageController({
     required this.userRepository,
@@ -36,9 +37,11 @@ class UsersPageController extends GetxController {
     try {
       usersResponseDTO = await userRepository.getUsers();
     } on Exception catch (e) {
+      pageLoading.value = false;
       CustomSnackBar.showErrorSnackBar('Encontramos um problema ao procurar os usuários, por favor tente novamente.');
       return;
     }
+    pageLoading.value = false;
 
     if (usersResponseDTO.users == null) {
       return;

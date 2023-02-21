@@ -27,9 +27,13 @@ class IncidentTypesPage extends GetView<IncidentTypesPageController> {
         appBar: const MyAppBar(
           title: 'Tipos',
         ),
-        body: Column(
+        body: Obx(() => controller.pageLoading.value ?
+          const Center(
+            child: CircularProgressIndicator(),
+          ) :
+        Column(
           children: [
-            Obx(() => Visibility(
+            Visibility(
               visible: controller.listIncidentTypes.isNotEmpty,
               child: Expanded(
                 child: Padding(
@@ -51,8 +55,8 @@ class IncidentTypesPage extends GetView<IncidentTypesPageController> {
                   ),
                 ),
               ),
-            )),
-            Obx(() => Visibility(
+            ),
+            Visibility(
               visible: controller.listIncidentTypes.isEmpty,
               child: const Expanded(
                 child: Center(
@@ -65,9 +69,9 @@ class IncidentTypesPage extends GetView<IncidentTypesPageController> {
                   ),
                 ),
               ),
-            )),
+            ),
           ],
-        ),
+        ),),
       ),
     );
   }

@@ -14,7 +14,7 @@ class AuthenticatedBasePage extends GetView<AuthenticatedController> {
     return Scaffold(
       body: Center(
         child: Obx(() => controller.pageLoading.value ?
-        Center(
+        const Center(
           child: CircularProgressIndicator(),
         ) :
         Column(

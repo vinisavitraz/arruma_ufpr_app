@@ -13,6 +13,8 @@ class IncidentTypesPageController extends GetxController {
   final IncidentTypeRepository incidentTypeRepository;
   final RxList<IncidentType> listIncidentTypes = <IncidentType>[].obs;
 
+  final RxBool pageLoading = true.obs;
+
   IncidentTypesPageController({
     required this.incidentTypeRepository,
   });
@@ -30,9 +32,11 @@ class IncidentTypesPageController extends GetxController {
     try {
       incidentTypesResponseDTO = await incidentTypeRepository.getIncidentTypes();
     } on Exception catch (e) {
+      pageLoading.value = false;
       CustomSnackBar.showErrorSnackBar('Encontramos um problema ao procurar os tipos de incidente, por favor tente novamente.');
       return;
     }
+    pageLoading.value = false;
 
     if (incidentTypesResponseDTO.incidentTypes == null) {
       return;

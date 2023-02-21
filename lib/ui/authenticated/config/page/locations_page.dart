@@ -29,9 +29,13 @@ class LocationsPage extends GetView<LocationsPageController> {
         appBar: const MyAppBar(
           title: 'Locais',
         ),
-        body: Column(
+        body: Obx(() => controller.pageLoading.value ?
+          const Center(
+          child: CircularProgressIndicator(),
+          ) :
+        Column(
           children: [
-            Obx(() => Visibility(
+            Visibility(
               visible: controller.listLocations.isNotEmpty,
               child: Expanded(
                 child: Padding(
@@ -53,8 +57,8 @@ class LocationsPage extends GetView<LocationsPageController> {
                   ),
                 ),
               ),
-            )),
-            Obx(() => Visibility(
+            ),
+            Visibility(
               visible: controller.listLocations.isEmpty,
               child: const Expanded(
                 child: Center(
@@ -67,11 +71,11 @@ class LocationsPage extends GetView<LocationsPageController> {
                   ),
                 ),
               ),
-            )),
+            ),
           ],
         ),
       ),
-    );
+    ));
   }
 
   Widget _createLocationsFloatingButton(BuildContext context) {

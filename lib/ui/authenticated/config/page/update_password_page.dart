@@ -33,16 +33,6 @@ class UpdatePasswordPage extends GetView<UpdatePasswordPageController> {
                 padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
                 child: Column(
                   children: [
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text('Nova senha',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: AppColors.black,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
                     Obx(() => CustomPasswordInput(
                       textHint: 'Nova senha',
                       onChanged: controller.newPasswordField.setValue,
@@ -52,18 +42,8 @@ class UpdatePasswordPage extends GetView<UpdatePasswordPageController> {
                       obscureText: controller.newPasswordField.hideContent.value,
                       inputEditController: controller.newPasswordField.editController,
                     ),),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text('Repetir nova senha',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: AppColors.black,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
                     Obx(() => CustomPasswordInput(
-                      textHint: 'Repetir nova senha',
+                      textHint: 'Confirmar nova senha',
                       onChanged: controller.repeatedNewPasswordField.setValue,
                       errorMessage: controller.repeatedNewPasswordField.errorMessage.value,
                       eyeClicked: controller.repeatedNewPasswordField.show,
