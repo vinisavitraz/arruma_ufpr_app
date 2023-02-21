@@ -22,6 +22,8 @@ class AppIcons {
   static const plus = '${pathIcons}plus.svg';
 
   static const key = '${pathIcons}key.svg';
+  static const trash = '${pathIcons}trash.svg';
+
   static const logout = '${pathIcons}logout.svg';
 
 }

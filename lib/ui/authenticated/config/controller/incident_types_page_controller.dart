@@ -2,6 +2,7 @@ import 'package:arruma_ufpr_app/app/app_routes.dart';
 import 'package:arruma_ufpr_app/src/incident/dto/response/incident_types_response_dto.dart';
 import 'package:arruma_ufpr_app/src/incident/entity/incident_type.dart';
 import 'package:arruma_ufpr_app/src/incident/repository/incident_type_repository.dart';
+import 'package:arruma_ufpr_app/src/user/dto/response/status_response_dto.dart';
 import 'package:arruma_ufpr_app/ui/authenticated/authenticated_controller.dart';
 import 'package:arruma_ufpr_app/ui/widgets/custom_snack_bar.dart';
 import 'package:get/get.dart';
@@ -40,12 +41,29 @@ class IncidentTypesPageController extends GetxController {
     listIncidentTypes.assignAll(incidentTypesResponseDTO.incidentTypes!);
   }
 
+  Future<void> deleteIncidentType(IncidentType incidentType) async {
+    StatusResponseDTO statusResponseDTO;
+
+    try {
+      statusResponseDTO = await incidentTypeRepository.deleteIncidentType(incidentType.id!);
+    } on Exception catch (e) {
+      Get.back();
+      CustomSnackBar.showErrorSnackBar('Encontramos um problema ao procurar os tipos de incidente, por favor tente novamente.');
+      return;
+    }
+    List<IncidentType> updatedList = List<IncidentType>.from(listIncidentTypes);
+    updatedList.removeAt(updatedList.indexWhere((element) => element.id == incidentType.id));
+    listIncidentTypes.assignAll(updatedList);
+
+    Get.back();
+  }
+
   void openCreateIncidentTypePage() {
     Get.toNamed(AppRoutes.createIncidentType);
   }
 
-  void showIncidentTypeDetail(IncidentType incidentType) {
-    //go to create incidet detail page
+  void showEditIncidentTypePage(IncidentType incidentType) {
+    Get.toNamed(AppRoutes.createIncidentType, arguments: {"incidentType": incidentType});
   }
 
 }

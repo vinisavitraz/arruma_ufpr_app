@@ -8,6 +8,7 @@ class CreateIncidentTypePageBinding implements Bindings {
   void dependencies() {
     Get.lazyPut<CreateIncidentTypePageController>(() {
       return CreateIncidentTypePageController(
+        incidentTypeRepository: IncidentTypeRepository(),
       );
     });
   }

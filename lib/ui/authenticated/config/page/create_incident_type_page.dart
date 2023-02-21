@@ -37,16 +37,16 @@ class CreateIncidentTypePage extends GetView<CreateIncidentTypePageController> {
   }
 
   Widget _labelDescription() {
-    return const Padding(
+    return Obx(() => Padding(
       padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-      child: Text('Editar dados',
+      child: Text(controller.labelDescription.value,
         style: TextStyle(
             fontSize: 18,
             color: AppColors.black
         ),
         textAlign: TextAlign.center,
       ),
-    );
+    ),);
   }
 
   Widget _labelErrorMessage() {
