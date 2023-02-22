@@ -4,6 +4,8 @@ import 'package:arruma_ufpr_app/src/item/entity/item.dart';
 import 'package:arruma_ufpr_app/src/item/repository/item_repository.dart';
 import 'package:arruma_ufpr_app/ui/authenticated/authenticated_controller.dart';
 import 'package:arruma_ufpr_app/ui/widgets/custom_snack_bar.dart';
+import 'package:arruma_ufpr_app/ui/widgets/my_text_field.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ItemsPageController extends GetxController {
@@ -12,7 +14,12 @@ class ItemsPageController extends GetxController {
   final ItemRepository itemRepository;
 
   final RxList<Item> listItems = <Item>[].obs;
+  final RxList<Item> originalListSearchItems = <Item>[].obs;
+  final RxList<Item> filteredListSearchItems = <Item>[].obs;
+
   final RxBool pageLoading = true.obs;
+  final MyTextField searchField = MyTextField();
+  final RxBool searching = false.obs;
 
   ItemsPageController({
     required this.itemRepository,
@@ -66,6 +73,59 @@ class ItemsPageController extends GetxController {
 
   void showEditItemPage(Item item) {
     Get.toNamed(AppRoutes.createItem, arguments: {"item": item});
+  }
+
+  void setField(MyTextField field, String value) {
+    if (!searching.value) {
+      searchField.setValue('');
+      searching.value = true;
+      originalListSearchItems.assignAll(listItems);
+    }
+
+    bool filterMore = true;
+
+    if (field.getValue().length > value.length) {
+      filterMore = false;
+    }
+
+    field.errorMessage.value = null;
+    field.setValue(value);
+
+    filterIncidentTypesList(value, filterMore);
+  }
+
+  Future<void> filterIncidentTypesList(String value, bool filterMore) async {
+    if (value.isEmpty) {
+      listItems.assignAll(originalListSearchItems);
+      return;
+    }
+
+    if (filterMore) {
+      filteredListSearchItems.assignAll(listItems.where((i) => matchItem(i, value)));
+    } else {
+      listItems.assignAll(originalListSearchItems);
+      filteredListSearchItems.assignAll(listItems.where((i) => matchItem(i, value)));
+    }
+
+    listItems.assignAll(filteredListSearchItems);
+  }
+
+  bool matchItem(Item item, String value) {
+    return item.id!.toString().toUpperCase().contains(value.toUpperCase())
+        || item.name!.toUpperCase().contains(value.toUpperCase())
+        || item.description!.toUpperCase().contains(value.toUpperCase())
+        || item.locationName!.toUpperCase().contains(value.toUpperCase());
+  }
+
+  Future<void> onCancelSearch() async {
+    FocusManager.instance.primaryFocus?.unfocus();
+
+    if (searching.value) {
+      searchField.setValue('');
+      searching.value = false;
+      listItems.assignAll(originalListSearchItems);
+      return;
+    }
   }
 
 }

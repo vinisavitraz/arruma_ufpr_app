@@ -35,6 +35,7 @@ class UsersPage extends GetView<UsersPageController> {
             ) :
         Column(
           children: [
+            _inputSearch(),
             Visibility(
               visible: controller.listUsers.isNotEmpty,
               child: Expanded(
@@ -94,6 +95,45 @@ class UsersPage extends GetView<UsersPageController> {
     );
   }
 
-
+  Widget _inputSearch() {
+    return Obx(() => Row(
+      children: [
+        Expanded(
+          child: CustomTextInput(
+            paddingInfo: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+            textHint: 'Pesquisar',
+            onChanged: (value) {
+              controller.setField(controller.searchField, value);
+            },
+            autoFocus: false,
+            textColor: AppColors.black,
+            textHintColor: AppColors.primaryAccentColor,
+            errorMessage: controller.searchField.errorMessage.value,
+            inputEditController: controller.searchField.editController,
+            keyboardType: TextInputType.name,
+          ),
+        ),
+        Visibility(
+          visible: controller.searching.value,
+          child: Align(
+            alignment: Alignment.centerRight,
+            child: Padding(
+              padding: EdgeInsets.only(right: 15),
+              child: InkWell(
+                onTap: controller.onCancelSearch,
+                child: const Text('Cancelar',
+                  style: TextStyle(
+                    color: AppColors.red,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
+    ));
+  }
 
 }
