@@ -26,15 +26,20 @@ class DocumentValidationPageController extends GetxController {
 
     String document = registerPageController.documentField.maskFormatter!.getUnmaskedText();
 
+    pageLoading.value = true;
+
     try {
       await userRepository.getUserByDocument(document);
     } on ApiErrorWithMessageException catch (e) {
-      registerPageController.documentField.errorMessage.value = 'Esse documento já está cadastrado';
+      pageLoading.value = false;
+      registerPageController.documentField.errorMessage.value = e.errorMessage;
       return;
     } on Exception catch (e) {
+      pageLoading.value = false;
       registerPageController.documentField.errorMessage.value = 'Falha ao validar documento';
       return;
     }
+    pageLoading.value = false;
 
     registerPageController.userWithPassword.value.document = document;
     FocusManager.instance.primaryFocus?.unfocus();

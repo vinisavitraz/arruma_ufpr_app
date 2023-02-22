@@ -31,7 +31,7 @@ class EmailValidationPageController extends GetxController {
       await userRepository.getUserByEmail(registerPageController.emailField.getValue());
     } on ApiErrorWithMessageException catch (e) {
       pageLoading.value = false;
-      registerPageController.emailField.errorMessage.value = 'Esse email já está cadastrado';
+      registerPageController.emailField.errorMessage.value = e.errorMessage;
       return;
     } on Exception catch (e) {
       pageLoading.value = false;

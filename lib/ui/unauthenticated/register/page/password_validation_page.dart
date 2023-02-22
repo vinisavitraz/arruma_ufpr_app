@@ -21,11 +21,16 @@ class PasswordValidationPage extends GetView<PasswordValidationPageController> {
           title: 'Senha',
         ),
         backgroundColor: AppColors.white,
-        body: Center(
+        body: Obx(() => controller.pageLoading.value ?
+          Center(
+          child: CircularProgressIndicator(),
+          ) :
+        Center(
           child: ListView(
             shrinkWrap: true,
             children: [
               _labelChoosePassword(),
+              _labelErrorMessage(),
               _inputPassword(),
               _inputPasswordValidation(),
               _buttonChoosePassword(),
@@ -35,7 +40,7 @@ class PasswordValidationPage extends GetView<PasswordValidationPageController> {
           ),
         ),
       ),
-    );
+    ));
   }
 
   Widget _labelChoosePassword() {
@@ -49,6 +54,23 @@ class PasswordValidationPage extends GetView<PasswordValidationPageController> {
         textAlign: TextAlign.center,
       ),
     );
+  }
+
+  Widget _labelErrorMessage() {
+    return Obx(() => Visibility(
+      visible: controller.errorMessage.value.isNotEmpty,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 20),
+        child: Text(controller.errorMessage.value,
+          style: const TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+              color: AppColors.red
+          ),
+          textAlign: TextAlign.center,
+        ),
+      ),
+    ),);
   }
 
   Widget _inputPassword() {

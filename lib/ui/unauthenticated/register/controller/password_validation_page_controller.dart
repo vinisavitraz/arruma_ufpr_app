@@ -46,6 +46,8 @@ class PasswordValidationPageController extends GetxController {
   Future<void> createUser() async {
     registerPageController.userWithPassword.value.role = 1;
 
+    pageLoading.value = true;
+
     try {
       await userRepository.registerUser(registerPageController.userWithPassword.value);
     } on ApiErrorWithMessageException catch (e) {

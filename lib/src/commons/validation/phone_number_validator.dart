@@ -44,7 +44,7 @@ class PhoneNumberValidator {
       return false;
     }
 
-    if (phoneNumber.length < 9 || phoneNumber.length > 11) {
+    if (!(phoneNumber.length >= 10 && phoneNumber.length <= 11)) {
       return false;
     }
 
