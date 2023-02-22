@@ -84,6 +84,7 @@ class ProfilePage extends GetView<ProfilePageController> {
     return Obx(() => CustomTextInput(
       paddingInfo: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
       textHint: 'Email',
+      enabled: false,
       onChanged: controller.emailField.setValue,
       autoFocus: false,
       errorMessage: controller.emailField.errorMessage.value,

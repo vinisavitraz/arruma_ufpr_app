@@ -86,9 +86,9 @@ class CreateUserPage extends GetView<CreateUserPageController> {
     return Obx(() => CustomTextInput(
       paddingInfo: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
       textHint: 'Email',
-      enabled: false,
       onChanged: controller.emailField.setValue,
       autoFocus: false,
+      enabled: controller.create.value,
       errorMessage: controller.emailField.errorMessage.value,
       inputEditController: controller.emailField.editController,
       keyboardType: TextInputType.emailAddress,
@@ -96,18 +96,18 @@ class CreateUserPage extends GetView<CreateUserPageController> {
   }
 
   Widget _inputDocument() {
-    return CustomTextInput(
+    return Obx(() => CustomTextInput(
       paddingInfo: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
       textHint: 'CPF',
       onChanged: controller.documentField.setValue,
-      enabled: false,
       autoFocus: false,
+      enabled: controller.create.value,
       errorMessage: controller.documentField.errorMessage.value,
       inputEditController: controller.documentField.editController,
       maxLength: 14,
       mask: controller.documentField.maskFormatter,
       keyboardType: TextInputType.phone,
-    );
+    ),);
   }
 
   Widget _inputPhone() {
