@@ -95,17 +95,17 @@ class UserIncidentsPage extends GetView<UserIncidentsPageController> {
         body: TabBarView(
           controller: controller.tabController,
           children: [
-            buildIncidentList('Aberto', controller.authenticatedController.listUserOpenIncidents),
-            buildIncidentList('Atendimento', controller.authenticatedController.listUserPendingIncidents),
-            buildIncidentList('Finalizado', controller.authenticatedController.listUserClosedIncidents),
-            buildIncidentList('Geral', controller.authenticatedController.listUserAllIncidents),
+            buildIncidentList(context, 'Aberto', controller.authenticatedController.listUserOpenIncidents),
+            buildIncidentList(context, 'Atendimento', controller.authenticatedController.listUserPendingIncidents),
+            buildIncidentList(context, 'Finalizado', controller.authenticatedController.listUserClosedIncidents),
+            buildIncidentList(context, 'Geral', controller.authenticatedController.listUserAllIncidents),
           ],
         ),
       ),
     );
   }
 
-  Widget buildIncidentList(String status, RxList listByStatus) {
+  Widget buildIncidentList(BuildContext context, String status, RxList listByStatus) {
     return Column(
       children: [
         Obx(() => Visibility(
@@ -138,13 +138,25 @@ class UserIncidentsPage extends GetView<UserIncidentsPageController> {
         )),
         Obx(() => Visibility(
           visible: listByStatus.isEmpty,
-          child: const Expanded(
-            child: Center(
-              child: Text('Nenhum incidente encontrado',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: AppColors.primaryAccentColor,
-                  fontWeight: FontWeight.bold,
+          child: Expanded(
+            child: RefreshIndicator(
+              onRefresh: () async {
+                controller.authenticatedController.refreshIncidentsList();
+                return await Future.value();
+              },
+              child: SingleChildScrollView(
+                physics: AlwaysScrollableScrollPhysics(),
+                child: Container(
+                  child: Center(
+                    child: Text('Nenhum incidente encontrado',
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: AppColors.primaryAccentColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  height: MediaQuery.of(context).size.height,
                 ),
               ),
             ),
