@@ -41,7 +41,7 @@ class IncidentTypesPage extends GetView<IncidentTypesPageController> {
                   padding: const EdgeInsets.symmetric(horizontal: 25),
                   child: RefreshIndicator(
                     onRefresh: () async {
-                      controller.authenticatedController.refreshIncidentsList();
+                      controller.getIncidentTypes();
                       return await Future.value();
                     },
                     child: ListView.separated(

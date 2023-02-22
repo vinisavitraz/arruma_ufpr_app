@@ -41,19 +41,25 @@ class LocationsPage extends GetView<LocationsPageController> {
               child: Expanded(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25),
-                  child: ListView.separated(
-                    separatorBuilder: (context, index) => Padding(
-                      padding: EdgeInsets.symmetric(vertical: 10),
-                      child: DividerComponent(),
-                    ),
-                    itemCount: controller.listLocations.length,
-                    scrollDirection: Axis.vertical,
-                    physics: BouncingScrollPhysics(),
-                    itemBuilder: (BuildContext context, int index) {
-                      return LocationCardComponent(
-                        location: controller.listLocations[index],
-                      );
+                  child: RefreshIndicator(
+                    onRefresh: () async {
+                      controller.getLocations();
+                      return await Future.value();
                     },
+                    child: ListView.separated(
+                      separatorBuilder: (context, index) => Padding(
+                        padding: EdgeInsets.symmetric(vertical: 10),
+                        child: DividerComponent(),
+                      ),
+                      itemCount: controller.listLocations.length,
+                      scrollDirection: Axis.vertical,
+                      physics: BouncingScrollPhysics(),
+                      itemBuilder: (BuildContext context, int index) {
+                        return LocationCardComponent(
+                          location: controller.listLocations[index],
+                        );
+                      },
+                    ),
                   ),
                 ),
               ),

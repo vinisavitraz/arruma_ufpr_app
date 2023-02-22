@@ -41,19 +41,25 @@ class ItemsPage extends GetView<ItemsPageController> {
               child: Expanded(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25),
-                  child: ListView.separated(
-                    separatorBuilder: (context, index) => Padding(
-                      padding: EdgeInsets.symmetric(vertical: 10),
-                      child: DividerComponent(),
-                    ),
-                    itemCount: controller.listItems.length,
-                    scrollDirection: Axis.vertical,
-                    physics: BouncingScrollPhysics(),
-                    itemBuilder: (BuildContext context, int index) {
-                      return ItemCardComponent(
-                        item: controller.listItems[index],
-                      );
+                  child: RefreshIndicator(
+                    onRefresh: () async {
+                      controller.getItems();
+                      return await Future.value();
                     },
+                    child: ListView.separated(
+                      separatorBuilder: (context, index) => Padding(
+                        padding: EdgeInsets.symmetric(vertical: 10),
+                        child: DividerComponent(),
+                      ),
+                      itemCount: controller.listItems.length,
+                      scrollDirection: Axis.vertical,
+                      physics: BouncingScrollPhysics(),
+                      itemBuilder: (BuildContext context, int index) {
+                        return ItemCardComponent(
+                          item: controller.listItems[index],
+                        );
+                      },
+                    ),
                   ),
                 ),
               ),
