@@ -58,7 +58,7 @@ class UserIncidentsPage extends GetView<UserIncidentsPageController> {
                     onTap: controller.onCancelSearch,
                     child: const Text('Cancelar',
                       style: TextStyle(
-                        color: AppColors.white,
+                        color: AppColors.red,
                         fontWeight: FontWeight.bold,
                         fontSize: 12,
                       ),
