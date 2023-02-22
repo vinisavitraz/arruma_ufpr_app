@@ -206,7 +206,7 @@ class AuthenticatedController extends GetxController {
     try {
      await authRepository.logoutUser();
     } on Exception catch (e) {
-      CustomSnackBar.showErrorSnackBar('Encontramos um problema durante o logout.');
+      //CustomSnackBar.showErrorSnackBar('Encontramos um problema durante o logout.');
     } finally {
       await authRepository.removeToken();
       Get.offAllNamed(AppRoutes.login);

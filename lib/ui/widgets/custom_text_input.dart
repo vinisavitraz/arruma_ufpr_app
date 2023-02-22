@@ -16,6 +16,8 @@ class CustomTextInput extends StatelessWidget {
   final TextInputType keyboardType;
   final bool enabled;
   final int maxLines;
+  final Color textColor;
+  final Color textHintColor;
 
   const CustomTextInput({
     Key? key,
@@ -30,6 +32,8 @@ class CustomTextInput extends StatelessWidget {
     this.keyboardType = TextInputType.text,
     this.enabled = true,
     this.maxLines = 1,
+    this.textColor = AppColors.black,
+    this.textHintColor = AppColors.grey,
   }) : super(key: key);
 
   @override
@@ -63,13 +67,13 @@ class CustomTextInput extends StatelessWidget {
             borderSide: const BorderSide(width: 4, color: AppColors.primaryColor),
             borderRadius: BorderRadius.circular(10),
           ),
-          hintStyle: const TextStyle(
-            color: AppColors.grey,
+          hintStyle: TextStyle(
+            color: textHintColor,
           ),
         ),
-        style: const TextStyle(
+        style: TextStyle(
           fontSize: 18,
-          color: AppColors.black,
+          color: textColor,
         ),
         onChanged: (value) {
           onChanged(value);

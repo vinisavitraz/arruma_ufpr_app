@@ -79,7 +79,6 @@ class CreateItemPageController extends GetxController {
       locations.add(SelectItem(text: location.name!, value: location.id!.toString()));
     }
     locationOptions.assignAll(locations);
-    print('assing locationOptions ${locationOptions.length}');
   }
 
   Future<void> getItem() async {

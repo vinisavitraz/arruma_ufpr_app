@@ -1,5 +1,6 @@
 import 'package:arruma_ufpr_app/app/app_colors.dart';
 import 'package:arruma_ufpr_app/app/app_icons.dart';
+import 'package:arruma_ufpr_app/ui/widgets/custom_text_input.dart';
 import 'package:arruma_ufpr_app/ui/widgets/divider_component.dart';
 import 'package:arruma_ufpr_app/ui/widgets/incident/incident_card_component.dart';
 import 'package:get/get.dart';
@@ -12,34 +13,94 @@ class UserIncidentsPage extends GetView<UserIncidentsPageController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      floatingActionButton: _createIncidentFloatingButton(context),
-      appBar: AppBar(
-        backgroundColor: AppColors.primaryAccentColor,
-        bottom: TabBar(
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      behavior: HitTestBehavior.translucent,
+      child: Scaffold(
+        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+        floatingActionButton: _createIncidentFloatingButton(context),
+        appBar: AppBar(
+          backgroundColor: AppColors.primaryAccentColor,
+          bottom: TabBar(
+            controller: controller.tabController,
+            isScrollable: true,
+            tabs: [
+              Tab(text: 'Aberto'),
+              Tab(text: 'Atendimento'),
+              Tab(text: 'Finalizado'),
+              Tab(text: 'Geral'),
+            ],
+          ),
+          title: Obx(() =>
+          controller.searching.value ?
+          Row(
+            children: [
+              Expanded(
+                child: CustomTextInput(
+                  paddingInfo: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                  textHint: 'Pesquisar',
+                  onChanged: (value) {
+                    controller.setField(controller.search, value);
+                  },
+                  autoFocus: false,
+                  textColor: AppColors.white,
+                  textHintColor: AppColors.white,
+                  errorMessage: controller.search.errorMessage.value,
+                  inputEditController: controller.search.editController,
+                  keyboardType: TextInputType.name,
+                ),
+              ),
+              Align(
+                alignment: Alignment.centerRight,
+                child: Padding(
+                  padding: EdgeInsets.only(right: 15),
+                  child: InkWell(
+                    onTap: controller.onCancelSearch,
+                    child: const Text('Cancelar',
+                      style: TextStyle(
+                        color: AppColors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          )
+              :
+          Row(
+            children: [
+              Expanded(
+                child: Center(
+                  child: Text('Meus incidentes'),
+                ),
+              ),
+              Align(
+                alignment: Alignment.centerRight,
+                child: InkWell(
+                  onTap: controller.searchIncidents,
+                  child: AppIcon(
+                    AppIcons.search,
+                    size: Size(20, 20),
+                    color: AppColors.white,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          ),
+        ),
+        backgroundColor: AppColors.lightGrey,
+        body: TabBarView(
           controller: controller.tabController,
-          isScrollable: true,
-          tabs: [
-            Tab(text: 'Aberto'),
-            Tab(text: 'Atendimento'),
-            Tab(text: 'Finalizado'),
-            Tab(text: 'Geral'),
+          children: [
+            buildIncidentList('Aberto', controller.authenticatedController.listUserOpenIncidents),
+            buildIncidentList('Atendimento', controller.authenticatedController.listUserPendingIncidents),
+            buildIncidentList('Finalizado', controller.authenticatedController.listUserClosedIncidents),
+            buildIncidentList('Geral', controller.authenticatedController.listUserAllIncidents),
           ],
         ),
-        title: Center(
-          child: Text('Meus incidentes'),
-        ),
-      ),
-      backgroundColor: AppColors.lightGrey,
-      body: TabBarView(
-        controller: controller.tabController,
-        children: [
-          buildIncidentList('Aberto', controller.authenticatedController.listUserOpenIncidents),
-          buildIncidentList('Atendimento', controller.authenticatedController.listUserPendingIncidents),
-          buildIncidentList('Finalizado', controller.authenticatedController.listUserClosedIncidents),
-          buildIncidentList('Geral', controller.authenticatedController.listUserAllIncidents),
-        ],
       ),
     );
   }

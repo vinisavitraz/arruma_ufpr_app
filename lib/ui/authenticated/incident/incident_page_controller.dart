@@ -80,7 +80,6 @@ class IncidentPageController extends GetxController {
   }
 
   Future<void> closeIncident() async {
-    print('closeIncident');
     StatusResponseDTO statusResponseDTO;
 
     try {

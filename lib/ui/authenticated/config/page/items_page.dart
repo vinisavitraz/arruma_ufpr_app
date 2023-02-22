@@ -27,7 +27,7 @@ class ItemsPage extends GetView<ItemsPageController> {
         floatingActionButton: _createItemFloatingButton(context),
         backgroundColor: AppColors.lightGrey,
         appBar: const MyAppBar(
-          title: 'Tipos',
+          title: 'Itens',
         ),
         body: Obx(() => controller.pageLoading.value ?
           const Center(

@@ -11,6 +11,8 @@ class AppIcons {
   static const profile = '${pathIcons}profile.svg';
   static const activeProfile = '${pathIcons}active_profile.svg';
 
+  static const search = '${pathIcons}search.svg';
+
   static const incidentType = '${pathIcons}incident_type.svg';
   static const location = '${pathIcons}location.svg';
   static const item = '${pathIcons}item.svg';

@@ -86,6 +86,7 @@ class CreateUserPage extends GetView<CreateUserPageController> {
     return Obx(() => CustomTextInput(
       paddingInfo: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
       textHint: 'Email',
+      enabled: false,
       onChanged: controller.emailField.setValue,
       autoFocus: false,
       errorMessage: controller.emailField.errorMessage.value,
@@ -99,6 +100,7 @@ class CreateUserPage extends GetView<CreateUserPageController> {
       paddingInfo: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
       textHint: 'CPF',
       onChanged: controller.documentField.setValue,
+      enabled: false,
       autoFocus: false,
       errorMessage: controller.documentField.errorMessage.value,
       inputEditController: controller.documentField.editController,
