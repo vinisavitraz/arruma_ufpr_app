@@ -1,17 +1,16 @@
 import 'package:arruma_ufpr_app/app/app_colors.dart';
 import 'package:arruma_ufpr_app/app/app_icons.dart';
 import 'package:arruma_ufpr_app/src/incident/entity/incident.dart';
-import 'package:arruma_ufpr_app/ui/authenticated/incident/incidents_page_controller.dart';
 import 'package:arruma_ufpr_app/ui/widgets/divider_component.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../../src/incident/mapper/incident_mapper.dart';
+import '../../authenticated/authenticated_controller.dart';
 
 class IncidentCardComponent extends StatelessWidget {
 
   final Incident incident;
-  final IncidentsPageController incidentsPageController = Get.find();
+  final AuthenticatedController authenticatedController = Get.find();
 
   IncidentCardComponent({
     Key? key,
@@ -22,7 +21,7 @@ class IncidentCardComponent extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => {
-        incidentsPageController.authenticatedController.showIncidentDetail(incident)
+        authenticatedController.showIncidentDetail(incident)
       },
       child: Padding(
         padding: EdgeInsets.only(top: 10),

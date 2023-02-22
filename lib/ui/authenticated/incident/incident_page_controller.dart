@@ -47,7 +47,7 @@ class IncidentPageController extends GetxController {
     incident.value = Get.arguments['incident'];
 
     showAssignIncident.value = incident.value.status == 'aberto' && authenticatedController.authenticatedUser.value.role! == 0;
-    showCloseIncident.value = incident.value.status != 'fechado';
+    showCloseIncident.value = incident.value.status != 'fechado' && authenticatedController.authenticatedUser.value.role! == 0;
     showNewInteraction.value = incident.value.status != 'fechado';
 
     await getIncidentInteractions();
