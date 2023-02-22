@@ -52,7 +52,6 @@ class ItemsPage extends GetView<ItemsPageController> {
                     itemBuilder: (BuildContext context, int index) {
                       return ItemCardComponent(
                         item: controller.listItems[index],
-                        //paymentTypeIcon: controller.mapPaymentTypeToIcon(controller.shoppingsList[index]),
                       );
                     },
                   ),

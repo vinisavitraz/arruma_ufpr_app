@@ -52,7 +52,6 @@ class UsersPage extends GetView<UsersPageController> {
                     itemBuilder: (BuildContext context, int index) {
                       return UserCardComponent(
                         user: controller.listUsers[index],
-                        //paymentTypeIcon: controller.mapPaymentTypeToIcon(controller.shoppingsList[index]),
                       );
                     },
                   ),

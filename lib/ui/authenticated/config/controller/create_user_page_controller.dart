@@ -1,22 +1,16 @@
 import 'package:arruma_ufpr_app/src/commons/exception/api_error_with_message_exception.dart';
 import 'package:arruma_ufpr_app/src/commons/validation/name_validator.dart';
 import 'package:arruma_ufpr_app/src/commons/validation/phone_number_validator.dart';
-import 'package:arruma_ufpr_app/src/location/dto/response/location_response_dto.dart';
-import 'package:arruma_ufpr_app/src/location/entity/location.dart';
-import 'package:arruma_ufpr_app/src/location/repository/location_repository.dart';
 import 'package:arruma_ufpr_app/src/ui/select_item.dart';
 import 'package:arruma_ufpr_app/src/user/dto/response/user_response_dto.dart';
 import 'package:arruma_ufpr_app/src/user/entity/user.dart';
 import 'package:arruma_ufpr_app/src/user/repository/user_repository.dart';
 import 'package:arruma_ufpr_app/ui/authenticated/authenticated_controller.dart';
-import 'package:arruma_ufpr_app/ui/authenticated/config/controller/locations_page_controller.dart';
 import 'package:arruma_ufpr_app/ui/authenticated/config/controller/users_page_controller.dart';
 import 'package:arruma_ufpr_app/ui/widgets/custom_snack_bar.dart';
 import 'package:arruma_ufpr_app/ui/widgets/my_text_field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import '../../../../src/location/dto/request/create_location_request_dto.dart';
-import '../../../../src/location/dto/request/update_location_request_dto.dart';
 
 class CreateUserPageController extends GetxController {
 

@@ -3,21 +3,14 @@ import 'package:arruma_ufpr_app/src/config/entity/item_profile.dart';
 import 'package:arruma_ufpr_app/src/config/repository/config_repository.dart';
 import 'package:arruma_ufpr_app/ui/authenticated/authenticated_controller.dart';
 import 'package:get/get.dart';
-// import 'package:mib_app/app/app.dart';
-// import 'package:mib_app/domain/domain.dart';
-// import 'package:mib_app/ui/authenticated/authenticated_controller.dart';
-// import 'package:mib_app/ui/component/component.dart';
 
 class ConfigPageController extends GetxController {
 
-  // final AuthRepository authRepository;
   final ConfigRepository configRepository;
-  //
   final AuthenticatedController authenticatedController = Get.find();
 
   ConfigPageController({
     required this.configRepository,
-    // required this.configRepository,
   });
 
   List<ItemProfile> listItems = List<ItemProfile>.empty(growable: true).obs;
@@ -36,7 +29,6 @@ class ConfigPageController extends GetxController {
     try {
       configGroups = configRepository.fetchConfigGroups(authenticatedController.authenticatedUser.value.role! == 0);
     } on Exception catch (e) {
-      //CustomSnackBar.showErrorSnackBar('Encontramos um problema ao procurar as configurações, por favor tente novamente.');
       Get.snackbar('Erro!', e.toString());
       return;
     }

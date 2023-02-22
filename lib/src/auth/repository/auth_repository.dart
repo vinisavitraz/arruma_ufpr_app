@@ -4,7 +4,6 @@ import 'package:arruma_ufpr_app/src/auth/dto/request/auth_user_request_dto.dart'
 import 'package:arruma_ufpr_app/src/auth/dto/response/auth_response_dto.dart';
 import 'package:arruma_ufpr_app/src/auth/dto/response/logout_response_dto.dart';
 import 'package:arruma_ufpr_app/src/auth/dto/response/validate_token_response_dto.dart';
-import 'package:arruma_ufpr_app/src/auth/entity/authenticated_user_info.dart';
 import 'package:arruma_ufpr_app/src/auth/entity/token.dart';
 
 class AuthRepository {
@@ -77,33 +76,5 @@ class AuthRepository {
 
     return true;
   }
-  //
-  // Future<UpdateUserPasswordResponseDTO> updateUserPassword(UpdateUserPasswordRequestDTO updateUserPasswordRequestDTO) async {
-  //   var response = await AppHttpClient.client.put('/ws/auth/update-password', data: updateUserPasswordRequestDTO);
-  //   UpdateUserPasswordResponseDTO updateUserPasswordResponseDTO = UpdateUserPasswordResponseDTO.fromJson(response.data);
-  //
-  //   Token renewedToken = Token(
-  //       token: updateUserPasswordResponseDTO.token!,
-  //       tokenExpirationDate: updateUserPasswordResponseDTO.tokenExpirationDate!
-  //   );
-  //
-  //   await Cache.saveObject('token', renewedToken);
-  //
-  //   return updateUserPasswordResponseDTO;
-  // }
-  //
-  // Future<UpdateUserPasswordResponseDTO> resetUserPassword(ResetUserPasswordRequestDTO resetUserPasswordRequestDTO) async {
-  //   var response = await AppHttpClient.client.put('/ws/auth/reset-password', data: resetUserPasswordRequestDTO);
-  //   UpdateUserPasswordResponseDTO updateUserPasswordResponseDTO = UpdateUserPasswordResponseDTO.fromJson(response.data);
-  //
-  //   Token renewedToken = Token(
-  //       token: updateUserPasswordResponseDTO.token!,
-  //       tokenExpirationDate: updateUserPasswordResponseDTO.tokenExpirationDate!
-  //   );
-  //
-  //   await Cache.saveObject('token', renewedToken);
-  //
-  //   return updateUserPasswordResponseDTO;
-  // }
 
 }

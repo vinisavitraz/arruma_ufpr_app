@@ -1,11 +1,7 @@
 import 'package:arruma_ufpr_app/app/app_routes.dart';
-import 'package:arruma_ufpr_app/src/incident/dto/response/incident_types_response_dto.dart';
-import 'package:arruma_ufpr_app/src/incident/entity/incident_type.dart';
-import 'package:arruma_ufpr_app/src/incident/repository/incident_type_repository.dart';
 import 'package:arruma_ufpr_app/src/location/dto/response/locations_response_dto.dart';
 import 'package:arruma_ufpr_app/src/location/entity/location.dart';
 import 'package:arruma_ufpr_app/src/location/repository/location_repository.dart';
-import 'package:arruma_ufpr_app/src/user/dto/response/status_response_dto.dart';
 import 'package:arruma_ufpr_app/ui/authenticated/authenticated_controller.dart';
 import 'package:arruma_ufpr_app/ui/widgets/custom_snack_bar.dart';
 import 'package:arruma_ufpr_app/ui/widgets/my_text_field.dart';

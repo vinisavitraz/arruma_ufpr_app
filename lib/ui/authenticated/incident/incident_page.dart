@@ -106,7 +106,7 @@ class IncidentPage extends GetView<IncidentPageController> {
                               color: IncidentMapper.mapStatusColor(controller.incident.value.status!),
                               border: Border.all(
                                 width: 1,
-                                color: AppColors.lighterGrey,
+                                color: AppColors.lightGrey,
                                 style: BorderStyle.solid,
                               ),
                               borderRadius: BorderRadius.all(Radius.circular(20)),

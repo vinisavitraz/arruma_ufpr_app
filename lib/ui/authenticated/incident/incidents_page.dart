@@ -127,7 +127,6 @@ class IncidentsPage extends GetView<IncidentsPageController> {
                   itemBuilder: (BuildContext context, int index) {
                     return IncidentCardComponent(
                       incident: listByStatus[index],
-                      //paymentTypeIcon: controller.mapPaymentTypeToIcon(controller.shoppingsList[index]),
                     );
                   },
                 ),

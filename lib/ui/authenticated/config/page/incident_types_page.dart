@@ -50,7 +50,6 @@ class IncidentTypesPage extends GetView<IncidentTypesPageController> {
                     itemBuilder: (BuildContext context, int index) {
                       return IncidentTypeCardComponent(
                         incidentType: controller.listIncidentTypes[index],
-                        //paymentTypeIcon: controller.mapPaymentTypeToIcon(controller.shoppingsList[index]),
                       );
                     },
                   ),

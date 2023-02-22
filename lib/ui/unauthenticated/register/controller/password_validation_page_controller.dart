@@ -4,7 +4,6 @@ import 'package:arruma_ufpr_app/src/auth/dto/response/auth_response_dto.dart';
 import 'package:arruma_ufpr_app/src/auth/repository/auth_repository.dart';
 import 'package:arruma_ufpr_app/src/commons/exception/api_error_with_message_exception.dart';
 import 'package:arruma_ufpr_app/src/commons/validation/password_validator.dart';
-import 'package:arruma_ufpr_app/src/user/dto/response/user_response_dto.dart';
 import 'package:arruma_ufpr_app/src/user/repository/user_repository.dart';
 import 'package:arruma_ufpr_app/ui/unauthenticated/register/controller/register_page_controller.dart';
 import 'package:flutter/material.dart';

@@ -52,7 +52,6 @@ class LocationsPage extends GetView<LocationsPageController> {
                     itemBuilder: (BuildContext context, int index) {
                       return LocationCardComponent(
                         location: controller.listLocations[index],
-                        //paymentTypeIcon: controller.mapPaymentTypeToIcon(controller.shoppingsList[index]),
                       );
                     },
                   ),

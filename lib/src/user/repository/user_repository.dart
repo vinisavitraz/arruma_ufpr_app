@@ -5,7 +5,6 @@ import 'package:arruma_ufpr_app/src/user/dto/request/update_user_password_reques
 import 'package:arruma_ufpr_app/src/user/dto/response/status_response_dto.dart';
 import 'package:arruma_ufpr_app/src/user/dto/response/user_response_dto.dart';
 import 'package:arruma_ufpr_app/src/user/entity/user.dart';
-
 import '../dto/response/users_response_dto.dart';
 import '../entity/user_with_password.dart';
 

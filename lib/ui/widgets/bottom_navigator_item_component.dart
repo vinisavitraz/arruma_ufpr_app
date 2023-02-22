@@ -1,7 +1,6 @@
 import 'package:arruma_ufpr_app/app/app_colors.dart';
 import 'package:arruma_ufpr_app/app/app_icons.dart';
 import 'package:flutter/material.dart';
-//import 'package:mib_app/app/app.dart';
 
 class BottomNavigatorItemComponent extends StatelessWidget {
   final String label;
@@ -50,7 +49,7 @@ class BottomNavigatorItemComponent extends StatelessWidget {
             label,
             style: TextStyle(
                 fontSize: 10,
-                color: isActive ? AppColors.primaryAccentColor : AppColors.accentGrey,
+                color: isActive ? AppColors.primaryColor : AppColors.primaryAccentColor,
                 fontWeight: isActive ? FontWeight.bold : FontWeight.normal),
           ),
         ],

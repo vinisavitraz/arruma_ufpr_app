@@ -21,9 +21,6 @@ class AuthenticatedController extends GetxController {
   final RxBool pageLoading = true.obs;
   final RxInt tabIndex = 0.obs;
   final Rx<User> authenticatedUser = User().obs;
-  // final RxString userName = ''.obs;
-  // final RxInt userId = 0.obs;
-  // final RxBool admin = false.obs;
 
   final AuthRepository authRepository;
   final UserRepository userRepository;
@@ -47,7 +44,6 @@ class AuthenticatedController extends GetxController {
     required this.authRepository,
     required this.userRepository,
     required this.incidentRepository,
-    // required this.shopRepository,
   });
 
   @override
@@ -61,7 +57,6 @@ class AuthenticatedController extends GetxController {
 
     AuthenticatedUserInfo authenticatedUserInfo = await userRepository.getAuthenticatedUserInfo();
     authenticatedUser.value = authenticatedUserInfo.authenticatedUserInfo;
-    print('Active user info: ${authenticatedUser.value.email}');
 
     await refreshIncidentsList();
 
@@ -102,7 +97,6 @@ class AuthenticatedController extends GetxController {
       incidentsResponseDTO = await incidentRepository.getIncidents(status);
     } on Exception catch (e) {
       CustomSnackBar.showErrorSnackBar('Encontramos um problema ao procurar os incidentes, por favor tente novamente.');
-      //await clearMarketInformation(marketId.value);
       return;
     }
 
@@ -124,7 +118,6 @@ class AuthenticatedController extends GetxController {
       incidentsResponseDTO = await incidentRepository.getUserIncidents(status);
     } on Exception catch (e) {
       CustomSnackBar.showErrorSnackBar('Encontramos um problema ao procurar os incidentes, por favor tente novamente.');
-      //await clearMarketInformation(marketId.value);
       return;
     }
 
@@ -138,62 +131,7 @@ class AuthenticatedController extends GetxController {
     list.addAll(incidentsResponseDTO.incidents!);
     listUserAllIncidents.assignAll(list);
   }
-  //
-  // void showMarketInformation(Market market) {
-  //   print('showMarketInformation');
-  //   marketName.value = market.name;
-  //   marketAddress.value = market.address;
-  //   print(market.imagePath);
-  //   marketImagePath.value = market.imagePath;
-  // }
-  //
-  // Future<void> clearMarketInformation(int marketId) async {
-  //   marketSet.value = false;
-  //   marketName.value = 'Desconectado';
-  //   marketAddress.value = '';
-  //   shopController.clearShopInformation();
-  //
-  //   if (marketId > 0) {
-  //     await FirebaseMessaging.instance.unsubscribeFromTopic('MARKET_$marketId');
-  //   }
-  // }
-  //
-  // Future<void> setupFirebaseToken() async {
-  //   String? token = await FirebaseMessaging.instance.getToken();
-  //   await saveTokenToDatabase(token!);
-  //   FirebaseMessaging.instance.onTokenRefresh.listen(saveTokenToDatabase);
-  // }
-  //
-  // Future<void> saveTokenToDatabase(String token) async {
-  //   await userRepository.setUserDeviceToken(SetUserDeviceTokenRequestDTO(
-  //     userId: userId.value,
-  //     token: token,
-  //   ));
-  // }
-  //
-  // void _handleMessage(RemoteMessage message) {
-  //   print('_handleMessage');
-  //   message.data.forEach((key, value) {
-  //     print(key);
-  //     print(value);
-  //   });
-  //
-  //   final String route = getRouteByNotificationType(message);
-  //   Get.toNamed(route);
-  // }
-  //
-  // String getRouteByNotificationType(RemoteMessage notification) {
-  //   if (notification.data['page'] == 'chat') {
-  //     return AppRoutes.CHAT;
-  //   }
-  //
-  //   if (notification.data['page'] == 'shop') {
-  //     return AppRoutes.SHOP;
-  //   }
-  //
-  //   return AppRoutes.AUTHENTICATED_BASE;
-  // }
-  //
+
   Future<void> logoutUser() async {
     Token? token = await authRepository.getActiveTokenFromInternalCache();
 
@@ -206,7 +144,7 @@ class AuthenticatedController extends GetxController {
     try {
      await authRepository.logoutUser();
     } on Exception catch (e) {
-      //CustomSnackBar.showErrorSnackBar('Encontramos um problema durante o logout.');
+      print(e);
     } finally {
       await authRepository.removeToken();
       Get.offAllNamed(AppRoutes.login);
@@ -241,15 +179,6 @@ class AuthenticatedController extends GetxController {
       activeIcon: AppIcons.activeCog,
       icon: AppIcons.cog,
     ));
-    //
-    // if (marketSet) {
-    //   pages.add(SearchPage());
-    //   items.add(BottomNavigatorItemComponent(
-    //       label: 'Busca',
-    //       activeIcon: AppIcons.searchActive,
-    //       icon: AppIcons.search
-    //   ));
-    // }
 
     activePages.assignAll(pages);
     bottomNavigatorItems.assignAll(items);

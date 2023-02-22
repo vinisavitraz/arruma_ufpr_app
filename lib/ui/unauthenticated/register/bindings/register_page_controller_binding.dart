@@ -22,21 +22,5 @@ class RegisterPageControllerBinding implements Bindings {
         userRepository: UserRepository(),
       );
     });
-    // Get.lazyPut<DocumentValidationPageController>(() {
-    //   return DocumentValidationPageController(
-    //     userRepository: UserRepository(),
-    //   );
-    // });
-    // Get.lazyPut<PasswordValidationPageController>(() {
-    //   return PasswordValidationPageController(
-    //     authRepository: AuthRepository(),
-    //   );
-    // });
-    // Get.lazyPut<CreateCustomerPageController>(() {
-    //   return CreateCustomerPageController(
-    //     authRepository: AuthRepository(),
-    //     userRepository: UserRepository(),
-    //   );
-    // });
   }
 }
