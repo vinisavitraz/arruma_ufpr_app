@@ -287,8 +287,18 @@ class CreateIncidentPageController extends GetxController {
     itemDescriptionField.errorMessage.value = '';
   }
 
-  Future<void> addImage() async {
+  Future<void> chooseImageFromGallery() async {
     file = await _picker.pickImage(source: ImageSource.gallery);
+
+    if (file == null) {
+      return;
+    }
+
+    imagePath.value = file!.path;
+  }
+
+  Future<void> captureNewImage() async {
+    file = await _picker.pickImage(source: ImageSource.camera);
 
     if (file == null) {
       return;

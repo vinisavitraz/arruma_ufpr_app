@@ -41,8 +41,11 @@ class CreateIncidentPage extends GetView<CreateIncidentPageController> {
               DividerComponent(),
               _inputItem(),
               DividerComponent(),
+              _labelSection('Título'),
               _inputTitle(),
+              _labelSection('Descrição'),
               _inputDescription(),
+              _labelSection('Imagem'),
               _inputImage(),
               _buttonCreate(),
             ],
@@ -296,9 +299,82 @@ class CreateIncidentPage extends GetView<CreateIncidentPageController> {
   Widget _inputImage() {
     return Column(
       children: [
-        InkWell(
-          onTap: controller.addImage,
-          child: Text('Adicionar imagem'),
+        Padding(
+          padding: EdgeInsets.symmetric(vertical: 40, horizontal: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Padding(
+                padding: EdgeInsets.all(5),
+                child: InkWell(
+                  onTap: controller.chooseImageFromGallery,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: AppColors.primaryAccentColor,
+                      border: Border.all(
+                        width: 5,
+                        color: AppColors.primaryAccentColor,
+                        style: BorderStyle.solid,
+                      ),
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                    ),
+                    child: Text(
+                      'Selecionar imagem',
+                      style: TextStyle(
+                        color: AppColors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(5),
+                child: InkWell(
+                  onTap: controller.captureNewImage,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: AppColors.primaryAccentColor,
+                      border: Border.all(
+                        width: 5,
+                        color: AppColors.primaryAccentColor,
+                        style: BorderStyle.solid,
+                      ),
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                    ),
+                    child: Text(
+                      'Capturar imagem',
+                      style: TextStyle(
+                        color: AppColors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+
+              // InkWell(
+              //   onTap: controller.chooseImageFromGallery,
+              //   child: Text('Selecionar imagem',
+              //     style: TextStyle(
+              //       fontWeight: FontWeight.bold,
+              //       color: AppColors.primaryAccentColor,
+              //     ),
+              //   ),
+              // ),
+              // InkWell(
+              //   onTap: controller.captureNewImage,
+              //   child: Text('Capturar imagem',
+              //     style: TextStyle(
+              //       fontWeight: FontWeight.bold,
+              //       color: AppColors.primaryColor,
+              //     ),
+              //   ),
+              // ),
+            ],
+          ),
         ),
         Obx(() => Visibility(
           visible: controller.imagePath.value.isNotEmpty,

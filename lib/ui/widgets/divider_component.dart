@@ -6,11 +6,13 @@ class DividerComponent extends StatelessWidget {
 
   final double? ident;
   final double? endIdent;
+  final Color color;
 
   const DividerComponent({
     Key? key,
     this.ident,
-    this.endIdent
+    this.endIdent,
+    this.color = AppColors.white,
   }) : super(key: key);
 
   @override
@@ -20,7 +22,7 @@ class DividerComponent extends StatelessWidget {
       thickness: 1,
       indent: ident ?? 0,
       endIndent: endIdent ?? 0,
-      color: AppColors.white,
+      color: color,
     );
   }
 
