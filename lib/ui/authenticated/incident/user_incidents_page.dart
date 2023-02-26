@@ -25,10 +25,10 @@ class UserIncidentsPage extends GetView<UserIncidentsPageController> {
             controller: controller.tabController,
             isScrollable: true,
             tabs: [
+              Tab(text: 'Em atendimento'),
               Tab(text: 'Aberto'),
-              Tab(text: 'Atendimento'),
               Tab(text: 'Finalizado'),
-              Tab(text: 'Geral'),
+              Tab(text: 'Todos'),
             ],
           ),
           title: Obx(() =>
@@ -95,10 +95,11 @@ class UserIncidentsPage extends GetView<UserIncidentsPageController> {
         body: TabBarView(
           controller: controller.tabController,
           children: [
+
+            buildIncidentList(context, 'Em atendimento', controller.authenticatedController.listUserPendingIncidents),
             buildIncidentList(context, 'Aberto', controller.authenticatedController.listUserOpenIncidents),
-            buildIncidentList(context, 'Atendimento', controller.authenticatedController.listUserPendingIncidents),
             buildIncidentList(context, 'Finalizado', controller.authenticatedController.listUserClosedIncidents),
-            buildIncidentList(context, 'Geral', controller.authenticatedController.listUserAllIncidents),
+            buildIncidentList(context, 'Todos', controller.authenticatedController.listUserAllIncidents),
           ],
         ),
       ),
@@ -112,7 +113,7 @@ class UserIncidentsPage extends GetView<UserIncidentsPageController> {
           visible: listByStatus.isNotEmpty,
           child: Expanded(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               child: RefreshIndicator(
                 onRefresh: () async {
                   controller.authenticatedController.refreshIncidentsList();

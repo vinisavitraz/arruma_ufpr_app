@@ -16,6 +16,9 @@ class Incident {
   int? adminId;
   String? adminName;
   int? totalInteractions;
+  int? priority;
+  int? rating;
+  int? totalUnreadInteractions;
 
   Incident(
       {this.id,
@@ -34,7 +37,11 @@ class Incident {
         this.userName,
         this.adminId,
         this.adminName,
-        this.totalInteractions});
+        this.totalInteractions,
+        this.priority,
+        this.rating,
+        this.totalUnreadInteractions,
+      });
 
   Incident.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -54,6 +61,9 @@ class Incident {
     adminId = json['adminId'];
     adminName = json['adminName'];
     totalInteractions = json['totalInteractions'];
+    priority = json['priority'];
+    rating = json['rating'];
+    totalUnreadInteractions = json['totalUnreadInteractions'];
   }
 
   Map<String, dynamic> toJson() {
@@ -75,6 +85,9 @@ class Incident {
     data['adminId'] = this.adminId;
     data['adminName'] = this.adminName;
     data['totalInteractions'] = this.totalInteractions;
+    data['priority'] = this.priority;
+    data['rating'] = this.rating;
+    data['totalUnreadInteractions'] = this.totalUnreadInteractions;
     return data;
   }
 }

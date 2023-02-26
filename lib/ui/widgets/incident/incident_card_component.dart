@@ -1,5 +1,6 @@
 import 'package:arruma_ufpr_app/app/app_colors.dart';
 import 'package:arruma_ufpr_app/app/app_icons.dart';
+import 'package:arruma_ufpr_app/src/commons/date/date_formatter.dart';
 import 'package:arruma_ufpr_app/src/incident/entity/incident.dart';
 import 'package:arruma_ufpr_app/ui/widgets/divider_component.dart';
 import 'package:flutter/material.dart';
@@ -50,11 +51,11 @@ class IncidentCardComponent extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.all(0),
                     child: Container(
-                      color: AppColors.primaryAccentColor,
+                      color: AppColors.primaryColor,
                       child: Row(
                         children: [
                           Expanded(
-                            child: Text('#${incident.id} | ${incident.userName!}',
+                            child: Text('#${incident.id} | ${incident.userName!} - ${DateFormatter.formatStringDateTimeToReadableFormat(incident.startDate!)}',
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: AppColors.white,
@@ -63,6 +64,31 @@ class IncidentCardComponent extends StatelessWidget {
                             ),
                           ),
                         ],
+                      ),
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: EdgeInsets.all(5),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: IncidentMapper.mapPriorityColor(incident.priority!),
+                          border: Border.all(
+                            width: 5,
+                            color: IncidentMapper.mapPriorityColor(incident.priority!),
+                            style: BorderStyle.solid,
+                          ),
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                        ),
+                        child: Text(
+                          IncidentMapper.mapPriorityName(incident.priority!),
+                          style: TextStyle(
+                            color: IncidentMapper.mapPriorityTextColor(incident.priority!),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12,
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -97,22 +123,6 @@ class IncidentCardComponent extends StatelessWidget {
                       children: [
                         Expanded(
                           child: Text(incident.title!,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: AppColors.black,
-                              fontSize: 16,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(5),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Text(incident.description!,
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               color: AppColors.black,
@@ -188,7 +198,7 @@ class IncidentCardComponent extends StatelessWidget {
                   ),
                   const DividerComponent(),
                   Container(
-                    color: AppColors.primaryColor,
+                    color: AppColors.primaryLightColor,
                     child: Align(
                       alignment: Alignment.center,
                       child: Padding(

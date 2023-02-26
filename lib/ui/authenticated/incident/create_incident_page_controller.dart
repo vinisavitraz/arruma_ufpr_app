@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:arruma_ufpr_app/app/app_routes.dart';
 import 'package:arruma_ufpr_app/src/incident/dto/request/create_incident_request_dto.dart';
 import 'package:arruma_ufpr_app/src/incident/dto/response/incident_response_dto.dart';
@@ -17,6 +19,7 @@ import 'package:arruma_ufpr_app/ui/authenticated/authenticated_controller.dart';
 import 'package:arruma_ufpr_app/ui/widgets/custom_snack_bar.dart';
 import 'package:arruma_ufpr_app/ui/widgets/my_text_field.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 class CreateIncidentPageController extends GetxController {
 
@@ -28,6 +31,9 @@ class CreateIncidentPageController extends GetxController {
   final RxBool showItemForm = false.obs;
 
   final RxBool validForm = false.obs;
+  final ImagePicker _picker = ImagePicker();
+  XFile? file;
+  final RxString imagePath = ''.obs;
 
   final MyTextField titleField = MyTextField();
   final MyTextField descriptionField = MyTextField();
@@ -253,8 +259,16 @@ class CreateIncidentPageController extends GetxController {
       CustomSnackBar.showErrorSnackBar('Encontramos um problema ao criar um incidente, por favor tente novamente.');
       return;
     }
-
     await authenticatedController.refreshIncidentsList();
+
+    if (file != null) {
+      try {
+        await incidentRepository.addImageToIncident(incidentResponseDTO.entity.id!, file!);
+      } on Exception catch (e) {
+        CustomSnackBar.showErrorSnackBar('Encontramos um problema ao adicionar a imagem ao incidente, por favor tente novamente.');
+        return;
+      }
+    }
 
     Get.offNamed(AppRoutes.incident, arguments: {"incident": incidentResponseDTO.entity});
   }
@@ -271,6 +285,16 @@ class CreateIncidentPageController extends GetxController {
     itemIdField.errorMessage.value = '';
     itemNameField.errorMessage.value = '';
     itemDescriptionField.errorMessage.value = '';
+  }
+
+  Future<void> addImage() async {
+    file = await _picker.pickImage(source: ImageSource.gallery);
+
+    if (file == null) {
+      return;
+    }
+
+    imagePath.value = file!.path;
   }
 
 }

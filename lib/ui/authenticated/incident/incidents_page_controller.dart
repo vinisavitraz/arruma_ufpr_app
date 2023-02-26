@@ -24,10 +24,10 @@ class IncidentsPageController extends GetxController with GetSingleTickerProvide
     tabController.addListener((){
       switch(tabController.index) {
         case 0:
-          activeTab.value = 'aberto';
+          activeTab.value = 'atendimento';
           break;
         case 1:
-          activeTab.value = 'atendimento';
+          activeTab.value = 'aberto';
           break;
         case 2:
           activeTab.value = 'finalizado';

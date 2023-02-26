@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:arruma_ufpr_app/app/app_colors.dart';
 import 'package:arruma_ufpr_app/ui/authenticated/incident/create_incident_page_controller.dart';
 import 'package:arruma_ufpr_app/ui/widgets/custom_button.dart';
@@ -41,6 +43,7 @@ class CreateIncidentPage extends GetView<CreateIncidentPageController> {
               DividerComponent(),
               _inputTitle(),
               _inputDescription(),
+              _inputImage(),
               _buttonCreate(),
             ],
           ),
@@ -288,6 +291,25 @@ class CreateIncidentPage extends GetView<CreateIncidentPageController> {
       inputEditController: controller.itemDescriptionField.editController,
       keyboardType: TextInputType.name,
     ),);
+  }
+
+  Widget _inputImage() {
+    return Column(
+      children: [
+        InkWell(
+          onTap: controller.addImage,
+          child: Text('Adicionar imagem'),
+        ),
+        Obx(() => Visibility(
+          visible: controller.imagePath.value.isNotEmpty,
+          child: Container(
+            padding: EdgeInsets.all(10),
+            child: Image.file(File(controller.imagePath.value),),
+          ),
+        ),),
+        
+      ],
+    );
   }
 
 }

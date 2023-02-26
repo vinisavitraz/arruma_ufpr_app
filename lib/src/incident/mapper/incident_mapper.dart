@@ -51,4 +51,52 @@ class IncidentMapper {
     return AppColors.primaryAccentColor;
   }
 
+  static String mapPriorityName(int priority) {
+    if (priority == 0) {
+      return 'Prioridade baixa';
+    }
+
+    if (priority == 1) {
+      return 'Prioridade média';
+    }
+
+    if (priority == 2) {
+      return 'Prioridade alta';
+    }
+
+    return 'Desconhecido';
+  }
+
+  static Color mapPriorityColor(int priority) {
+    if (priority == 0) {
+      return Colors.green;
+    }
+
+    if (priority == 1) {
+      return Colors.yellow;
+    }
+
+    if (priority == 2) {
+      return AppColors.red;
+    }
+
+    return Colors.red;
+  }
+
+  static Color mapPriorityTextColor(int priority) {
+    if (priority == 0) {
+      return AppColors.white;
+    }
+
+    if (priority == 1) {
+      return AppColors.white;
+    }
+
+    if (priority == 2) {
+      return AppColors.white;
+    }
+
+    return AppColors.primaryAccentColor;
+  }
+
 }
