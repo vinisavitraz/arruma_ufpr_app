@@ -27,7 +27,7 @@ class ConfigPageController extends GetxController {
     List<ItemProfile> configGroups;
 
     try {
-      configGroups = configRepository.fetchConfigGroups(authenticatedController.authenticatedUser.value.role! == 0);
+      configGroups = configRepository.fetchConfigGroups(authenticatedController.authenticatedUser.value.role! == 1);
     } on Exception catch (e) {
       Get.snackbar('Erro!', e.toString());
       return;

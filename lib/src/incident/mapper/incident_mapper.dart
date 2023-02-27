@@ -89,10 +89,42 @@ class IncidentMapper {
     }
 
     if (priority == 1) {
-      return AppColors.white;
+      return AppColors.primaryAccentColor;
     }
 
     if (priority == 2) {
+      return AppColors.white;
+    }
+
+    return AppColors.primaryAccentColor;
+  }
+
+  static Color mapInteractionColor(int origin) {
+    if (origin == 0) {
+      return AppColors.primaryColor;
+    }
+
+    if (origin == 1) {
+      return AppColors.primaryAccentLightColor;
+    }
+
+    if (origin == 2) {
+      return AppColors.primaryAccentColor;
+    }
+
+    return AppColors.primaryAccentLightColor;
+  }
+
+  static Color mapInteractionTextColor(int origin) {
+    if (origin == 0) {
+      return AppColors.white;
+    }
+
+    if (origin == 1) {
+      return AppColors.white;
+    }
+
+    if (origin == 2) {
       return AppColors.white;
     }
 

@@ -1,4 +1,5 @@
 import 'package:arruma_ufpr_app/src/incident/entity/incident_interaction.dart';
+import 'package:arruma_ufpr_app/src/incident/mapper/incident_mapper.dart';
 import 'package:flutter/material.dart';
 import '../../../app/app_colors.dart';
 
@@ -23,10 +24,10 @@ class IncidentInteractionItemComponent extends StatelessWidget {
               children: [
                 Container(
                   decoration: BoxDecoration(
-                    color: incidentInteraction.origin == 0 ? AppColors.primaryAccentColor : AppColors.primaryColor,
+                    color: IncidentMapper.mapInteractionColor(incidentInteraction.origin!),
                     border: Border.all(
                       width: 5,
-                      color: incidentInteraction.origin == 0 ? AppColors.primaryAccentColor : AppColors.primaryColor,
+                      color: IncidentMapper.mapInteractionColor(incidentInteraction.origin!),
                       style: BorderStyle.solid,
                     ),
                     borderRadius: BorderRadius.all(Radius.circular(10)),

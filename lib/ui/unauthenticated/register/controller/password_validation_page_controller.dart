@@ -43,7 +43,7 @@ class PasswordValidationPageController extends GetxController {
   }
 
   Future<void> createUser() async {
-    registerPageController.userWithPassword.value.role = 1;
+    registerPageController.userWithPassword.value.role = 2;
 
     pageLoading.value = true;
 

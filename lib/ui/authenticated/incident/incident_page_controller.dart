@@ -46,13 +46,14 @@ class IncidentPageController extends GetxController {
 
     incident.value = Get.arguments['incident'];
 
-    showAssignIncident.value = incident.value.status == 'aberto' && authenticatedController.authenticatedUser.value.role! == 0;
-    showCloseIncident.value = incident.value.status != 'fechado' && authenticatedController.authenticatedUser.value.role! == 0;
+    showAssignIncident.value = incident.value.status == 'aberto' && authenticatedController.authenticatedUser.value.role! == 1;
+    showCloseIncident.value = incident.value.status != 'fechado' && authenticatedController.authenticatedUser.value.role! == 1;
     showNewInteraction.value = incident.value.status != 'fechado';
 
     await getIncidentInteractions();
 
     pageLoading.value = false;
+
 
     incident.listen((incident) {
       this.incident.value = incident;
@@ -106,6 +107,8 @@ class IncidentPageController extends GetxController {
       CustomSnackBar.showErrorSnackBar('Encontramos um problema ao buscar as mensagens, por favor tente novamente.');
       return;
     }
+
+    await authenticatedController.refreshIncidentsList();
 
     incidentInteractions.assignAll(incidentInteractionsResponseDTO.incidentInteractions!);
   }

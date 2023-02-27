@@ -7,7 +7,7 @@ class AppHttpClient {
   static Dio client = createDio();
 
   //static var remoteHost = 'http://168.138.252.48:3000';
-  static var remoteHost = 'http://192.168.0.102:3000';
+  static var remoteHost = 'http://192.168.0.103:3000';
 
   static Dio createDio() {
     AuthRepository authRepository = AuthRepository();

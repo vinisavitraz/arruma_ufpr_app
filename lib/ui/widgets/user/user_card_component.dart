@@ -97,7 +97,7 @@ class UserCardComponent extends StatelessWidget {
                     child: Row(
                       children: [
                         Expanded(
-                          child: Text(user.role! == 0 ? 'Administrador' : 'Usuário',
+                          child: Text(user.role! == 1 ? 'Administrador' : 'Usuário',
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               color: AppColors.black,

@@ -196,6 +196,51 @@ class IncidentCardComponent extends StatelessWidget {
                       ],
                     ),
                   ),
+                  Padding(
+                    padding: EdgeInsets.all(5),
+                    child: Row(
+                      children: [
+                        const AppIcon(
+                          AppIcons.message,
+                          size: Size(14, 14),
+                          color: AppColors.black,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: 10),
+                          child: Text(incident.totalInteractions.toString(),
+                            style: const TextStyle(
+                              color: AppColors.black,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ),
+                        Visibility(
+                          visible: incident.totalUnreadInteractions != null && incident.totalUnreadInteractions! > 0,
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 10),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: AppColors.red,
+                                border: Border.all(
+                                  width: 5,
+                                  color: AppColors.red,
+                                  style: BorderStyle.solid,
+                                ),
+                                borderRadius: BorderRadius.all(Radius.circular(5)),
+                              ),
+                              child: Text(incident.totalUnreadInteractions.toString(),
+                                style: const TextStyle(
+                                  color: AppColors.white,
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+
+                      ],
+                    ),
+                  ),
                   const DividerComponent(),
                   Container(
                     color: AppColors.primaryLightColor,

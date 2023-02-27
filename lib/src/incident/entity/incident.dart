@@ -15,10 +15,12 @@ class Incident {
   String? userName;
   int? adminId;
   String? adminName;
+  int? fileMetadataId;
   int? totalInteractions;
   int? priority;
   int? rating;
   int? totalUnreadInteractions;
+
 
   Incident(
       {this.id,
@@ -37,6 +39,7 @@ class Incident {
         this.userName,
         this.adminId,
         this.adminName,
+        this.fileMetadataId,
         this.totalInteractions,
         this.priority,
         this.rating,
@@ -44,6 +47,7 @@ class Incident {
       });
 
   Incident.fromJson(Map<String, dynamic> json) {
+    print(json);
     id = json['id'];
     title = json['title'];
     description = json['description'];
@@ -60,6 +64,7 @@ class Incident {
     userName = json['userName'];
     adminId = json['adminId'];
     adminName = json['adminName'];
+    fileMetadataId = json['fileMetadataId'];
     totalInteractions = json['totalInteractions'];
     priority = json['priority'];
     rating = json['rating'];
@@ -83,6 +88,7 @@ class Incident {
     data['userId'] = this.userId;
     data['userName'] = this.userName;
     data['adminId'] = this.adminId;
+    data['fileMetadataId'] = this.fileMetadataId;
     data['adminName'] = this.adminName;
     data['totalInteractions'] = this.totalInteractions;
     data['priority'] = this.priority;

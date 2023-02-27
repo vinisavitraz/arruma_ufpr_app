@@ -181,49 +181,56 @@ class CreateIncidentPageController extends GetxController {
     String itemName = itemNameField.getValue();
     String itemDescription = itemDescriptionField.getValue();
 
-    if (incidentTypeId == 0) {
-      if (showIncidentTypeForm.value) {
-        if (incidentTypeName.isEmpty) {
-          incidentTypeNameField.errorMessage.value = 'Informe o nome';
-          return;
-        }
-        if (incidentTypeDescription.isEmpty) {
-          incidentTypeDescriptionField.errorMessage.value = 'Informe a descrição';
-          return;
-        }
-      } else {
+    if (showIncidentTypeForm.value) {
+      if (incidentTypeName.isEmpty) {
+        incidentTypeNameField.errorMessage.value = 'Informe o nome';
+        return;
+      }
+      if (incidentTypeDescription.isEmpty) {
+        incidentTypeDescriptionField.errorMessage.value = 'Informe a descrição';
+        return;
+      }
+
+      incidentTypeId = 0;
+    } else {
+      if (incidentTypeId == 0) {
         incidentTypeIdField.errorMessage.value = 'Selecione o tipo';
         return;
       }
     }
 
-    if (locationId == 0) {
-      if (showLocationForm.value) {
-        if (locationName.isEmpty) {
-          locationNameField.errorMessage.value = 'Informe o nome';
-          return;
-        }
-        if (locationDescription.isEmpty) {
-          locationDescriptionField.errorMessage.value = 'Informe a descrição';
-          return;
-        }
-      } else {
+
+    if (showLocationForm.value) {
+      if (locationName.isEmpty) {
+        locationNameField.errorMessage.value = 'Informe o nome';
+        return;
+      }
+      if (locationDescription.isEmpty) {
+        locationDescriptionField.errorMessage.value = 'Informe a descrição';
+        return;
+      }
+
+      locationId = 0;
+    } else {
+      if (locationId == 0) {
         locationIdField.errorMessage.value = 'Selecione o local';
         return;
       }
     }
 
-    if (itemId == 0) {
-      if (showItemForm.value) {
-        if (itemName.isEmpty) {
-          itemNameField.errorMessage.value = 'Informe o nome';
-          return;
-        }
-        if (itemDescription.isEmpty) {
-          itemDescriptionField.errorMessage.value = 'Informe a descrição';
-          return;
-        }
-      } else {
+    if (showItemForm.value) {
+      if (itemName.isEmpty) {
+        itemNameField.errorMessage.value = 'Informe o nome';
+        return;
+      }
+      if (itemDescription.isEmpty) {
+        itemDescriptionField.errorMessage.value = 'Informe a descrição';
+        return;
+      }
+
+      itemId = 0;
+    } else {
+      if (itemId == 0) {
         itemIdField.errorMessage.value = 'Selecione o item';
         return;
       }
@@ -238,23 +245,27 @@ class CreateIncidentPageController extends GetxController {
       return;
     }
 
+    CreateIncidentRequestDTO requestBody = CreateIncidentRequestDTO(
+      title: title,
+      description: description,
+      incidentTypeId: incidentTypeId,
+      incidentTypeName: incidentTypeName,
+      incidentTypeDescription: incidentTypeDescription,
+      locationId: locationId,
+      locationName: locationName,
+      locationDescription: locationDescription,
+      itemId: itemId,
+      itemName: itemName,
+      itemDescription: itemDescription,
+      userId: authenticatedController.authenticatedUser.value.id!,
+    );
+
+    print(requestBody.toJson());
+
     IncidentResponseDTO incidentResponseDTO;
 
     try {
-      incidentResponseDTO = await incidentRepository.createIncident(CreateIncidentRequestDTO(
-        title: title,
-        description: description,
-        incidentTypeId: incidentTypeId,
-        incidentTypeName: incidentTypeName,
-        incidentTypeDescription: incidentTypeDescription,
-        locationId: locationId,
-        locationName: locationName,
-        locationDescription: locationDescription,
-        itemId: itemId,
-        itemName: itemName,
-        itemDescription: itemDescription,
-        userId: authenticatedController.authenticatedUser.value.id!,
-      ));
+      incidentResponseDTO = await incidentRepository.createIncident(requestBody);
     } on Exception catch (e) {
       CustomSnackBar.showErrorSnackBar('Encontramos um problema ao criar um incidente, por favor tente novamente.');
       return;

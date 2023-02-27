@@ -60,7 +60,7 @@ class AuthenticatedController extends GetxController {
 
     await refreshIncidentsList();
 
-    loadPagesAndBottomNavigatorItems(authenticatedUser.value.role == 0);
+    loadPagesAndBottomNavigatorItems(authenticatedUser.value.role == 1);
 
     pageLoading.value = false;
   }

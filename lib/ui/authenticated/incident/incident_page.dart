@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../src/incident/mapper/incident_mapper.dart';
+import '../../widgets/custom_network_image.dart';
 
 class IncidentPage extends GetView<IncidentPageController> {
 
@@ -92,8 +93,58 @@ class IncidentPage extends GetView<IncidentPageController> {
                     ),
                   ),
                   Padding(
+                    padding: EdgeInsets.all(10),
+                    child: CustomNetworkImage(
+                      fileMetadataId: controller.incident.value.fileMetadataId,
+                      fit: BoxFit.fill,
+                      height: MediaQuery.of(context).size.height / 3,
+                      width: MediaQuery.of(context).size.width,
+                    ),
+                  ),
+                  Padding(
                     padding: EdgeInsets.symmetric(horizontal: 10),
                     child: DividerComponent(),
+                  ),
+                  Align(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              color: IncidentMapper.mapPriorityColor(controller.incident.value.priority!),
+                              border: Border.all(
+                                width: 1,
+                                color: AppColors.lightGrey,
+                                style: BorderStyle.solid,
+                              ),
+                              borderRadius: BorderRadius.all(Radius.circular(20)),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: AppColors.lightGrey,
+                                ),
+                              ],
+                            ),
+                            //padding: EdgeInsets.all(25),
+                            width: MediaQuery.of(context).size.width / 2,
+                            height: MediaQuery.of(context).size.height * 0.04,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Text(IncidentMapper.mapPriorityName(controller.incident.value.priority!),
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: IncidentMapper.mapPriorityTextColor(controller.incident.value.priority!),
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                   Align(
                     child: Padding(
@@ -285,7 +336,7 @@ class IncidentPage extends GetView<IncidentPageController> {
                     child: Padding(
                       padding: EdgeInsets.all(15),
                       child: CustomButton(
-                        text: 'Fechar incidente',
+                        text: 'Finalizar incidente',
                         backgroundColor: AppColors.red,
                         onPressed: () => _confirmCloseDialog(),
                       ),
@@ -302,30 +353,6 @@ class IncidentPage extends GetView<IncidentPageController> {
                         fontSize: 16,
                         color: AppColors.black,
                         fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  Visibility(
-                    visible: controller.showFormNewInteraction.value,
-                    child: CustomTextInput(
-                      paddingInfo: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                      textHint: 'Nova mensagem',
-                      onChanged: controller.newMessage.setValue,
-                      autoFocus: false,
-                      maxLines: 2,
-                      errorMessage: controller.newMessage.errorMessage.value,
-                      inputEditController: controller.newMessage.editController,
-                      keyboardType: TextInputType.name,
-                    ),
-                  ),
-                  Visibility(
-                    visible: controller.showNewInteraction.value,
-                    child: Padding(
-                      padding: EdgeInsets.all(15),
-                      child: CustomButton(
-                        text: 'Nova mensagem',
-                        backgroundColor: AppColors.green,
-                        onPressed: controller.addNewInteraction,
                       ),
                     ),
                   ),
@@ -370,6 +397,30 @@ class IncidentPage extends GetView<IncidentPageController> {
                               color: AppColors.primaryAccentColor
                           ),
                         ),
+                      ),
+                    ),
+                  ),
+                  Visibility(
+                    visible: controller.showFormNewInteraction.value,
+                    child: CustomTextInput(
+                      paddingInfo: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                      textHint: 'Nova mensagem',
+                      onChanged: controller.newMessage.setValue,
+                      autoFocus: false,
+                      maxLines: 2,
+                      errorMessage: controller.newMessage.errorMessage.value,
+                      inputEditController: controller.newMessage.editController,
+                      keyboardType: TextInputType.name,
+                    ),
+                  ),
+                  Visibility(
+                    visible: controller.showNewInteraction.value,
+                    child: Padding(
+                      padding: EdgeInsets.all(15),
+                      child: CustomButton(
+                        text: 'Nova mensagem',
+                        backgroundColor: AppColors.green,
+                        onPressed: controller.addNewInteraction,
                       ),
                     ),
                   ),
