@@ -22,6 +22,9 @@ class AppIcons {
   static const clock = '${pathIcons}clock.svg';
   static const message = '${pathIcons}message.svg';
 
+  static const star = '${pathIcons}star.svg';
+  static const starActive = '${pathIcons}active_star.svg';
+
   static const arrowLeft = '${pathIcons}arrow_left.svg';
   static const arrowRight = '${pathIcons}arrow_right.svg';
   static const plus = '${pathIcons}plus.svg';

@@ -52,4 +52,16 @@ class IncidentRepository {
     return StatusResponseDTO.fromJson(response.data);
   }
 
+  Future<StatusResponseDTO> reopenIncident(int incidentId) async {
+    dynamic response = await AppHttpClient.client.put('/incident/re-open/$incidentId');
+
+    return StatusResponseDTO.fromJson(response.data);
+  }
+
+  Future<StatusResponseDTO> setIncidentRating(int incidentId, int rating) async {
+    dynamic response = await AppHttpClient.client.put('/incident/set-rating/$rating/incident/$incidentId');
+
+    return StatusResponseDTO.fromJson(response.data);
+  }
+
 }

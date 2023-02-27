@@ -133,4 +133,20 @@ class AppColors {
       900: Color(0xE0E10505),
     },
   );
+
+  static const MaterialColor yellow = MaterialColor(
+    0xFFfbc634,
+    <int, Color>{
+      50:  Color(0xFFfbc634),
+      100: Color(0xFFfbc634),
+      200: Color(0xFFfbc634),
+      300: Color(0xFFfbc634),
+      400: Color(0xFFfbc634),
+      500: Color(0xFFfbc634),
+      600: Color(0xFFfbc634),
+      700: Color(0xFFfbc634),
+      800: Color(0xFFfbc634),
+      900: Color(0xFFfbc634),
+    },
+  );
 }

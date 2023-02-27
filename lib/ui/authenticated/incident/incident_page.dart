@@ -342,6 +342,17 @@ class IncidentPage extends GetView<IncidentPageController> {
                       ),
                     ),
                   ),
+                  Visibility(
+                    visible: controller.showReopenIncident.value,
+                    child: Padding(
+                      padding: EdgeInsets.all(15),
+                      child: CustomButton(
+                        text: 'Reabrir incidente',
+                        backgroundColor: AppColors.primaryLightColor,
+                        onPressed: () => _confirmReopenDialog(),
+                      ),
+                    ),
+                  ),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 10),
                     child: DividerComponent(),
@@ -424,6 +435,72 @@ class IncidentPage extends GetView<IncidentPageController> {
                       ),
                     ),
                   ),
+                  Visibility(
+                    visible: controller.showUserRating.value,
+                    child: Padding(
+                      padding: EdgeInsets.all(15),
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Obx(() => InkWell(
+                                onTap: () => {controller.setRatingStar(1)},
+                                child: Padding(
+                                  padding: EdgeInsets.all(5),
+                                  child: AppIcon(
+                                    controller.starOneIcon.value,
+                                    size: Size(40, 40),
+                                    color: AppColors.yellow,
+                                  ),
+                                ),
+                              ),),
+                              Obx(() => InkWell(
+                                onTap: () => {controller.setRatingStar(2)},
+                                child: Padding(
+                                  padding: EdgeInsets.all(5),
+                                  child: AppIcon(
+                                    controller.starTwoIcon.value,
+                                    size: Size(40, 40),
+                                    color: AppColors.yellow,
+                                  ),
+                                ),
+                              ),),
+                              Obx(() => InkWell(
+                                onTap: () => {controller.setRatingStar(3)},
+                                child: Padding(
+                                  padding: EdgeInsets.all(5),
+                                  child: AppIcon(
+                                    controller.starThreeIcon.value,
+                                    size: Size(40, 40),
+                                    color: AppColors.yellow,
+                                  ),
+                                ),
+                              ),),
+                            ],
+                          ),
+                          Align(
+                            alignment: Alignment.center,
+                            child: CustomTextInput(
+                              paddingInfo: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                              textHint: 'Avalie seu atendimento',
+                              onChanged: controller.newRatingMessage.setValue,
+                              autoFocus: false,
+                              maxLines: 2,
+                              errorMessage: controller.newRatingMessage.errorMessage.value,
+                              inputEditController: controller.newRatingMessage.editController,
+                              keyboardType: TextInputType.name,
+                            ),
+                          ),
+                          CustomButton(
+                            text: 'Salvar avaliação',
+                            backgroundColor: AppColors.green,
+                            onPressed: controller.rateIncident,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -497,6 +574,45 @@ class IncidentPage extends GetView<IncidentPageController> {
                   InkWell(
                     onTap: controller.closeIncident,
                     child: const Text('Fechar',
+                      style: TextStyle(
+                        color: AppColors.primaryColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _confirmReopenDialog() {
+    Get.defaultDialog(
+      title: 'Confirmar',
+      backgroundColor: AppColors.white,
+      content: SizedBox(
+        width: double.infinity,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text('Deseja realmente reabrir esse incidente?',
+              textAlign: TextAlign.center,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 30),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  InkWell(
+                    onTap: () => {Get.back()},
+                    child: const Text('Cancelar'),
+                  ),
+                  InkWell(
+                    onTap: controller.reopenIncident,
+                    child: const Text('Reabrir',
                       style: TextStyle(
                         color: AppColors.primaryColor,
                         fontWeight: FontWeight.bold,

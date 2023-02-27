@@ -199,7 +199,6 @@ class CreateIncidentPageController extends GetxController {
       }
     }
 
-
     if (showLocationForm.value) {
       if (locationName.isEmpty) {
         locationNameField.errorMessage.value = 'Informe o nome';
@@ -245,6 +244,8 @@ class CreateIncidentPageController extends GetxController {
       return;
     }
 
+    pageLoading.value = true;
+
     CreateIncidentRequestDTO requestBody = CreateIncidentRequestDTO(
       title: title,
       description: description,
@@ -267,6 +268,7 @@ class CreateIncidentPageController extends GetxController {
     try {
       incidentResponseDTO = await incidentRepository.createIncident(requestBody);
     } on Exception catch (e) {
+      pageLoading.value = false;
       CustomSnackBar.showErrorSnackBar('Encontramos um problema ao criar um incidente, por favor tente novamente.');
       return;
     }
@@ -276,10 +278,13 @@ class CreateIncidentPageController extends GetxController {
       try {
         await incidentRepository.addImageToIncident(incidentResponseDTO.entity.id!, file!);
       } on Exception catch (e) {
+        pageLoading.value = false;
         CustomSnackBar.showErrorSnackBar('Encontramos um problema ao adicionar a imagem ao incidente, por favor tente novamente.');
         return;
       }
     }
+
+    pageLoading.value = false;
 
     Get.offNamed(AppRoutes.incident, arguments: {"incident": incidentResponseDTO.entity});
   }

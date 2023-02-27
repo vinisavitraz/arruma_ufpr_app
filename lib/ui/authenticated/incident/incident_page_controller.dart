@@ -1,3 +1,4 @@
+import 'package:arruma_ufpr_app/app/app_icons.dart';
 import 'package:arruma_ufpr_app/src/incident/dto/request/create_incident_interaction_request_dto.dart';
 import 'package:arruma_ufpr_app/src/incident/dto/response/incident_interaction_response_dto.dart';
 import 'package:arruma_ufpr_app/src/incident/dto/response/incident_interactions_response_dto.dart';
@@ -23,7 +24,15 @@ class IncidentPageController extends GetxController {
   final RxBool showCloseIncident = false.obs;
   final RxBool showNewInteraction = false.obs;
   final RxBool showFormNewInteraction = false.obs;
+  final RxBool showReopenIncident = false.obs;
+  final RxBool showUserRating = false.obs;
   final MyTextField newMessage = MyTextField();
+  final MyTextField newRatingMessage = MyTextField();
+
+  final RxInt rating = 1.obs;
+  final RxString starOneIcon = AppIcons.starActive.obs;
+  final RxString starTwoIcon = AppIcons.star.obs;
+  final RxString starThreeIcon = AppIcons.star.obs;
 
   final RxBool pageLoading = true.obs;
   final Rx<Incident> incident = Incident().obs;
@@ -49,6 +58,8 @@ class IncidentPageController extends GetxController {
     showAssignIncident.value = incident.value.status == 'aberto' && authenticatedController.authenticatedUser.value.role! == 1;
     showCloseIncident.value = incident.value.status != 'fechado' && authenticatedController.authenticatedUser.value.role! == 1;
     showNewInteraction.value = incident.value.status != 'fechado';
+    showReopenIncident.value = (incident.value.status == 'fechado' && authenticatedController.authenticatedUser.value.role! == 1) && (incident.value.rating != null && incident.value.rating! > 0);
+    showUserRating.value = (incident.value.status == 'fechado' && authenticatedController.authenticatedUser.value.role! == 2) && (incident.value.rating == null ||  incident.value.rating == 0);
 
     await getIncidentInteractions();
 
@@ -60,6 +71,8 @@ class IncidentPageController extends GetxController {
       showAssignIncident.value = incident.status == 'aberto';
       showCloseIncident.value = incident.status != 'fechado';
       showNewInteraction.value = incident.status != 'fechado';
+      showReopenIncident.value = (incident.status == 'fechado' && authenticatedController.authenticatedUser.value.role! == 1) && (incident.rating != null && incident.rating! > 0);
+      showUserRating.value = (incident.status == 'fechado' && authenticatedController.authenticatedUser.value.role! == 2) && (incident.rating == null ||  incident.rating == 0);
     });
   }
 
@@ -78,6 +91,8 @@ class IncidentPageController extends GetxController {
     Get.back();
     incident.value.status = 'pendente';
     incident.refresh();
+
+    await getIncidentInteractions();
   }
 
   Future<void> closeIncident() async {
@@ -96,6 +111,28 @@ class IncidentPageController extends GetxController {
 
     incident.value.status = 'fechado';
     incident.refresh();
+
+    await getIncidentInteractions();
+  }
+
+  Future<void> reopenIncident() async {
+    StatusResponseDTO statusResponseDTO;
+
+    try {
+      statusResponseDTO = await incidentRepository.reopenIncident(incident.value.id!);
+    } on Exception catch (e) {
+      Get.back();
+      CustomSnackBar.showErrorSnackBar('Encontramos um problema ao reabrir o incidente, por favor tente novamente.');
+      return;
+    }
+
+    await authenticatedController.refreshIncidentsList();
+    Get.back();
+
+    incident.value.status = 'pendente';
+    incident.refresh();
+
+    await getIncidentInteractions();
   }
 
   Future<void> getIncidentInteractions() async {
@@ -114,7 +151,7 @@ class IncidentPageController extends GetxController {
   }
 
   Future<void> addNewInteraction() async {
-    if (!showFormNewInteraction.value) {
+    if (!showUserRating.value && !showFormNewInteraction.value) {
       showFormNewInteraction.value = true;
       return;
     }
@@ -141,9 +178,55 @@ class IncidentPageController extends GetxController {
 
     List<IncidentInteraction> interactions = List<IncidentInteraction>.empty(growable: true);
     interactions.addAll(incidentInteractions);
-    interactions.insert(0, incidentInteractionResponseDTO.entity);
+    interactions.add(incidentInteractionResponseDTO.entity);
 
     incidentInteractions.assignAll(interactions);
+  }
+
+  void setRatingStar(int rating) {
+    this.rating.value = rating;
+
+    if (rating > 2) {
+      starThreeIcon.value = AppIcons.starActive;
+      starTwoIcon.value = AppIcons.starActive;
+      starOneIcon.value = AppIcons.starActive;
+      return;
+    }
+
+    if (rating > 1) {
+      starThreeIcon.value = AppIcons.star;
+      starTwoIcon.value = AppIcons.starActive;
+      starOneIcon.value = AppIcons.starActive;
+      return;
+    }
+
+    if (rating > 0) {
+      starThreeIcon.value = AppIcons.star;
+      starTwoIcon.value = AppIcons.star;
+      starOneIcon.value = AppIcons.starActive;
+    }
+  }
+
+  Future<void> rateIncident() async {
+    pageLoading.value = true;
+
+    if (newRatingMessage.getValue().isNotEmpty) {
+      newMessage.setValue(newRatingMessage.getValue());
+      await addNewInteraction();
+    }
+
+    try {
+      await incidentRepository.setIncidentRating(incident.value.id!, rating.value);
+    } on Exception catch (e) {
+      pageLoading.value = false;
+      CustomSnackBar.showErrorSnackBar('Encontramos um problema ao enviar a mensagem, por favor tente novamente.');
+      return;
+    }
+
+    showUserRating.value = false;
+    await getIncidentInteractions();
+
+    pageLoading.value = false;
   }
 
 }
